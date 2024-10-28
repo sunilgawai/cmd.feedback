@@ -33,7 +33,10 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const hasPermission = await checkTeamPermissions(params.teamId, session.user.id);
+    const hasPermission = await checkTeamPermissions(
+      params.teamId,
+      session.user.id
+    );
     if (!hasPermission) {
       return new NextResponse("Forbidden", { status: 403 });
     }
@@ -57,7 +60,9 @@ export async function PATCH(
     }
 
     if (targetMember.role === "OWNER") {
-      return new NextResponse("Cannot change role of team owner", { status: 400 });
+      return new NextResponse("Cannot change role of team owner", {
+        status: 400,
+      });
     }
 
     const updatedMember = await prisma.teamMember.update({
@@ -66,12 +71,17 @@ export async function PATCH(
     });
 
     // Log activity
-    await logTeamActivity(params.teamId, session.user.id, "role_updated", {
-      memberName: targetMember.user.name,
-      memberId: targetMember.id,
-      oldRole: targetMember.role,
-      newRole: body.role,
-    });
+    await logTeamActivity(
+      params.teamId,
+      session.user.id,
+      "member.role_updated",
+      {
+        memberName: targetMember.user.name,
+        memberId: targetMember.id,
+        oldRole: targetMember.role,
+        newRole: body.role,
+      }
+    );
 
     return NextResponse.json(updatedMember);
   } catch (error) {
@@ -94,7 +104,10 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const hasPermission = await checkTeamPermissions(params.teamId, session.user.id);
+    const hasPermission = await checkTeamPermissions(
+      params.teamId,
+      session.user.id
+    );
     if (!hasPermission) {
       return new NextResponse("Forbidden", { status: 403 });
     }
@@ -123,7 +136,7 @@ export async function DELETE(
     });
 
     // Log activity
-    await logTeamActivity(params.teamId, session.user.id, "member_removed", {
+    await logTeamActivity(params.teamId, session.user.id, "member.removed", {
       memberName: targetMember.user.name,
       memberId: targetMember.id,
       role: targetMember.role,
