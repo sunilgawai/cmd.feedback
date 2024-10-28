@@ -20,7 +20,12 @@ interface TeamMembersProps {
   userRole?: string;
 }
 
-export function TeamMembers({ members, teamId, currentUserId, userRole }: TeamMembersProps) {
+export function TeamMembers({
+  members,
+  teamId,
+  currentUserId,
+  userRole,
+}: TeamMembersProps) {
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const canManageRoles = userRole === "OWNER" || userRole === "ADMIN";
 
@@ -62,10 +67,7 @@ export function TeamMembers({ members, teamId, currentUserId, userRole }: TeamMe
   return (
     <div className="divide-y">
       {members.map((member) => (
-        <div
-          key={member.id}
-          className="flex items-center justify-between py-4"
-        >
+        <div key={member.id} className="flex items-center justify-between py-4">
           <div className="flex items-center gap-4">
             <Avatar>
               <AvatarImage src={member.user.image ?? undefined} />
@@ -81,7 +83,7 @@ export function TeamMembers({ members, teamId, currentUserId, userRole }: TeamMe
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {canManageRoles && member.userId !== currentUserId ? (
+            {canManageRoles && member.id !== currentUserId ? (
               <>
                 <Select
                   defaultValue={member.role}
