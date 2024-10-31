@@ -11,6 +11,7 @@ import {
 import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
 import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
+import { Team } from "@prisma/client";
 
 async function getTeams(userId: string) {
   return await prisma.team.findMany({

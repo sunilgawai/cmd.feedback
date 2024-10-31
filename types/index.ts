@@ -1,3 +1,5 @@
+export type Role = "OWNER" | "ADMIN" | "MEMBER";
+
 export interface User {
   id: string;
   name: string | null;
@@ -6,10 +8,15 @@ export interface User {
 }
 
 export interface TeamMember {
-  [x: string]: string;
   id: string;
-  role: "OWNER" | "ADMIN" | "MEMBER";
-  user: Pick<User, "name" | "email" | "image">;
+  role: Role;
+  userId: string;
+  teamId: string;
+  user: {
+    name: string | null;
+    email: string | null;
+    image: string | null;
+  };
 }
 
 export interface Team {
@@ -18,7 +25,17 @@ export interface Team {
   slug: string;
   createdAt: Date;
   updatedAt: Date;
-  members: TeamMember[];
+  members: {
+    user: {
+      name: string | null;
+      email: string | null;
+      image: string | null;
+    };
+    id: string;
+    userId: string;
+    role: Role;
+    teamId: string;
+  }[];
   _count: {
     members: number;
   };
