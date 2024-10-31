@@ -36,9 +36,7 @@ export default function DocsPage() {
           <CardContent className="space-y-4">
             <h3 className="font-semibold">1. Clone the repository</h3>
             <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-              <code>
-                git clone https://github.com/your-username/nextlaunch.git
-              </code>
+              <code>https://github.com/fiston-user/nextlaunch.git</code>
             </pre>
 
             <h3 className="font-semibold">2. Install dependencies</h3>
