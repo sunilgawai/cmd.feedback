@@ -83,7 +83,7 @@ export function TeamMembers({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {canManageRoles && member.id !== currentUserId ? (
+            {canManageRoles && member.userId !== currentUserId ? (
               <>
                 <Select
                   defaultValue={member.role}

@@ -6,6 +6,7 @@ export interface User {
 }
 
 export interface TeamMember {
+  [x: string]: string;
   id: string;
   role: "OWNER" | "ADMIN" | "MEMBER";
   user: Pick<User, "name" | "email" | "image">;

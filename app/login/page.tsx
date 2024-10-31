@@ -1,12 +1,12 @@
-import { auth } from "@/app/auth"
-import { redirect } from "next/navigation"
-import { LoginForm } from "@/components/login-form"
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
+import { LoginForm } from "@/components/login-form";
 
 export default async function LoginPage() {
-  const session = await auth()
+  const session = await auth();
 
   if (session?.user) {
-    redirect('/dashboard')
+    redirect("/dashboard");
   }
 
   return (
@@ -23,5 +23,5 @@ export default async function LoginPage() {
         <LoginForm />
       </div>
     </div>
-  )
+  );
 }
