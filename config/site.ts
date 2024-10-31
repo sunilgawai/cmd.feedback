@@ -4,13 +4,13 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_APP_URL,
   ogImage: "https://your-og-image.png",
   links: {
-    twitter: "https://twitter.com/your-handle",
-    github: "https://github.com/your-repo",
+    twitter: "https://twitter.com/fiston_user",
+    github: "https://github.com/fiston-user/nextlaunch",
   },
   emails: {
     from: {
-      name: "Your SaaS Name",
-      email: "notifications@clarifyr.tech", // Must be verified in Resend
+      name: "NextLaunch",
+      email: "notifications@onboarding.dev", // Must be verified in Resend
     },
   },
   stripe: {
