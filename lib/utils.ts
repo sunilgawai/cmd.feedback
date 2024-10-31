@@ -1,6 +1,9 @@
-export const cn = (...classes: string[]) => {
-  return classes.filter(Boolean).join(" ");
-};
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: (ClassValue | undefined)[]) {
+  return twMerge(clsx(inputs.filter(Boolean)))
+}
 
 export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
