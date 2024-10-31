@@ -13,12 +13,12 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { 
-  Calculator, 
-  Calendar, 
-  CreditCard, 
-  Settings, 
-  Smile, 
+import {
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
   User,
   LogOut,
   Moon,
@@ -49,31 +49,30 @@ export function CommandMenu() {
 
   return (
     <>
-      <Button
-        variant="outline"
-        className="relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
-        onClick={() => setOpen(true)}
-      >
-        <span className="hidden lg:inline-flex">Search...</span>
-        <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Links">
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard"))}>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push("/dashboard"))}
+            >
               <Calendar className="mr-2 h-4 w-4" />
               Dashboard
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/billing"))}>
+            <CommandItem
+              onSelect={() =>
+                runCommand(() => router.push("/dashboard/billing"))
+              }
+            >
               <CreditCard className="mr-2 h-4 w-4" />
               Billing
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/settings"))}>
+            <CommandItem
+              onSelect={() =>
+                runCommand(() => router.push("/dashboard/settings"))
+              }
+            >
               <Settings className="mr-2 h-4 w-4" />
               Settings
             </CommandItem>
@@ -95,7 +94,11 @@ export function CommandMenu() {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Account">
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/settings"))}>
+            <CommandItem
+              onSelect={() =>
+                runCommand(() => router.push("/dashboard/settings"))
+              }
+            >
               <User className="mr-2 h-4 w-4" />
               Profile
             </CommandItem>
