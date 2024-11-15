@@ -58,12 +58,11 @@ export default async function TeamsPage() {
         <h1 className="text-3xl font-bold">Logs</h1>
       </div>
       <Card>
-        <CardHeader>
-          <CardTitle>Your Logs</CardTitle>
-        </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
-            <TeamList teams={teams} />
+            <div className="flex flex-col items-center justify-center py-12">
+              <p className="text-sm text-muted-foreground">No logs found</p>
+            </div>
           </Suspense>
         </CardContent>
       </Card>

@@ -43,7 +43,7 @@ async function getTeams(userId: string) {
   });
 }
 
-export default async function TeamsPage() {
+export default async function WithdrawalsPage() {
   const session = await auth();
 
   if (!session?.user) {
@@ -61,7 +61,11 @@ export default async function TeamsPage() {
       <Card>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
-            <TeamList teams={teams} />
+            <div className="flex flex-col items-center justify-center py-12">
+              <p className="text-sm text-muted-foreground">
+                No Withdrawals found
+              </p>
+            </div>
           </Suspense>
         </CardContent>
       </Card>
