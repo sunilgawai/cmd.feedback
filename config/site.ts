@@ -29,9 +29,21 @@ export const siteConfig = {
       },
       {
         name: "Pro",
-        description: "Perfect for growing businesses",
+        description: "Perfect for growing business",
         price: {
           amount: 29,
+          priceIds: {
+            test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
+            production: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
+          },
+        },
+        features: ["Feature 4", "Feature 5"],
+      },
+      {
+        name: "Premium",
+        description: "Perfect for growing businesses",
+        price: {
+          amount: 49,
           priceIds: {
             test: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
             production: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_PRO,
