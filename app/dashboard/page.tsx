@@ -1,22 +1,9 @@
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
+import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
-import { Team } from "@prisma/client";
-import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import GamesList from "@/components/game-cards";
 
 async function getTeams(userId: string) {

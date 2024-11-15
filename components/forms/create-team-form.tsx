@@ -76,17 +76,17 @@ export function CreateTeamForm() {
             <FormItem>
               <FormLabel>Team Name</FormLabel>
               <FormControl>
-                <Input placeholder="Acme Inc." {...field} />
+                <Input placeholder="name..." {...field} />
               </FormControl>
               <FormDescription>
-                This is your team's visible name within the app.
+                This is your games's visible name within the app.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <LoadingButton type="submit" loading={isLoading}>
-          Create Team
+          Create Game
         </LoadingButton>
       </form>
     </Form>
