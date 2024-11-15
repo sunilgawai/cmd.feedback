@@ -58,10 +58,6 @@ export default async function TeamsPage() {
         <CreateTeamDialog />
       </div>
       <Card>
-        <CardHeader>
-          <CardTitle>Your Teams</CardTitle>
-          <CardDescription>Teams you own or are a member of</CardDescription>
-        </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
             <TeamList teams={teams} />

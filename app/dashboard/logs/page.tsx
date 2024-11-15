@@ -55,13 +55,11 @@ export default async function TeamsPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Teams</h1>
-        <CreateTeamDialog />
+        <h1 className="text-3xl font-bold">Logs</h1>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Your Teams</CardTitle>
-          <CardDescription>Teams you own or are a member of</CardDescription>
+          <CardTitle>Your Logs</CardTitle>
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
