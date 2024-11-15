@@ -21,14 +21,14 @@ export function CreateTeamDialog() {
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" />
-          Create Team
+          Create Game
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create a new team</DialogTitle>
+          <DialogTitle>Create a new Game</DialogTitle>
           <DialogDescription>
-            Create a new team to collaborate with others.
+            Create a new Game to collaborate with others.
           </DialogDescription>
         </DialogHeader>
         <CreateTeamForm />
