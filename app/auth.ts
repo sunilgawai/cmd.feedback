@@ -2,6 +2,7 @@ import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { sendEmail } from "@/lib/emails";

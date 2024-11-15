@@ -7,8 +7,8 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NextLaunch - SaaS Starter Kit",
-  description: "The perfect starting point for your next SaaS project",
+  title: "FewWin admin panel",
+  description: "The perfect place for your trading journey.",
 };
 
 export default function RootLayout({

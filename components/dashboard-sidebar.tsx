@@ -13,6 +13,14 @@ import {
   HelpCircle,
   Github,
   Users,
+  TowerControl,
+  UsersRoundIcon,
+  Users2,
+  MessagesSquare,
+  Logs,
+  PiggyBank,
+  Coins,
+  ArrowDownAZIcon
 } from "lucide-react";
 import {
   Sidebar,
@@ -39,9 +47,50 @@ import { siteConfig } from "@/config/site";
 
 const primaryNavItems = [
   {
-    title: "Dashboard",
+    title: "Home",
     href: "/dashboard",
     icon: HomeIcon,
+  },
+  {
+    title: "Games",
+    href: "/games",
+    icon: TowerControl,
+  },
+  {
+    title: "Agents",
+    href: "/agents",
+    icon: UsersRoundIcon,
+  },
+
+  {
+    title: "Users",
+    href: "/users",
+    icon: Users2,
+  },
+  {
+    title: "Rewards",
+    href: "/rewards",
+    icon: Coins,
+  },
+  {
+    title: "Messages",
+    href: "/messages",
+    icon: MessagesSquare,
+  },
+  {
+    title: "Withdraws",
+    href: "/withdraws",
+    icon: PiggyBank,
+  },
+  {
+    title: "Referal",
+    href: "/referals",
+    icon: HomeIcon,
+  },
+  {
+    title: "Logs",
+    href: "/logs",
+    icon: Logs,
   },
   {
     title: "Teams",
@@ -52,6 +101,11 @@ const primaryNavItems = [
     title: "Billing",
     href: "/dashboard/billing",
     icon: CreditCard,
+  },
+  {
+    title: "Elements",
+    href: "/dashboard/elements",
+    icon: ArrowDownAZIcon,
   },
   {
     title: "Settings",
@@ -95,7 +149,7 @@ export function DashboardSidebar() {
                   href={item.href}
                   className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground ${
                     pathname === item.href
-                      ? "bg-accent text-accent-foreground"
+                      ? "bg-accent text-black"
                       : "text-muted-foreground"
                   }`}
                 >
