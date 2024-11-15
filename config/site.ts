@@ -2,10 +2,10 @@ export const siteConfig = {
   name: "FewWin",
   description: "Your SaaS Description",
   url: process.env.NEXT_PUBLIC_APP_URL,
-  ogImage: "https://your-og-image.png",
+  ogImage: "https://avatars.githubusercontent.com/u/71868299?v=4",
   links: {
     twitter: "https://twitter.com/dvlpr_sunil",
-    github: "https://github.com/dvlpr_sunil",
+    github: "https://github.com/sunilgawai",
   },
   emails: {
     from: {

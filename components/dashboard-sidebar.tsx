@@ -117,7 +117,7 @@ const primaryNavItems = [
 const secondaryNavItems = [
   {
     title: "Help & Support",
-    href: "https://docs.example.com",
+    href: "support",
     icon: HelpCircle,
     external: true,
   },
