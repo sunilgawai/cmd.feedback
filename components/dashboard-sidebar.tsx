@@ -53,43 +53,43 @@ const primaryNavItems = [
   },
   {
     title: "Games",
-    href: "/games",
+    href: "/dashboard/games",
     icon: TowerControl,
   },
   {
     title: "Agents",
-    href: "/agents",
+    href: "/dashboard/agents",
     icon: UsersRoundIcon,
   },
 
   {
     title: "Users",
-    href: "/users",
+    href: "/dashboard/users",
     icon: Users2,
   },
   {
     title: "Rewards",
-    href: "/rewards",
+    href: "/dashboard/rewards",
     icon: Coins,
   },
   {
     title: "Messages",
-    href: "/messages",
+    href: "/dashboard/messages",
     icon: MessagesSquare,
   },
   {
     title: "Withdraws",
-    href: "/withdraws",
+    href: "/dashboard/withdraws",
     icon: PiggyBank,
   },
   {
     title: "Referal",
-    href: "/referals",
+    href: "/dashboard/referals",
     icon: HomeIcon,
   },
   {
     title: "Logs",
-    href: "/logs",
+    href: "/dashboard/logs",
     icon: Logs,
   },
   {
