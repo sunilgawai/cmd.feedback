@@ -6,36 +6,6 @@ import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import GamesList from "@/components/game-cards";
 
-async function getTeams(userId: string) {
-  return await prisma.team.findMany({
-    where: {
-      members: {
-        some: {
-          userId,
-        },
-      },
-    },
-    include: {
-      members: {
-        include: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-              image: true,
-            },
-          },
-        },
-      },
-      _count: {
-        select: {
-          members: true,
-        },
-      },
-    },
-  });
-}
-
 export default async function DashboardPage() {
   const session = await auth();
 
@@ -43,8 +13,10 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const teams = await getTeams(session.user.id);
-
+  const user = await prisma.user.findMany();
+  const users = await prisma.users.findMany();  
+  console.log("users", user);
+  console.log("users", users);
   const games = [];
   return (
     <div className="flex flex-col gap-8">
