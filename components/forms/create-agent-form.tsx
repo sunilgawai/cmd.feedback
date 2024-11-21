@@ -18,7 +18,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { LoadingButton } from "@/components/ui/loading-button";
+import { registerAgent } from "@/app/actions/agent-action";
 
+const RoleEnum = z.enum([
+  "AGENT",
+  "SUPERADMIN",
+  "SELLER_AGENT",
+  "WITHDRAW_AGENT",
+]);
 const agentFormSchema = z.object({
   username: z
     .string()
@@ -32,7 +39,7 @@ const agentFormSchema = z.object({
     .string()
     .min(6, "Agent password must be at least 6 characters.")
     .max(50, "Agent password must be less than 50 characters."),
-  role: z.string(),
+  role: z.enum(["AGENT", "SUPERADMIN", "SELLER_AGENT", "WITHDRAW_AGENT"]),
 });
 
 type TeamFormValues = z.infer<typeof agentFormSchema>;
@@ -50,35 +57,30 @@ const CreateAgentForm = ({ mode = "create" }: CreateAgentFormProps) => {
       username: "",
       phone: "",
       password: "",
-      role: "",
+      role: "AGENT",
     },
   });
 
   async function onSubmit(data: TeamFormValues) {
+    console.log("data", data);
     setIsLoading(true);
     if (mode == "create") {
-    }
-    try {
-      const response = await fetch("/api/teams", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      try {
+        const response = await registerAgent(data);
+        console.log("response", response);
+        if (!response) {
+          throw new Error("Failed to create team");
+        }
 
-      if (!response.ok) {
-        throw new Error("Failed to create team");
+        toast.success("Agent added successfully");
+        form.reset();
+        router.push(`/dashboard/agents`);
+        router.refresh();
+      } catch (error) {
+        toast.error("Something went wrong");
+      } finally {
+        setIsLoading(false);
       }
-
-      const team = await response.json();
-      toast.success("Team created successfully");
-      router.push(`/dashboard/teams/${team.slug}`);
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
     }
   }
 
@@ -90,13 +92,10 @@ const CreateAgentForm = ({ mode = "create" }: CreateAgentFormProps) => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Agent Name</FormLabel>
+              <FormLabel>Agent Username</FormLabel>
               <FormControl>
-                <Input placeholder="username..." {...field} />
+                <Input placeholder="Username..." {...field} />
               </FormControl>
-              <FormDescription>
-                This is your agent's visible name within the app.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -106,13 +105,10 @@ const CreateAgentForm = ({ mode = "create" }: CreateAgentFormProps) => {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Agent Name</FormLabel>
+              <FormLabel>Agent Phone No.</FormLabel>
               <FormControl>
-                <Input placeholder="username..." {...field} />
+                <Input placeholder="Phone No..." {...field} />
               </FormControl>
-              <FormDescription>
-                This is your agent's visible name within the app.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -122,12 +118,12 @@ const CreateAgentForm = ({ mode = "create" }: CreateAgentFormProps) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Agent Name</FormLabel>
+              <FormLabel>Agent Password</FormLabel>
               <FormControl>
-                <Input placeholder="username..." {...field} />
+                <Input placeholder="Password..." {...field} />
               </FormControl>
               <FormDescription>
-                This is your agent's visible name within the app.
+                Agent's password. (keep empty for default)
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -138,13 +134,10 @@ const CreateAgentForm = ({ mode = "create" }: CreateAgentFormProps) => {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Agent Name</FormLabel>
+              <FormLabel>Agent Role</FormLabel>
               <FormControl>
-                <Input placeholder="username..." {...field} />
+                <Input placeholder="Role..." {...field} />
               </FormControl>
-              <FormDescription>
-                This is your agent's visible name within the app.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

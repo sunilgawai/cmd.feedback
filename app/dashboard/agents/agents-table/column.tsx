@@ -30,11 +30,11 @@ export const columns: ColumnDef<T>[] = [
   },
   {
     accessorKey: "phone",
-    header: "Phone Number", 
+    header: "PHONE NUMBER", 
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: "ROLE",
   },
   {
     accessorKey: "status",

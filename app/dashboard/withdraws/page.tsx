@@ -1,8 +1,6 @@
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
+import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
