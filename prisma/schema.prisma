@@ -7,6 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model agent {
+  id         Int       @id @default(autoincrement())
+  username   String     @db.VarChar(225)
+  password   String     @db.VarChar(255)
+  phone   String     @db.VarChar(255)
+  role  Role? @default(AGENT)
+}
+
+enum Role {
+  AGENT
+  SUPERADMIN
+  SELLER_AGENT
+  WITHDRAW_AGENT
+}
+
 model abbetrec {
   id     Int      @id @default(autoincrement())
   period BigInt
@@ -475,6 +490,7 @@ model user {
   name               String?
   email              String?        @unique(map: "User_email_key")
   emailVerified      DateTime?
+  role                Role? @default(AGENT)
   image              String?
   stripeCustomerId   String?        @unique(map: "User_stripeCustomerId_key")
   subscriptionId     String?        @unique(map: "User_subscriptionId_key")

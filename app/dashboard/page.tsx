@@ -9,14 +9,10 @@ import GamesList from "@/components/game-cards";
 export default async function DashboardPage() {
   const session = await auth();
 
-  if (!session?.user) {
-    redirect("/login");
-  }
+  // if (!session?.user) {
+    // redirect("/login");
+  // }
 
-  const user = await prisma.user.findMany();
-  const users = await prisma.users.findMany();  
-  console.log("users", user);
-  console.log("users", users);
   const games = [];
   return (
     <div className="flex flex-col gap-8">

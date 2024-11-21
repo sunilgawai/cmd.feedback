@@ -1,75 +1,77 @@
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
-import { Team } from "@prisma/client";
+import { columns } from "./agents-table/column";
+import { DataTable } from "@/components/ui/data-table";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import CreateAgentForm from "@/components/forms/create-agent-form";
+import { Plus } from "lucide-react";
 
-async function getTeams(userId: string) {
-  return await prisma.team.findMany({
-    where: {
-      members: {
-        some: {
-          userId,
-        },
-      },
-    },
-    include: {
-      members: {
-        include: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-              image: true,
-            },
-          },
-        },
-      },
-      _count: {
-        select: {
-          members: true,
-        },
-      },
-    },
-  });
+async function getTeams() {
+  return await prisma.agent.findMany();
 }
 
 export default async function AgentsPage() {
-  const session = await auth();
-
-  if (!session?.user) {
-    redirect("/login");
-  }
-
-  const teams = await getTeams(session.user.id);
+  const agents = await getTeams();
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex justify-between items-center">
+    <div className="container">
+      <div className="flex justify-between items-center my-8">
         <h1 className="text-3xl font-bold">Agents</h1>
-        <CreateTeamDialog />
+        {/* <Dialog open={open} onOpenChange={setOpen}> */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              Create Agent
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create a new Agent</DialogTitle>
+              <DialogDescription>
+                Create a new agent
+              </DialogDescription>
+            </DialogHeader>
+            <CreateAgentForm />
+          </DialogContent>
+        </Dialog>
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Your Agents</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <Tabs defaultValue="withdraw" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
+          <TabsTrigger value="seller">Seller</TabsTrigger>
+        </TabsList>
+        <TabsContent value="withdraw">
           <Suspense fallback={<TeamListSkeleton />}>
-            <div className="flex flex-col items-center justify-center py-12">
-              <p className="text-sm text-muted-foreground">No agents found</p>
-            </div>
+            <DataTable
+              columns={columns}
+              data={agents}
+              // totalItems={withdrawals.length || 0}
+            />
+            {/* <WithdrawsTable data={withdrawals} totalData={withdrawals.length} /> */}
           </Suspense>
-        </CardContent>
-      </Card>
+        </TabsContent>
+        <TabsContent value="seller">
+          <Suspense fallback={<TeamListSkeleton />}>
+            <DataTable
+              columns={columns}
+              data={agents}
+              // totalItems={withdrawals.length || 0}
+            />
+            {/* <WithdrawsTable data={withdrawals} totalData={withdrawals.length} /> */}
+          </Suspense>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
