@@ -1,22 +1,11 @@
-"use client";
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
-import { ComponentExample } from "@/components/component-example";
+import { TeamListSkeleton } from "@/components/teams/team-list";
 import { DataTable } from "@/components/ui/data-table";
-import { Table } from "lucide-react";
 import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
 import { getAllUsers } from "./actions";
 // Example data for DataTable
 const columns = [
@@ -27,26 +16,22 @@ const columns = [
   { accessorKey: "ifsc", header: "IFSC" },
   {
     accessorKey: "status",
-    header: "User Status",
-    cell: ({ row }) => (
-      <div className="capitalize">
-        {row.getValue("status") ? <span>Enabled</span> : <span>Disabled</span>}
-      </div>
-    ),
+    header: "User Status"
   },
   { accessorKey: "waggering", header: "Waggering" },
 ];
 
-export default function UsersPage() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    async function getUsers() {
-      const users = await getAllUsers();
-      setUsers(users);
-      console.log("users", users);
-    }
-    getUsers();
-  }, []);
+export default async function UsersPage() {
+  // const [users, setUsers] = useState([]);
+  // useEffect(() => {
+  //   async function getUsers() {
+  //     const users = await getAllUsers();
+  //     setUsers(users);
+  //     console.log("users", users);
+  //   }
+  //   getUsers();
+  // }, []);
+  const users = await getAllUsers();
 
   return (
     <div className="flex flex-col gap-8">
@@ -61,10 +46,6 @@ export default function UsersPage() {
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                   <div>
-                    <h3 className="font-semibold">available users</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      sorting, filtering, and pagination enabled
-                    </p>
                     <DataTable
                       columns={columns}
                       data={users}

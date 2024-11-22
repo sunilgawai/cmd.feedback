@@ -47,7 +47,8 @@ export default async function AgentsPage() {
         </Dialog>
       </div>
       <Tabs defaultValue="withdraw" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
           <TabsTrigger value="seller">Seller</TabsTrigger>
         </TabsList>

@@ -3,9 +3,9 @@ import { prisma } from "@/lib/prisma";
 
 export const getAllUsers = async () => {
   try {
-    const users = await prisma.users.findAll();
+    const users = await prisma.users.findMany();
     return users;
-  } catch (err) {
+  } catch (err:any) {
     throw new Error(err);
   }
 };
