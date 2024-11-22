@@ -1,6 +1,5 @@
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
 import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
 import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
@@ -9,9 +8,9 @@ import GamesList from "@/components/game-cards";
 export default async function DashboardPage() {
   const session = await auth();
 
-  // if (!session?.user) {
-    // redirect("/login");
-  // }
+  if (!session?.user) {
+    redirect("/login");
+  }
 
   const games = [];
   return (

@@ -14,12 +14,18 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string | number;
+      username: string;
+      phone: string;
+      role: string;
       stripeCustomerId?: string | null;
       subscriptionStatus?: string | null;
     } & DefaultSession["user"];
   }
 
   interface User {
+    username: string;
+    phone: string;
+    role: string;
     stripeCustomerId?: string | null;
     subscriptionStatus?: string | null;
   }
@@ -28,30 +34,35 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     userId: string;
+    username: string;
+    phone: string;
+    role: string;
   }
 }
 
-const authorize = async (credentials: Record<string, string> | undefined, _:unknown): Promise<agent | null> => {
+const authorize = async (
+  credentials: Record<string, string> | undefined,
+  _: unknown
+): Promise<agent | null> => {
   if (!credentials) return null;
 
   const { phone, password } = credentials;
-  if(!phone || !password) return null;
+  if (!phone || !password) return null;
 
   // Fetch the user from the database
   const userFromDB = await prisma.agent.findUnique({
     where: {
       phone: phone,
-    }
+    },
   }); // Replace with your DB logic
 
   if (!userFromDB) return null;
 
   // Validate password (add your password-checking logic here)
-  if (userFromDB.password!== password) return null;
+  if (userFromDB.password !== password) return null;
 
   return userFromDB;
 };
-
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -93,18 +104,15 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log("credentials", credentials);
-        
         const user = await prisma.agent.findUnique({
           where: {
-            phone: credentials?.phone
+            phone: credentials?.phone,
           },
         });
-        console.log("user", user);
 
-        // if (!user) {
-        //   return null;
-        // }
+        if (!user) {
+          return null;
+        }
         // if (email === user.email && password === user?.password) {
         //   return user;
         // } else {
@@ -129,20 +137,34 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: "/verify-request",
   },
   callbacks: {
-    session: async ({ session, user }) => {
-      if (session?.user) {
-        session.user.id = user.id;
-        session.user.stripeCustomerId = user.stripeCustomerId;
-        session.user.subscriptionStatus = user.subscriptionStatus;
-      }
-      return session;
-    },
-    jwt: async ({ token, user, account, profile, isNewUser }) => {
-      if (account && account.type === "credentials") {
-        //(2)
-        token.userId = account.providerAccountId; // this is Id that coming from authorize() callback
+    // session: async ({ session, user, token }) => {
+    //   console.table({ session, user });
+    //   if (session?.user && user?.id) {
+    //     session.user.id = user.id;
+    //     session.user.phone = user.phone;
+    //     session.user.role = user.role;
+    //     session.user.stripeCustomerId = user?.stripeCustomerId;
+    //     session.user.subscriptionStatus = user?.subscriptionStatus;
+    //   }
+    //   return session;
+    // },
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.userId = user.id;
+        token.username = user.username;
+        token.phone = user.phone;
+        token.role = user.role;
       }
       return token;
+    },
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.userId;
+        session.user.username = token.username; // Map correctly from JWT
+        session.user.phone = token.phone;
+        session.user.role = token.role;
+      }
+      return session;
     },
   },
   session: {

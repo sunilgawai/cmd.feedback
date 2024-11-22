@@ -2,9 +2,9 @@ export type Role = "OWNER" | "ADMIN" | "MEMBER";
 
 export interface User {
   id: string;
-  name: string | null;
-  email: string | null;
-  image: string | null;
+  username: string | null;
+  phone: string | null;
+  role: string | Role;
 }
 
 export interface TeamMember {
