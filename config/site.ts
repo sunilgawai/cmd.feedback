@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "FewWin",
+  name: "FASTWIN ADMIN",
   description: "Your SaaS Description",
   url: process.env.NEXT_PUBLIC_APP_URL,
   ogImage: "https://avatars.githubusercontent.com/u/71868299?v=4",

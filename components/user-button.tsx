@@ -71,15 +71,6 @@ export function UserButton() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Mail className="mr-2 h-4 w-4" />
-          Support
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <MessageSquare className="mr-2 h-4 w-4" />
-          Feedback
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem
           className="text-red-600 focus:text-red-600"
           onClick={() => signOut()}

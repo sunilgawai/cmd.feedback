@@ -5,22 +5,22 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { CommandMenu } from "@/components/command-menu";
 import { UserButton } from "@/components/user-button";
 import { Separator } from "@/components/ui/separator";
-import { SellerSidebar } from "../_components/seller-sidebar";
+import { WithdrawerSidebar } from "../_components/withdrawer-sidebar";
 
-export default async function SellerLayout({
+export default async function WithdrawerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await auth();
 
-  if (!session?.user || session.user.role != "SELLER_AGENT") {
+  if (!session?.user || session.user.role != "WITHDRAWER_AGENT") {
     redirect("/");
   }
 
   return (
     <div className="flex min-h-screen">
-      <SellerSidebar />
+      <WithdrawerSidebar />
       <div className="flex-1 flex flex-col lg:pl-[280px]">
         <header className="sticky top-0 z-40 border-b bg-background h-16">
           <div className="container flex h-16 items-center gap-4">

@@ -73,7 +73,7 @@ const primaryNavItems = [
   },
 ];
 
-export function SellerSidebar() {
+export function WithdrawerSidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
