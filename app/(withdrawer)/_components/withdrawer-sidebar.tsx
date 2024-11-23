@@ -37,38 +37,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/config/site";
 
 const primaryNavItems = [
   {
     title: "Home",
-    href: "/seller-panel",
+    href: "/withdrawer-panel",
     icon: HomeIcon,
   },
   {
     title: "Messages",
-    href: "/seller-panel/messages",
+    href: "/withdrawer-panel/messages",
     icon: MessagesSquare,
   },
   {
-    title: "Stats",
-    href: "/seller-panel/stats",
-    icon: BarChart,
-  },
-  {
     title: "Payment Information",
-    href: "/seller-panel/payment",
+    href: "/withdrawer-panel/payment",
     icon: Coins,
   },
   {
-    title: "Score",
-    href: "/seller-panel/score",
-    icon: Rainbow,
-  },
-  {
     title: "Help",
-    href: "/seller-panel/help",
+    href: "/withdrawer-panel/help",
     icon: HelpCircle,
   },
 ];
