@@ -47,13 +47,13 @@ const primaryNavItems = [
     icon: HomeIcon,
   },
   {
-    title: "Message",
-    href: "/seller-panel/agents",
+    title: "Messages",
+    href: "/seller-panel/messages",
     icon: MessagesSquare,
   },
   {
     title: "Stats",
-    href: "/seller-panel/rewards",
+    href: "/seller-panel/stats",
     icon: BarChart,
   },
   {
@@ -63,17 +63,17 @@ const primaryNavItems = [
   },
   {
     title: "Score",
-    href: "/seller-panel/seller-panels",
+    href: "/seller-panel",
     icon: Rainbow,
   },
   {
     title: "Help",
-    href: "/seller-panel/logs",
+    href: "/seller-panel",
     icon: HelpCircle,
   },
   {
     title: "Logout",
-    href: "/seller-panel/settings",
+    href: "/seller-panel",
     icon: LogOutIcon,
   },
 ];

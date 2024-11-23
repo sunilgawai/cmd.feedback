@@ -12,12 +12,20 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { Input } from "@/components/ui/input";
+import { Upload } from "lucide-react";
+import Link from "next/link";
 
 export default async function SellerPage() {
   return (
     <div className="container space-y-8">
       <div className="flex justify-between items-center my-8">
-        <h1 className="text-3xl font-bold text-center">Seller Platform</h1>
+        <h1 className="text-3xl font-bold">Seller Platform</h1>
+        <Link href="/seller-panel/missing" >
+          <Button className="ml-4">
+            <Upload />
+            Upload Missing
+          </Button>
+        </Link>
       </div>
 
       <Tabs defaultValue="fast_mode" className="w-full space-y-6">
