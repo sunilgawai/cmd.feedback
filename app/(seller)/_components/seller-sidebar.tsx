@@ -58,7 +58,7 @@ const primaryNavItems = [
   },
   {
     title: "Payment Information",
-    href: "/seller-panel/messages",
+    href: "/seller-panel/payment",
     icon: Coins,
   },
   {
