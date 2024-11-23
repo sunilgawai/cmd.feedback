@@ -30,7 +30,7 @@ model agent {
   referUsers              String? 
   walletId                String?    
   walletBalance           Float      @default(0)
-  wallet                  Json[]
+  wallet                  String?
   distributedAmount       Float      @default(0)
   todayDistributedAmount  Float      @default(0)
   todayTotalRequest       Int        @default(0)
@@ -44,7 +44,6 @@ model agent {
   positivePoints          Int        @default(0)
   negativePoints          Int        @default(0)
   createdAt               DateTime   @default(now())
-  updatedAt               DateTime   @updatedAt
 }
 
 enum Role {

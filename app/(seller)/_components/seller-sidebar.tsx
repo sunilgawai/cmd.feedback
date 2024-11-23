@@ -9,13 +9,13 @@ import {
   LogOut,
   User,
   Bell,
-  HelpCircle,
-  Github,
-  UsersRoundIcon,
   MessagesSquare,
   Logs,
-  PiggyBank,
   Coins,
+  BarChart,
+  Rainbow,
+  HelpCircle,
+  LogOutIcon
 } from "lucide-react";
 import {
   Sidebar,
@@ -47,51 +47,37 @@ const primaryNavItems = [
     icon: HomeIcon,
   },
   {
-    title: "Agents",
+    title: "Message",
     href: "/seller-panel/agents",
-    icon: UsersRoundIcon,
-  },
-  {
-    title: "Rewards",
-    href: "/seller-panel/rewards",
-    icon: Coins,
-  },
-  {
-    title: "Messages",
-    href: "/seller-panel/messages",
     icon: MessagesSquare,
   },
   {
-    title: "seller-panel",
+    title: "Stats",
+    href: "/seller-panel/rewards",
+    icon: BarChart,
+  },
+  {
+    title: "Payment Information",
+    href: "/seller-panel/messages",
+    icon: Coins,
+  },
+  {
+    title: "Score",
     href: "/seller-panel/seller-panels",
-    icon: PiggyBank,
+    icon: Rainbow,
   },
   {
-    title: "Logs",
+    title: "Help",
     href: "/seller-panel/logs",
-    icon: Logs,
+    icon: HelpCircle,
   },
   {
-    title: "Settings",
+    title: "Logout",
     href: "/seller-panel/settings",
-    icon: Settings,
+    icon: LogOutIcon,
   },
 ];
 
-const secondaryNavItems = [
-  {
-    title: "Help & Support",
-    href: "support",
-    icon: HelpCircle,
-    external: true,
-  },
-  {
-    title: "GitHub",
-    href: siteConfig.links.github,
-    icon: Github,
-    external: true,
-  },
-];
 
 export function SellerSidebar() {
   const pathname = usePathname();
@@ -129,29 +115,6 @@ export function SellerSidebar() {
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
-
-          <div>
-            <div className="px-4 py-2">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Resources
-              </p>
-            </div>
-            <SidebarMenu>
-              {secondaryNavItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <Link
-                    href={item.href}
-                    target={item.external ? "_blank" : undefined}
-                    rel={item.external ? "noopener noreferrer" : undefined}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                  >
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </div>
         </SidebarContent>
         <SidebarFooter className="border-t p-4">
           <DropdownMenu>

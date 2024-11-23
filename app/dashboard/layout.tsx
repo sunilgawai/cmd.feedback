@@ -14,8 +14,15 @@ export default async function DashboardLayout({
 }) {
   const session = await auth();
 
-  if (!session?.user) {
-    // redirect("/login");
+  if(!session?.user) {
+    redirect("/");
+  }
+  if (session.user.role !== "SUPER_ADMIN") {
+    if (session?.user.role === "SELLER_AGENT") {
+      redirect("/seller-panel");
+    } else {
+      redirect("/withdrawer-panel");
+    }
   }
 
   return (
@@ -33,9 +40,7 @@ export default async function DashboardLayout({
           </div>
         </header>
         <main className="flex-1 overflow-y-auto">
-          <div className="container space-y-4 p-8">
-            {children}
-          </div>
+          <div className="container space-y-4 p-8">{children}</div>
         </main>
       </div>
     </div>
