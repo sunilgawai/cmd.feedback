@@ -1,8 +1,6 @@
 "use client";
-import CreateAgentForm from "@/components/forms/create-agent-form";
+import AgentForm from "@/components/forms/agent-form";
 import { Button } from "@/components/ui/button";
-import { Backpack, Plus } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { RiArrowGoBackLine } from "react-icons/ri";
@@ -17,7 +15,8 @@ const AgentCreatePage = () => {
             Back to Agents
           </Button>
       </div>
-      <CreateAgentForm />
+      <AgentForm />
+      {/* <CreateAgentForm /> */}
     </div>
   );
 };

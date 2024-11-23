@@ -19,18 +19,18 @@ model agent {
   // Additional fields from SellerAgent
   contactNumber           BigInt?    // Optional, as not all users may need this
   adminCommission         Int?       // Optional
-  upiId                   String
+  upiId                   String?
   isNewAccount            Boolean    @default(false)
-  assignAdmin             String?    @db.ObjectId
+  assignAdmin             String?
   status                  Boolean    @default(true)
   deleted                 Boolean    @default(false)
   mysteryBoxPoint         Int        @default(0)
-  isOnline                Boolean    @default(true)
-  binanceId               String   
-  referUsers              String 
+  isOnline                Boolean    @default(false)
+  binanceId               String?   
+  referUsers              String? 
   walletId                String?    
   walletBalance           Float      @default(0)
-  wallet                  Json[]     @default([])
+  wallet                  Json[]
   distributedAmount       Float      @default(0)
   todayDistributedAmount  Float      @default(0)
   todayTotalRequest       Int        @default(0)

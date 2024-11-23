@@ -1,0 +1,36 @@
+export interface Agent {
+  id: string;
+  username: string;
+  phone: string;
+  password: string;
+  lastlogin: Date;
+  commision_rate: number;
+  role: string;
+  contactNumber: bigint;
+  adminCommission: number;
+  upiId: string;
+  isNewAccount: boolean;
+  assignAdmin: string;
+  status: boolean;
+  deleted: boolean;
+  mysteryBoxPoint: number;
+  isOnline: boolean;
+  binanceId: string;
+  referUsers: string;
+  walletId: string;
+  walletBalance: number;
+  distributedAmount: number;
+  todayDistributedAmount: number;
+  todayTotalRequest: number;
+  todayTotalAcceptTime: number;
+  todayAverageAcceptTime: number;
+  todayPositivePoints: number;
+  todayNegativePoints: number;
+  totalRequest: number;
+  totalAcceptTime: number;
+  averageAcceptTime: number;
+  positivePoints: number;
+  negativePoints: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
