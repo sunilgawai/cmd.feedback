@@ -8,12 +8,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import CreateAgentForm from "@/components/forms/create-agent-form";
 
 interface CellActionProps {
-  data: Employee;
+  data: any;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -40,11 +49,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-          <DropdownMenuItem
-            onClick={() => router.push(`/dashboard/user/${data.id}`)}
-          >
-            <Edit className="mr-2 h-4 w-4" /> Update
+          <DropdownMenuItem>
+            <Edit />Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete

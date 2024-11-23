@@ -20,7 +20,8 @@ import {
   Logs,
   PiggyBank,
   Coins,
-  ArrowDownAZIcon
+  ArrowDownAZIcon,
+  GitPullRequest
 } from "lucide-react";
 import {
   Sidebar,
@@ -44,6 +45,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/config/site";
+import { RiOrderPlayLine } from "react-icons/ri";
 
 const primaryNavItems = [
   {
@@ -52,16 +54,25 @@ const primaryNavItems = [
     icon: HomeIcon,
   },
   {
-    title: "Games",
-    href: "/dashboard/games",
-    icon: TowerControl,
+    title: "Orders",
+    href: "/dashboard/orders",
+    icon: RiOrderPlayLine,
   },
   {
     title: "Agents",
     href: "/dashboard/agents",
     icon: UsersRoundIcon,
   },
-
+  {
+    title: "Agents Request",
+    href: "/dashboard/agent-requests",
+    icon: GitPullRequest,
+  },
+  {
+    title: "Games",
+    href: "/dashboard/games",
+    icon: TowerControl,
+  },
   {
     title: "Users",
     href: "/dashboard/users",

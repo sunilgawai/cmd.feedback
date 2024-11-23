@@ -3,7 +3,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 // import { Employee } from "@/constants/data";
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
+import { Edit, EyeIcon } from "lucide-react";
+import Link from "next/link";
+import { DeleteAction } from "./delete-action";
+import { Button } from "@/components/ui/button";
 
+// @ts-ignore
 export const columns: ColumnDef<T>[] = [
   {
     id: "select",
@@ -30,7 +35,7 @@ export const columns: ColumnDef<T>[] = [
   },
   {
     accessorKey: "phone",
-    header: "PHONE NUMBER", 
+    header: "PHONE NUMBER",
   },
   {
     accessorKey: "role",
@@ -41,7 +46,31 @@ export const columns: ColumnDef<T>[] = [
     header: "STATUS",
   },
   {
-    id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    header: "VIEW",
+    cell: ({ row }) => (
+      <Link href={`/dashboard/agents/${row.original.id}`}>
+        <EyeIcon color="blue" />
+        <Button variant="link" size="icon" asChild>
+          View
+        </Button>
+      </Link>
+    ),
+  },
+  {
+    id: "edit",
+    header: "Edit",
+    cell: ({ row }) => (
+      <Link href={`/dashboard/agents/${row.original.id}`}>
+        <Edit color="blue" />
+        <Button variant="link" size="icon" asChild>
+          View
+        </Button>
+      </Link>
+    ),
+  },
+  {
+    id: "delete",
+    header: "Delete",
+    cell: ({ row }) => <DeleteAction data={row.original} />,
   },
 ];

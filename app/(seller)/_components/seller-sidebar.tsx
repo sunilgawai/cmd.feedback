@@ -43,37 +43,37 @@ import { siteConfig } from "@/config/site";
 const primaryNavItems = [
   {
     title: "Home",
-    href: "/withdraw",
+    href: "/seller-panel",
     icon: HomeIcon,
   },
   {
     title: "Agents",
-    href: "/withdraw/agents",
+    href: "/seller-panel/agents",
     icon: UsersRoundIcon,
   },
   {
     title: "Rewards",
-    href: "/withdraw/rewards",
+    href: "/seller-panel/rewards",
     icon: Coins,
   },
   {
     title: "Messages",
-    href: "/withdraw/messages",
+    href: "/seller-panel/messages",
     icon: MessagesSquare,
   },
   {
-    title: "Withdraws",
-    href: "/withdraw/withdraws",
+    title: "seller-panel",
+    href: "/seller-panel/seller-panels",
     icon: PiggyBank,
   },
   {
     title: "Logs",
-    href: "/withdraw/logs",
+    href: "/seller-panel/logs",
     icon: Logs,
   },
   {
     title: "Settings",
-    href: "/withdraw/settings",
+    href: "/seller-panel/settings",
     icon: Settings,
   },
 ];

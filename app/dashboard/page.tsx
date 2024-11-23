@@ -1,47 +1,131 @@
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
-import { CreateTeamDialog } from "@/components/teams/create-team-dialog";
-import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
-import GamesList from "@/components/game-cards";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Overview } from "./_components/overview";
+import { RecentOrders } from "./_components/recent-orders";
+import { PendingOrders } from "./_components/pending-orders";
+import { AgentScores } from "./_components/agent-scores";
+
+async function getOverviewData() {
+  // Simulate fetching data from an API
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return {
+    agentsCount: 150,
+    activeAgents: 120,
+    totalRecharges: 5000,
+    moneyIn: 100000,
+    moneyOut: 90000,
+    completedOrders: 4800,
+    canceledOrders: 200,
+  };
+}
 
 export default async function DashboardPage() {
-  const session = await auth();
+  const overviewData = await getOverviewData();
 
-  if (!session?.user) {
-    redirect("/login");
-  }
-
-  const games = [];
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Your Games</h1>
-          <p className="text-xl">Games you own or are a member of</p>
-        </div>
-        <CreateTeamDialog />
+    <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
       </div>
-      {/* <Card> */}
-      {/* <CardHeader>
-          <CardTitle>Your Games</CardTitle>
-          <CardDescription>Games you own or are a member of</CardDescription>
-        </CardHeader> */}
-      <div className="container mx-auto p-4">
-        <Suspense fallback={<TeamListSkeleton />}>
-          {games.length == 0 ? (
-            <GamesList />
-          ) : (
-            <div className="flex flex-col items-center justify-center py-12">
-              <p className="text-sm text-muted-foreground">No games found</p>
-              <p className="text-sm text-muted-foreground">
-                Add a game to get started
-              </p>
-            </div>
-          )}
-        </Suspense>
-      </div>
-      {/* </Card> */}
+      <Tabs defaultValue="overview" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="orders">Orders</TabsTrigger>
+          <TabsTrigger value="scores">Agent Scores</TabsTrigger>
+          <TabsTrigger value="scores">Pending Orders</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Agents
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {overviewData.agentsCount}
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Active Agents
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {overviewData.activeAgents}
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Recharges
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {overviewData.totalRecharges}
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Money In/Out
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  ${overviewData.moneyIn} / ${overviewData.moneyOut}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Overview</CardTitle>
+              </CardHeader>
+              <CardContent className="pl-2">
+                <Overview />
+              </CardContent>
+            </Card>
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Recent Orders</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RecentOrders />
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        <TabsContent value="orders" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Pending Orders</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PendingOrders />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="scores" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Agent Scores</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AgentScores />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

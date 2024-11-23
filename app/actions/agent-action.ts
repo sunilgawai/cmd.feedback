@@ -19,3 +19,22 @@ export const registerAgent = async (data: Agent) => {
       throw Error(error);
   }
 };
+
+type EditAgentProps = { id: number } & Agent;
+export const editAgent = async ({id, username, phone, role}: EditAgentProps) => {
+  try {
+    const agent = await prisma.agent.update({
+      where: {
+        id: id,
+      },
+      data: {
+        username: username,
+        phone: phone,
+        role: role
+      }
+    });
+    return agent;
+  } catch (error: any) {
+    throw Error(error);
+  }
+};

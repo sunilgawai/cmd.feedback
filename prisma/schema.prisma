@@ -12,15 +12,58 @@ model agent {
   username   String     @db.VarChar(225)
   password   String     @db.VarChar(255)
   phone   String     @db.VarChar(255) @unique()
+  lastlogin DateTime? @default(now())
+  commision_rate Float?
   role  Role? @default(AGENT)
+
+  // Additional fields from SellerAgent
+  contactNumber           BigInt?    // Optional, as not all users may need this
+  adminCommission         Int?       // Optional
+  upiId                   String
+  isNewAccount            Boolean    @default(false)
+  assignAdmin             String?    @db.ObjectId
+  status                  Boolean    @default(true)
+  deleted                 Boolean    @default(false)
+  mysteryBoxPoint         Int        @default(0)
+  isOnline                Boolean    @default(true)
+  binanceId               String   
+  referUsers              String 
+  walletId                String?    
+  walletBalance           Float      @default(0)
+  wallet                  Json[]     @default([])
+  distributedAmount       Float      @default(0)
+  todayDistributedAmount  Float      @default(0)
+  todayTotalRequest       Int        @default(0)
+  todayTotalAcceptTime    Int        @default(0)
+  todayAverageAcceptTime  Float?     
+  todayPositivePoints     Int        @default(0)
+  todayNegativePoints     Int        @default(0)
+  totalRequest            Int        @default(0)
+  totalAcceptTime         Int        @default(0)
+  averageAcceptTime       Float?     
+  positivePoints          Int        @default(0)
+  negativePoints          Int        @default(0)
+  createdAt               DateTime   @default(now())
+  updatedAt               DateTime   @updatedAt
 }
 
 enum Role {
   AGENT
-  SUPERADMIN
+  SUPER_ADMIN
   SELLER_AGENT
-  WITHDRAW_AGENT
+  WITHDRAWER_AGENT
 }
+
+model Transaction {
+  id              Int  @id @default(autoincrement())
+  userId          String
+  agentId         String
+  transactionType String  // DEPOSIT, WITHDRAWAL
+  amount          Float
+  status          String  // PENDING, COMPLETED, FAILED
+  timestamp       DateTime @default(now())
+}
+
 
 model abbetrec {
   id     Int      @id @default(autoincrement())
