@@ -21,7 +21,7 @@ import {
   PiggyBank,
   Coins,
   ArrowDownAZIcon,
-  GitPullRequest
+  GitPullRequest,
 } from "lucide-react";
 import {
   Sidebar,
@@ -146,7 +146,7 @@ export function DashboardSidebar() {
 
   return (
     <>
-      <Sidebar>
+      <Sidebar suppressHydrationWarning>
         <SidebarHeader className="border-b p-4 mb-4">
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <span className="text-xl">{siteConfig.name}</span>

@@ -16,19 +16,12 @@ import { Button } from "@/components/ui/button";
 import {
   User,
   Settings,
-  CreditCard,
   LogOut,
-  Mail,
-  MessageSquare,
-  PlusCircle,
-  UserPlus,
-  Users,
 } from "lucide-react";
 import Link from "next/link";
 
 export function UserButton() {
   const { data: session } = useSession();
-  console.log("application session", session);
 
   return (
     <DropdownMenu>

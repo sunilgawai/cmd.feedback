@@ -9,6 +9,20 @@ type Agent = {
   phone: string;
   role: Role;
 };
+
+export const getAgentById = async (id: number) => {
+  try {
+      const agent = await prisma.agent.findUnique({
+        where: {
+          id: id
+        }
+      });
+      return agent;
+  } catch (error:any) {
+      throw Error(error);
+  }
+};
+
 export const registerAgent = async (data: Agent) => {
   try {
       const agent = await prisma.agent.create({

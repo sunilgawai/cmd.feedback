@@ -28,7 +28,7 @@ export default async function AgentsPage() {
     <div className="container">
       <div className="flex justify-between items-center my-8">
         <h1 className="text-3xl font-bold">Agents</h1>
-        <Link href="/dashboard/agents/create">
+        <Link href="/dashboard/agents/form">
           <Button>
             <Plus className="mr-2 h-4 w-4" />
             Create Agent

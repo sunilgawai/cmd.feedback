@@ -60,7 +60,7 @@ export const columns: ColumnDef<T>[] = [
     id: "edit",
     header: "Edit",
     cell: ({ row }) => (
-      <Link href={`/dashboard/agents/${row.original.id}`}>
+      <Link href={`/dashboard/agents/form?mode=edit&id=${row.original.id}`}>
         <Edit color="blue" />
         <Button variant="link" size="icon" asChild>
           View
