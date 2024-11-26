@@ -46,6 +46,17 @@ export const columns: ColumnDef<T>[] = [
     header: "STATUS",
   },
   {
+    header: "Settle Amount",
+    cell: ({ row }) => (
+      <Link href={`/dashboard/agents/${row.original.id}`}>
+        <EyeIcon color="blue" />
+        <Button variant="link" size="icon" asChild>
+          View
+        </Button>
+      </Link>
+    ),
+  },
+  {
     header: "VIEW",
     cell: ({ row }) => (
       <Link href={`/dashboard/agents/${row.original.id}`}>

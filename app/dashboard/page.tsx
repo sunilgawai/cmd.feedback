@@ -5,6 +5,7 @@ import { Overview } from "./_components/overview";
 import { RecentOrders } from "./_components/recent-orders";
 import { PendingOrders } from "./_components/pending-orders";
 import { AgentScores } from "./_components/agent-scores";
+import { getDashboardStats } from "./actions";
 
 async function getOverviewData() {
   // Simulate fetching data from an API
@@ -22,6 +23,7 @@ async function getOverviewData() {
 
 export default async function DashboardPage() {
   const overviewData = await getOverviewData();
+  const { agents } = await getDashboardStats();
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -44,9 +46,7 @@ export default async function DashboardPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  {overviewData.agentsCount}
-                </div>
+                <div className="text-2xl font-bold">{agents.length}</div>
               </CardContent>
             </Card>
             <Card>

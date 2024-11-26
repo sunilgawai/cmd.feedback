@@ -17,7 +17,7 @@ import { columns as transactionColumns } from "./transaction-columns";
 import { columns as orderColumns } from "./order-columns";
 import { Button } from "@/components/ui/button";
 import { RiArrowGoBackLine } from "react-icons/ri";
-import Link from "next/link";
+import { AgentWorkSpeedForm } from "./agent-workspeed-form";
 
 export const dynamic = "force-dynamic";
 
@@ -61,15 +61,17 @@ export default async function AgentDetailsPage({
   return (
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center my-8">
-        {/* <Link href="/dashboard/agents" role="button">
-          <RiArrowGoBackLine className="mr-2 h-4 w-4" />
-          Back to Agents
-        </Link> */}
         <Button>
           <RiArrowGoBackLine className="mr-2 h-4 w-4" />
           Back to Agents
         </Button>
-        <h1 className="text-3xl text-center font-bold mb-6">Agent Details</h1>
+        <AgentWorkSpeedForm />
+        {/* <Slider
+          defaultValue={[50]}
+          max={100}
+          step={1}
+          className="w-[60%]"
+        /> */}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
@@ -135,9 +137,9 @@ export default async function AgentDetailsPage({
       {pendingSuperAdminOrders.length > 0 && (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Pending Super Admin Orders</CardTitle>
+            <CardTitle>Daily Completed Orders</CardTitle>
             <CardDescription>
-              These orders require attention from a Super Admin
+              These orders are completed on daily basis.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -176,7 +178,7 @@ export default async function AgentDetailsPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>Transaction History</CardTitle>
+          <CardTitle>Financial History</CardTitle>
         </CardHeader>
         <CardContent>
           <DataTable columns={transactionColumns} data={transactions} />

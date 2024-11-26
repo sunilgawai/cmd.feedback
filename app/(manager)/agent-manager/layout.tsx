@@ -1,36 +1,26 @@
 import React from "react";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
-import { DashboardSidebar } from "@/components/dashboard-sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import { CommandMenu } from "@/components/command-menu";
 import { UserButton } from "@/components/user-button";
 import { Separator } from "@/components/ui/separator";
+import { ManagerSidebar } from "../_components/manager-sidebar";
 
-export default async function DashboardLayout({
+export default async function SellerLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await auth();
 
-  if (!session?.user) {
+  if (!session?.user || session.user.role != "SELLER_AGENT") {
     redirect("/");
-  }
-
-  if (session.user.role !== "SUPER_ADMIN") {
-    if (session?.user.role === "SELLER_AGENT") {
-      redirect("/seller-panel");
-    } else if (session?.user.role === "AGENT_MANAGER") {
-      redirect("/agent-manager");
-    } else {
-      redirect("/withdrawer-panel");
-    }
   }
 
   return (
     <div className="flex min-h-screen">
-      <DashboardSidebar />
+      <ManagerSidebar />
       <div className="flex-1 flex flex-col lg:pl-[280px]">
         <header className="sticky top-0 z-40 border-b bg-background h-16">
           <div className="container flex h-16 items-center gap-4">

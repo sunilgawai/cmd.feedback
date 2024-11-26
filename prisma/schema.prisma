@@ -14,7 +14,8 @@ model agent {
   phone   String     @db.VarChar(255) @unique()
   lastlogin DateTime? @default(now())
   commision_rate Float?
-  role  Role? @default(AGENT)
+  role  Role? @default(AGENT
+  AGENT_MANAGER)
 
   // Additional fields from SellerAgent
   contactNumber           BigInt?    // Optional, as not all users may need this
@@ -44,15 +45,57 @@ model agent {
   positivePoints          Int        @default(0)
   negativePoints          Int        @default(0)
   createdAt               DateTime   @default(now())
+  // Relations
+  deposits              deposite[]
+  withdrawals           withdrawal[]
+  binanceAccounts binanceAccount[]
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model withdrawal {
+  id                Int               @id @default(autoincrement())
+  agentId           Int               // Define agentId explicitly
+  agent             agent             @relation(fields: [agentId], references: [id])
+  amount            Float
+  status            TransactionStatus @default(PENDING)
+  upi_id            String?
+  transaction_id    String?
+  image             String?
+}
+
+model deposite {
+  id                Int               @id @default(autoincrement())
+  agentId           Int               // Define agentId explicitly
+  agent             agent             @relation(fields: [agentId], references: [id])
+  status            TransactionStatus @default(PENDING)
+  amount            Float
+  upi_id            String?
+  transaction_id    String?
+  image             String?
 }
 
 enum Role {
   AGENT
+  AGENT_MANAGER
   SUPER_ADMIN
   SELLER_AGENT
   WITHDRAWER_AGENT
 }
 
+model binanceAccount {
+  id                 Int    @id @default(autoincrement())
+  agentId            Int    // Define agentId explicitly
+  agent              agent  @relation(fields: [agentId], references: [id])
+  binanceNetwork String
+  binanceId String @unique()
+}
+
+// OLD TABLES
 model Transaction {
   id              Int  @id @default(autoincrement())
   userId          String

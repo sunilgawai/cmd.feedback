@@ -36,10 +36,11 @@ export default async function AgentsPage() {
         </Link>
       </div>
       <Tabs defaultValue="withdraw" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
           <TabsTrigger value="seller">Seller</TabsTrigger>
+          <TabsTrigger value="manager">Manager</TabsTrigger>
         </TabsList>
         <TabsContent value="withdraw">
           <Suspense fallback={<TeamListSkeleton />}>
@@ -52,6 +53,16 @@ export default async function AgentsPage() {
           </Suspense>
         </TabsContent>
         <TabsContent value="seller">
+          <Suspense fallback={<TeamListSkeleton />}>
+            <DataTable
+              columns={columns}
+              data={agents}
+              // totalItems={withdrawals.length || 0}
+            />
+            {/* <WithdrawsTable data={withdrawals} totalData={withdrawals.length} /> */}
+          </Suspense>
+        </TabsContent>
+        <TabsContent value="manager">
           <Suspense fallback={<TeamListSkeleton />}>
             <DataTable
               columns={columns}
