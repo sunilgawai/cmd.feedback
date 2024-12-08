@@ -11,9 +11,8 @@ import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import NotificationForm from "@/components/forms/notification-form";
-import { NotificationsTable } from "./notifications-table";
 
-export default async function TeamsPage() {
+export default async function BannersPage() {
   const session = await auth();
 
   if (!session?.user) {
@@ -37,7 +36,7 @@ export default async function TeamsPage() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
-            <NotificationsTable />
+            {/* <TeamList teams={teams} /> */}
           </Suspense>
         </CardContent>
       </Card>

@@ -1,5 +1,5 @@
 import { getAgentById } from "@/app/actions/agent-action";
-import AgentForm from "@/components/forms/agent-form";
+import AgentForm from "@/components/forms/customer-form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";

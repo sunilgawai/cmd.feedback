@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Component, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,15 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { CreateTeamForm } from "@/components/forms/create-team-form";
 import { Plus } from "lucide-react";
 
 type CreateDialogProps = {
   title: string;
   description: string;
-  form: JSX.Element;
+  Form: Component;
 };
-export function CreateDialog({ title, description, form }: CreateDialogProps) {
+export function CreateDialog({ title, description, Form }: CreateDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,12 +28,12 @@ export function CreateDialog({ title, description, form }: CreateDialogProps) {
           Create
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-full">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <CreateTeamForm />
+        <Form />
       </DialogContent>
     </Dialog>
   );

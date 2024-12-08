@@ -115,3 +115,40 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model Image {
+  id          String   @id @default(cuid())
+  url         String
+  width       Int?
+  height      Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@id([url])
+}
+
+model Logo {
+  id          String   @id @default(cuid())
+  url         String
+  width       Int?
+  height      Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@id([url])
+}
+
+model SocialMedia {
+  id          String   @id @default(cuid())
+  type        String
+  username    String
+  url         String
+}
+
+model Menu {
+  id String @id @default(cuid())
+  link String
+  title String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt 
+}

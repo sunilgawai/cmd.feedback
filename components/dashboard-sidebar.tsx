@@ -79,6 +79,11 @@ const primaryNavItems = [
     icon: Coins,
   },
   {
+    title: "Banners",
+    href: "/dashboard/banners",
+    icon: Coins,
+  },
+  {
     title: "Teams",
     href: "/dashboard/teams",
     icon: Users,

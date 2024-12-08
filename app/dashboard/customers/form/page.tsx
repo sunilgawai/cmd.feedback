@@ -1,5 +1,6 @@
+import { getCustomerById } from "@/app/actions";
 import { getAgentById } from "@/app/actions/agent-action";
-import AgentForm from "@/components/forms/agent-form";
+import CustomerForm from "@/components/forms/customer-form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -18,7 +19,7 @@ export async function generateMetadata(props: {
   const query = searchParams.query;
 }
 
-const AgentCreatePage = async (props: {
+const CustomerCreatePage = async (props: {
   params: Params;
   searchParams: SearchParams;
 }) => {
@@ -27,12 +28,12 @@ const AgentCreatePage = async (props: {
   const slug = params.slug;
   const query = searchParams.query;
   const mode = searchParams.mode as "create" | "edit";
-  const agentId = parseInt(searchParams.id as string);
+  const customerId = searchParams.id as string;
   console.log({ params, searchParams, slug, query, mode });
 
-  let agent;
-  if (agentId) {
-    agent = await getAgentById(agentId);
+  let customer;
+  if (customerId) {
+    customer = await getCustomerById(customerId);
   }
 
   return (
@@ -41,13 +42,13 @@ const AgentCreatePage = async (props: {
         <Link href="/dashboard/customers">
           <Button>
             <RiArrowGoBackLine className="mr-2 h-4 w-4" />
-            Back to Agents
+            Back to Customers
           </Button>
         </Link>
       </div>
-      <AgentForm mode={mode} id={agentId} agentData={agent} />
+      <CustomerForm mode={mode} id={customerId} customerData={customer} />
     </div>
   );
 };
 
-export default AgentCreatePage;
+export default CustomerCreatePage;

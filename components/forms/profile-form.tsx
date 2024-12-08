@@ -22,6 +22,7 @@ import { toast } from "sonner";
 const profileFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Invalid email address."),
+  password: z.string().min(8, "Password must be at least 8 characters."),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -30,6 +31,7 @@ interface ProfileFormProps {
   user: {
     name?: string | null;
     email?: string | null;
+    password?: string | null;
   };
 }
 
@@ -42,6 +44,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
+      password: user?.password || "",
     },
   });
 
@@ -100,6 +103,22 @@ export function ProfileForm({ user }: ProfileFormProps) {
               </FormControl>
               <FormDescription>
                 This is the email associated with your account.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder="Your password" type="password" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is the password of your account.
               </FormDescription>
               <FormMessage />
             </FormItem>

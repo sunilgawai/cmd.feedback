@@ -30,40 +30,47 @@ export const columns: ColumnDef<T>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "title",
+    header: "Title",
   },
   {
-    accessorKey: "phoneNumber",
-    header: "PHONE NUMBER",
+    accessorKey: "description",
+    header: "description",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "validFrom",
+    header: "Date Applied From",
+    //     cell({getValue}) {
+    //         return <div>{getValue()}</div>
+    //     },
   },
   {
-    header: "View",
-    cell: ({ row }) => (
-      <Link href={`/dashboard/customers/${row.original.id}`}>
-        <EyeIcon color="blue" />
-        <Button variant="link" size="icon" asChild>
-          View
-        </Button>
-      </Link>
-    ),
+    accessorKey: "validTo",
+    header: "Date Applied Till",
   },
-  {
-    id: "edit",
-    header: "Edit",
-    cell: ({ row }) => (
-      <Link href={`/dashboard/customers/form?mode=edit&id=${row.original.id}`}>
-        <Edit color="blue" />
-        <Button variant="link" size="icon" asChild>
-          View
-        </Button>
-      </Link>
-    ),
-  },
+  //   {
+  //     header: "View",
+  //     cell: ({ row }) => (
+  //       <Link href={`/dashboard/customers/${row.original.id}`}>
+  //         <EyeIcon color="blue" />
+  //         <Button variant="link" size="icon" asChild>
+  //           View
+  //         </Button>
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     id: "edit",
+  //     header: "Edit",
+  //     cell: ({ row }) => (
+  //       <Link href={`/dashboard/customers/form?mode=edit&id=${row.original.id}`}>
+  //         <Edit color="blue" />
+  //         <Button variant="link" size="icon" asChild>
+  //           View
+  //         </Button>
+  //       </Link>
+  //     ),
+  //   },
   {
     id: "delete",
     header: "Delete",

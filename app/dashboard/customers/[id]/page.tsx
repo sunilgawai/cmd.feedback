@@ -35,7 +35,7 @@ async function getPageData(id: string) {
   return { agent, transactions, orders };
 }
 
-export default async function AgentDetailsPage({
+export default async function CustomerDetailsPage({
   params,
 }: {
   params: { id: string };
@@ -67,7 +67,7 @@ export default async function AgentDetailsPage({
         </Button>
         <AgentWorkSpeedForm />
         {/* <Slider
-          defaultValue={[50]}
+          defaultValue={[50]} 
           max={100}
           step={1}
           className="w-[60%]"

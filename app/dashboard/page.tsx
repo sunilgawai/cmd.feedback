@@ -12,7 +12,7 @@ async function getOverviewData() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return {
     agentsCount: 150,
-    activeAgents: 120,
+    totalCustomers: 120,
     totalRecharges: 5000,
     moneyIn: 100000,
     moneyOut: 90000,
@@ -51,12 +51,12 @@ export default async function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Active Agents
+                  Total Customers
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {overviewData.activeAgents}
+                  {overviewData.totalCustomers}
                 </div>
               </CardContent>
             </Card>

@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
+import { createOffer } from "@/app/actions";
 
 const formSchema = z.object({
   title: z.string(),
@@ -42,14 +43,17 @@ export default function OfferForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
+      await createOffer(values);
+      toast.success("Form Success");
+      form.reset({
+        title: "",
+        description: "",
+        validFrom: new Date(),
+        validTo: new Date(),
+      });
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");
@@ -60,20 +64,17 @@ export default function OfferForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-3xl mx-auto py-10"
+        className="space-y-8 w-full mx-auto py-10"
       >
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Code</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="code name..." type="text" {...field} />
+                <Input placeholder="offer name..." type="text" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your code in public display.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
