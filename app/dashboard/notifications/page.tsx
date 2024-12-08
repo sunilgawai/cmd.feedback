@@ -10,9 +10,9 @@ import {
 import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
-import OfferForm from "@/components/forms/offer-form";
+import NotificationForm from "@/components/forms/notification-form";
 
-export default async function OffersPage() {
+export default async function TeamsPage() {
   const session = await auth();
 
   if (!session?.user) {
@@ -24,15 +24,15 @@ export default async function OffersPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Offers</h1>
         <CreateDialog
-          title="Create Offer"
-          description="Create your offer here"
-          form={<OfferForm />}
-        />  
+          title="Create Notification"
+          description="Create your notification here"
+          form={<NotificationForm />}
+        />
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Your Offers</CardTitle>
-          <CardDescription>Offers you created.</CardDescription>
+          <CardTitle>Your Notification</CardTitle>
+          <CardDescription>Notification you created.</CardDescription>
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
