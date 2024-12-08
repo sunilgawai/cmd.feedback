@@ -23,7 +23,6 @@ async function getOverviewData() {
 
 export default async function DashboardPage() {
   const overviewData = await getOverviewData();
-  const { agents } = await getDashboardStats();
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -46,7 +45,7 @@ export default async function DashboardPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{agents.length}</div>
+                <div className="text-2xl font-bold">{0}</div>
               </CardContent>
             </Card>
             <Card>

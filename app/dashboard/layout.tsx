@@ -15,18 +15,18 @@ export default async function DashboardLayout({
   const session = await auth();
 
   if (!session?.user) {
-    redirect("/");
+    // redirect("/");
   }
 
-  if (session.user.role !== "SUPER_ADMIN") {
-    if (session?.user.role === "SELLER_AGENT") {
-      redirect("/seller-panel");
-    } else if (session?.user.role === "AGENT_MANAGER") {
-      redirect("/agent-manager");
-    } else {
-      redirect("/withdrawer-panel");
-    }
-  }
+  // if (session.user.role !== "SUPER_ADMIN") {
+  //   if (session?.user.role === "SELLER_AGENT") {
+  //     redirect("/seller-panel");
+  //   } else if (session?.user.role === "AGENT_MANAGER") {
+  //     redirect("/agent-manager");
+  //   } else {
+  //     redirect("/withdrawer-panel");
+  //   }
+  // }
 
   return (
     <div className="flex min-h-screen">
