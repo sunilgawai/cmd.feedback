@@ -26,6 +26,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { createVoucher } from "@/app/actions";
+import { auth } from "@/app/auth";
 
 const formSchema = z.object({
   code: z.string(),
@@ -49,9 +50,12 @@ export default function VoucherForm() {
       const response = await createVoucher(values);
       console.log("response", response);
       toast.success("Agent added successfully");
-      form.reset();
-      router.push(`/dashboard/agents`);
-      router.refresh();
+      form.reset({
+        code: "",
+        description: "",
+        validFrom: new Date(),
+        validTo: new Date(),
+      });
     } catch (error) {
       toast.error("Something went wrong");
       console.error("Form submission error", error);
@@ -63,7 +67,7 @@ export default function VoucherForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 mx-auto py-10"
+        className="space-y-8 w-full mx-auto py-10"
       >
         <FormField
           control={form.control}

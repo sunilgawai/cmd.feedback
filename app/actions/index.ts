@@ -8,9 +8,18 @@ export const createVoucher = async (values: {
   validTo: Date;
 }) => {
   await prisma.voucher.create({
-    // @ts-ignore
-    data: values,
+    data: {
+      code: values.code,
+      description: values.description,
+      validFrom: values.validFrom,
+      validTo: values.validTo,
+      user: { connect: { id: "cm4fro8hi0000fjzdb5zoueem" } },
+    },
   });
+};
+
+export const getAllVouchers = async () => {
+  return await prisma.voucher.findMany();
 };
 
 export const getCustomerById = async (id: string) => {

@@ -11,8 +11,10 @@ import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import OfferForm from "@/components/forms/offer-form";
-import { VouchersTable } from "./vouchers-table";
 import VoucherForm from "@/components/forms/voucher-form";
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "./columns";
+import { getAllVouchers } from "@/app/actions";
 
 export default async function OffersPage() {
   const session = await auth();
@@ -21,6 +23,7 @@ export default async function OffersPage() {
     redirect("/login");
   }
 
+  const vouchers = await getAllVouchers();
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
@@ -28,7 +31,7 @@ export default async function OffersPage() {
         <CreateDialog
           title="Create Vouchers"
           description="Create your voucher here"
-          form={<VoucherForm />}
+          form={VoucherForm}
         />
       </div>
       <Card>
@@ -38,7 +41,7 @@ export default async function OffersPage() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
-            <VouchersTable />
+            <DataTable columns={columns} data={vouchers} />
           </Suspense>
         </CardContent>
       </Card>

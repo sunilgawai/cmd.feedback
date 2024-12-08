@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, useState } from "react";
+import { ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,9 +15,14 @@ import { Plus } from "lucide-react";
 type CreateDialogProps = {
   title: string;
   description: string;
-  Form: Component;
+  form: React.ComponentType;
 };
-export function CreateDialog({ title, description, Form }: CreateDialogProps) {
+
+export function CreateDialog({
+  title,
+  description,
+  form: Form,
+}: CreateDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -33,7 +38,7 @@ export function CreateDialog({ title, description, Form }: CreateDialogProps) {
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <Form />
+        <Form /> 
       </DialogContent>
     </Dialog>
   );
