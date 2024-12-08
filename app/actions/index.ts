@@ -58,3 +58,22 @@ export const createOffer = async (values: {
 export const getAllOffers = async () => {
   return await prisma.offer.findMany();
 }
+
+// Notifications
+
+export const createNotification = async ({title,message}: {
+  title: string;
+  message: string;
+}) => {
+  await prisma.notification.create({
+    data: {
+      title,
+      message,
+      user: { connect: { id: "cm4fro8hi0000fjzdb5zoueem" } },
+    },
+  });
+};
+
+export const getAllNotifications = async () => {
+  return await prisma.notification.findMany();
+};

@@ -11,23 +11,26 @@ import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import NotificationForm from "@/components/forms/notification-form";
-import { NotificationsTable } from "./notifications-table";
+import { DataTable } from "@/components/ui/data-table";
+import { columns } from "./columns";
+import { getAllNotifications } from "@/app/actions";
 
-export default async function TeamsPage() {
+export default async function NotificationsPage() {
   const session = await auth();
 
   if (!session?.user) {
     redirect("/login");
   }
 
+  const notifications = await getAllNotifications();
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Offers</h1>
+        <h1 className="text-3xl font-bold">Sent Notifications</h1>
         <CreateDialog
           title="Create Notification"
           description="Create your notification here"
-          form={<NotificationForm />}
+          form={NotificationForm}
         />
       </div>
       <Card>
@@ -37,7 +40,7 @@ export default async function TeamsPage() {
         </CardHeader>
         <CardContent>
           <Suspense fallback={<TeamListSkeleton />}>
-            <NotificationsTable />
+            <DataTable columns={columns} data={notifications} />
           </Suspense>
         </CardContent>
       </Card>
