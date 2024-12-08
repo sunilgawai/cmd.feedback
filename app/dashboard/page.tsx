@@ -5,7 +5,7 @@ import { Overview } from "./_components/overview";
 import { RecentOrders } from "./_components/recent-orders";
 import { PendingOrders } from "./_components/pending-orders";
 import { AgentScores } from "./_components/agent-scores";
-import { getDashboardStats } from "./actions";
+import { getDashboardOverview } from "../actions";
 
 async function getOverviewData() {
   // Simulate fetching data from an API
@@ -22,7 +22,7 @@ async function getOverviewData() {
 }
 
 export default async function DashboardPage() {
-  const overviewData = await getOverviewData();
+  const overviewData = await getDashboardOverview();
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -41,16 +41,6 @@ export default async function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Agents
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{0}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
                   Total Customers
                 </CardTitle>
               </CardHeader>
@@ -63,29 +53,41 @@ export default async function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Recharges
+                  Total Offers
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {overviewData.totalRecharges}
+                  {overviewData.totalOffers}
                 </div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Money In/Out
+                  Total Vouchers
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ${overviewData.moneyIn} / ${overviewData.moneyOut}
+                  {overviewData.totalVouchers}
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Messages In/Out
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {overviewData.totalOffers} / {overviewData.totalVouchers}
                 </div>
               </CardContent>
             </Card>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+          <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1">
             <Card className="col-span-4">
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
@@ -94,35 +96,15 @@ export default async function DashboardPage() {
                 <Overview />
               </CardContent>
             </Card>
-            <Card className="col-span-3">
+            {/* <Card className="col-span-3">
               <CardHeader>
                 <CardTitle>Recent Orders</CardTitle>
               </CardHeader>
               <CardContent>
                 <RecentOrders />
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
-        </TabsContent>
-        <TabsContent value="orders" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Orders</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <PendingOrders />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="scores" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Agent Scores</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <AgentScores />
-            </CardContent>
-          </Card>
         </TabsContent>
       </Tabs>
     </div>

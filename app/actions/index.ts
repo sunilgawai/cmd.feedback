@@ -1,6 +1,24 @@
 "use server"
 import { prisma } from "@/lib/prisma";
 
+// Dashboard
+
+export const getDashboardOverview = async () => {
+  const totalCustomers = await prisma.user.count();
+  const totalVouchers = await prisma.voucher.count();
+  const totalOffers = await prisma.offer.count();
+  const notifications = await prisma.notification.count();
+  const banners = 0o0;
+
+  return {
+    totalCustomers,
+    totalVouchers,
+    totalOffers,
+    notifications,
+    banners,
+  }
+}
+
 export const createVoucher = async (values: {
   code: string;
   description: string;
