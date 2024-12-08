@@ -84,16 +84,6 @@ const primaryNavItems = [
     icon: Coins,
   },
   {
-    title: "Teams",
-    href: "/dashboard/teams",
-    icon: Users,
-  },
-  {
-    title: "Billing",
-    href: "/dashboard/billing",
-    icon: CreditCard,
-  },
-  {
     title: "Elements",
     href: "/dashboard/elements",
     icon: ArrowDownAZIcon,
