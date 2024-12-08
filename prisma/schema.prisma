@@ -123,8 +123,6 @@ model Image {
   height      Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  @@id([url])
 }
 
 model Logo {
@@ -134,8 +132,6 @@ model Logo {
   height      Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  @@id([url])
 }
 
 model SocialMedia {
