@@ -14,8 +14,7 @@ model agent {
   phone   String     @db.VarChar(255) @unique()
   lastlogin DateTime? @default(now())
   commision_rate Float?
-  role  Role? @default(AGENT
-  AGENT_MANAGER)
+  role  Role? @default(AGENT)
 
   // Additional fields from SellerAgent
   contactNumber           BigInt?    // Optional, as not all users may need this

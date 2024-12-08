@@ -1,114 +1,709 @@
-datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-}
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? @db.Text
-    session_state     String?
-
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@unique([provider, providerAccountId])
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model agent {
+  id         Int       @id @default(autoincrement())
+  username   String     @db.VarChar(225)
+  password   String     @db.VarChar(255)
+  phone   String     @db.VarChar(255) @unique()
+  lastlogin DateTime? @default(now())
+  commision_rate Float?
+  role  Role? @default(AGENT
+  AGENT_MANAGER)
+
+  // Additional fields from SellerAgent
+  contactNumber           BigInt?    // Optional, as not all users may need this
+  adminCommission         Int?       // Optional
+  upiId                   String?
+  isNewAccount            Boolean    @default(false)
+  assignAdmin             String?
+  status                  Boolean    @default(true)
+  deleted                 Boolean    @default(false)
+  mysteryBoxPoint         Int        @default(0)
+  isOnline                Boolean    @default(false)
+  binanceId               String?   
+  referUsers              String? 
+  walletId                String?    
+  walletBalance           Float      @default(0)
+  wallet                  String?
+  distributedAmount       Float      @default(0)
+  todayDistributedAmount  Float      @default(0)
+  todayTotalRequest       Int        @default(0)
+  todayTotalAcceptTime    Int        @default(0)
+  todayAverageAcceptTime  Float?     
+  todayPositivePoints     Int        @default(0)
+  todayNegativePoints     Int        @default(0)
+  totalRequest            Int        @default(0)
+  totalAcceptTime         Int        @default(0)
+  averageAcceptTime       Float?     
+  positivePoints          Int        @default(0)
+  negativePoints          Int        @default(0)
+  createdAt               DateTime   @default(now())
+  // Relations
+  deposits              deposite[]
+  withdrawals           withdrawal[]
+  binanceAccounts binanceAccount[]
 }
 
-model User {
-    id                 String    @id @default(cuid())
-    name               String?
-    email              String?   @unique
-    emailVerified      DateTime?
-    image              String?
-    accounts           Account[]
-    sessions           Session[]
-    stripeCustomerId   String?   @unique
-    subscriptionId     String?   @unique
-    subscriptionStatus String?
-    teams             TeamMember[]
-    teamActivities    TeamActivity[]
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
-
-    @@unique([identifier, token])
+model withdrawal {
+  id                Int               @id @default(autoincrement())
+  agentId           Int               // Define agentId explicitly
+  agent             agent             @relation(fields: [agentId], references: [id])
+  amount            Float
+  status            TransactionStatus @default(PENDING)
+  upi_id            String?
+  transaction_id    String?
+  image             String?
 }
 
-model Team {
-  id          String       @id @default(cuid())
-  name        String
-  slug        String       @unique
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  members     TeamMember[]
-  invitations Invitation[]
-  activities TeamActivity[]
-}
-
-model TeamMember {
-  id        String   @id @default(cuid())
-  role      Role     @default(MEMBER)
-  teamId    String
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([teamId, userId])
-}
-
-model Invitation {
-  id        String   @id @default(cuid())
-  email     String
-  role      Role     @default(MEMBER)
-  token     String   @unique
-  expires   DateTime
-  teamId    String
-  createdAt DateTime @default(now())
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-
-  @@index([email])
-}
-
-model TeamActivity {
-  id        String   @id @default(cuid())
-  teamId    String
-  userId    String
-  event     String   // e.g., "member_added", "member_removed", "role_updated"
-  metadata  Json     // Additional event data
-  createdAt DateTime @default(now())
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([teamId])
-  @@index([userId])
+model deposite {
+  id                Int               @id @default(autoincrement())
+  agentId           Int               // Define agentId explicitly
+  agent             agent             @relation(fields: [agentId], references: [id])
+  status            TransactionStatus @default(PENDING)
+  amount            Float
+  upi_id            String?
+  transaction_id    String?
+  image             String?
 }
 
 enum Role {
+  AGENT
+  AGENT_MANAGER
+  SUPER_ADMIN
+  SELLER_AGENT
+  WITHDRAWER_AGENT
+}
+
+model binanceAccount {
+  id                 Int    @id @default(autoincrement())
+  agentId            Int    // Define agentId explicitly
+  agent              agent  @relation(fields: [agentId], references: [id])
+  binanceNetwork String
+  binanceId String @unique()
+}
+
+// OLD TABLES
+model Transaction {
+  id              Int  @id @default(autoincrement())
+  userId          String
+  agentId         String
+  transactionType String  // DEPOSIT, WITHDRAWAL
+  amount          Float
+  status          String  // PENDING, COMPLETED, FAILED
+  timestamp       DateTime @default(now())
+}
+
+
+model abbetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  num    String   @db.VarChar(20)
+  clo    String   @db.VarChar(21)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model abbetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   BigInt
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  time     DateTime @default(now()) @db.DateTime(0)
+  number   String   @default("wait") @db.VarChar(255)
+}
+
+model abperiod {
+  id     Int    @id @default(1)
+  period BigInt
+  num    Int?
+  nxt    Int    @default(0)
+}
+
+model account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_fkey")
+
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_fkey")
+}
+
+model admin {
+  id       Int    @id
+  username String @db.VarChar(255)
+  password String @db.VarChar(255)
+}
+
+model apply {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(211)
+  amount   Int
+  status   String   @default("Applying") @db.VarChar(211)
+  time     DateTime @default(now()) @db.Timestamp(0)
+}
+
+model aviset {
+  id  Int @id
+  nxt Int @default(0)
+}
+
+model beconebet {
+  TIME DateTime @default(now()) @db.DateTime(0)
+  id   Int      @id
+}
+
+model beconebetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  num    String   @db.VarChar(20)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model beconebetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   BigInt
+  ans      Int
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  time     DateTime @default(now()) @db.DateTime(0)
+  price    String   @default("wait") @db.VarChar(211)
+  number   String   @default("wait") @db.VarChar(255)
+}
+
+model beconeperiod {
+  id     Int    @default(1)
+  period BigInt @id
+  nxt    Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model bet {
+  TIME DateTime @default(now()) @db.DateTime(0)
+  id   Int
+
+  @@ignore
+}
+
+model betrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  num    String   @db.VarChar(20)
+  clo    String   @db.TinyText
+  res1   String   @db.VarChar(211)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model betting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   BigInt
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  time     DateTime @default(now()) @db.DateTime(0)
+  price    String   @default("wait") @db.VarChar(211)
+  number   String   @default("wait") @db.VarChar(255)
+  color    String   @db.Text
+  am       String   @default("wait") @db.VarChar(211)
+  color2   String   @db.Text
+}
+
+model bonus {
+  id         Int      @id @default(autoincrement())
+  giver      BigInt
+  usercode   String   @db.VarChar(255)
+  amount     Float    @db.Float
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  level      Int
+}
+
+model complaint {
+  id          Int      @id @default(autoincrement())
+  username    String   @db.VarChar(12)
+  Ticket      String   @db.VarChar(211)
+  Support     String   @db.VarChar(211)
+  Transaction String   @db.VarChar(211)
+  refno       String   @db.VarChar(211)
+  Description String   @db.VarChar(211)
+  Amount      Int?
+  PaidTo      String   @db.VarChar(211)
+  UTR         String   @db.VarChar(211)
+  account     String   @db.VarChar(211)
+  ifsc        String   @db.VarChar(211)
+  Mode        String   @db.VarChar(211)
+  Resolution  String   @db.VarChar(211)
+  Status      String   @default("processing") @db.VarChar(211)
+  time        DateTime @default(now()) @db.Timestamp(0)
+  screenshot  String   @db.VarChar(211)
+}
+
+model crashbetrecord {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(211)
+  amount   Int
+  status   String   @default("pending") @db.VarChar(211)
+  winpoint String   @db.VarChar(211)
+  time     DateTime @default(now()) @db.Timestamp(0)
+}
+
+model crashgamerecord {
+  id         Int      @id @default(autoincrement())
+  crashpoint String   @db.VarChar(211)
+  time       DateTime @default(now()) @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model democrashbetrecord {
+  id       Int
+  username String   @db.VarChar(211)
+  amount   Int
+  status   String   @default("pending") @db.VarChar(211)
+  winpoint String   @db.VarChar(211)
+  time     DateTime @default(now()) @db.Timestamp(0)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model democrashgamerecord {
+  id         Int
+  crashpoint String   @db.VarChar(211)
+  time       DateTime @default(now()) @db.Timestamp(0)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model emredbet {
+  TIME DateTime @default(now()) @db.DateTime(0)
+  id   Int
+
+  @@ignore
+}
+
+model emredbetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  num    String   @db.VarChar(20)
+  clo    String   @db.TinyText
+  res1   String   @db.VarChar(211)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model emredbetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   BigInt
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  time     DateTime @default(now()) @db.DateTime(0)
+  price    String   @default("wait") @db.VarChar(211)
+  number   String   @default("wait") @db.VarChar(255)
+  color    String   @db.Text
+  am       String   @default("wait") @db.VarChar(211)
+  color2   String   @db.Text
+}
+
+model emredperiod {
+  id     Int    @id @default(1)
+  period BigInt
+  nxt    Int
+}
+
+model gift {
+  id      Int      @id @default(autoincrement())
+  amount  Int
+  share   Int
+  code    String   @db.VarChar(211)
+  created DateTime @default(now()) @db.Timestamp(0)
+}
+
+model giftrec {
+  id       Int      @id @default(autoincrement())
+  code     String   @db.VarChar(211)
+  username String   @db.VarChar(211)
+  amount   Int
+  created  DateTime @default(now()) @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model help {
+  id       Int
+  username String   @db.VarChar(211)
+  outid    Int
+  whatsapp String   @db.VarChar(211)
+  des      String   @db.LongText
+  status   String   @default("wait") @db.VarChar(211)
+  created  DateTime @default(now()) @db.Timestamp(0)
+
+  @@ignore
+}
+
+model invitation {
+  id        String          @id
+  email     String
+  role      invitation_role @default(MEMBER)
+  token     String          @unique(map: "Invitation_token_key")
+  expires   DateTime
+  teamId    String
+  createdAt DateTime        @default(now())
+  team      team            @relation(fields: [teamId], references: [id], onDelete: Cascade, map: "Invitation_teamId_fkey")
+
+  @@index([email], map: "Invitation_email_idx")
+  @@index([teamId], map: "Invitation_teamId_fkey")
+}
+
+model mine {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(211)
+  period   String   @db.VarChar(211)
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  number   String   @default("wait") @db.VarChar(255)
+  win      Float    @db.Float
+  time     DateTime @default(now()) @db.DateTime(0)
+}
+
+model mine_setting {
+  id          Int @id @default(autoincrement())
+  minserver9  Int @default(0)
+  minserver16 Int @default(0)
+  minserver64 Int @default(0)
+  maxserver9  Int @default(9)
+  maxserver16 Int @default(16)
+  maxserver64 Int @default(64)
+}
+
+model notice {
+  id     Int     @id @default(autoincrement())
+  notice String  @default("Invite members to recharge 300 rupees to get bonus 100 rupees. About Recharge and withdrawal,contact customer care") @db.VarChar(255)
+  upi    String? @db.VarChar(211)
+  upi1   String  @db.VarChar(211)
+}
+
+model otp {
+  id     Int     @id
+  api    String  @db.VarChar(412)
+  status Boolean @default(true)
+}
+
+model period {
+  id     Int    @id @default(1)
+  period BigInt
+  nxt    Int
+}
+
+model recharge {
+  id         Int      @id @default(autoincrement())
+  username   String   @db.VarChar(255)
+  recharge   Float
+  status     String   @db.Text
+  created_at DateTime @default(now()) @db.DateTime(0)
+  upi        String   @db.VarChar(211)
+  utr        String   @unique(map: "utr") @db.VarChar(255)
+  rand       String   @db.VarChar(211)
+}
+
+model record {
+  id         Int      @id @default(autoincrement())
+  username   String   @db.VarChar(255)
+  withdraw   Float
+  status     String   @default("Applying") @db.VarChar(255)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  rand       String   @db.VarChar(211)
+  upi        String   @db.VarChar(211)
+  name       String   @db.VarChar(211)
+  bankname   String   @db.VarChar(211)
+  account    String?  @db.VarChar(15)
+  ifsc       String?  @db.VarChar(115)
+  note       String   @default("Payment failed") @db.VarChar(211)
+  type       String   @default("normal") @db.VarChar(12)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model saprebet {
+  TIME DateTime @default(now()) @db.DateTime(0)
+  id   Int
+
+  @@ignore
+}
+
+model saprebetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  num    String   @db.VarChar(20)
+  clo    String   @db.TinyText
+  res1   String   @db.VarChar(211)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model saprebetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   BigInt
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  time     DateTime @default(now()) @db.DateTime(0)
+  price    String   @default("wait") @db.VarChar(211)
+  number   String   @default("wait") @db.VarChar(255)
+  color    String   @db.Text
+  am       String   @default("wait") @db.VarChar(211)
+  color2   String   @db.Text
+}
+
+model sapreperiod {
+  id     Int    @id @default(1)
+  period BigInt
+  nxt    Int
+}
+
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
+  userId       String
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_fkey")
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model settings {
+  id        Int     @id @default(autoincrement())
+  recharge  Int     @default(200)
+  withdraw  Int     @default(330)
+  bonus     Int     @default(100)
+  telegroup String? @db.VarChar(211)
+  support   String? @db.VarChar(211)
+}
+
+model signin {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(211)
+  created  DateTime @default(now()) @db.Timestamp(0)
+  amount   Int
+}
+
+model team {
+  id           String         @id
+  name         String
+  slug         String         @unique(map: "Team_slug_key")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  invitation   invitation[]
+  teamactivity teamactivity[]
+  teammember   teammember[]
+}
+
+model teamactivity {
+  id        String   @id
+  teamId    String
+  userId    String
+  event     String
+  metadata  Json
+  createdAt DateTime @default(now())
+  team      team     @relation(fields: [teamId], references: [id], onDelete: Cascade, map: "TeamActivity_teamId_fkey")
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "TeamActivity_userId_fkey")
+
+  @@index([teamId], map: "TeamActivity_teamId_idx")
+  @@index([userId], map: "TeamActivity_userId_idx")
+}
+
+model teammember {
+  id        String          @id
+  role      teammember_role @default(MEMBER)
+  teamId    String
+  userId    String
+  createdAt DateTime        @default(now())
+  updatedAt DateTime
+  team      team            @relation(fields: [teamId], references: [id], onDelete: Cascade, map: "TeamMember_teamId_fkey")
+  user      user            @relation(fields: [userId], references: [id], onDelete: Cascade, map: "TeamMember_userId_fkey")
+
+  @@unique([teamId, userId], map: "TeamMember_teamId_userId_key")
+  @@index([userId], map: "TeamMember_userId_fkey")
+}
+
+model trans {
+  id       Int      @id @default(autoincrement())
+  username String?  @db.VarChar(15)
+  reason   String   @db.VarChar(150)
+  amount   Float
+  time     DateTime @default(now()) @db.Timestamp(0)
+  type     String?  @db.VarChar(11)
+}
+
+model user {
+  id                 String         @id
+  name               String?
+  email              String?        @unique(map: "User_email_key")
+  emailVerified      DateTime?
+  role                Role? @default(AGENT)
+  image              String?
+  stripeCustomerId   String?        @unique(map: "User_stripeCustomerId_key")
+  subscriptionId     String?        @unique(map: "User_subscriptionId_key")
+  subscriptionStatus String?
+  account            account[]
+  session            session[]
+  teamactivity       teamactivity[]
+  teammember         teammember[]
+}
+
+model users {
+  id           Int       @id @unique(map: "id") @default(autoincrement())
+  username     String    @unique(map: "username") @db.VarChar(10)
+  password     String    @db.VarChar(255)
+  refcode      String    @db.VarChar(255)
+  usercode     String    @db.VarChar(255)
+  created_at   DateTime? @default(now()) @db.DateTime(0)
+  balance      Float     @default(0.00)
+  account      BigInt    @default(1111111111)
+  ifsc         String    @default("Not Addeed") @db.VarChar(255)
+  withdraw     Int
+  refcode1     String    @db.VarChar(11)
+  refcode2     String    @db.VarChar(11)
+  name         String    @db.VarChar(211)
+  upi          String    @db.VarChar(211)
+  nickname     String    @default("User") @db.VarChar(211)
+  bonus        Float     @default(0) @db.Float
+  r_ip         String?   @db.VarChar(211)
+  bankname     String    @db.VarChar(211)
+  state        String    @db.VarChar(211)
+  city         String    @db.VarChar(211)
+  address      String    @db.VarChar(511)
+  mobile       String    @db.VarChar(211)
+  email        String    @db.VarChar(211)
+  status       Boolean   @default(false)
+  ip           String?   @db.VarChar(211)
+  waggering    Float     @default(0) @db.Float
+  paytm        String    @db.VarChar(211)
+  demobalance  Int       @default(0)
+  token        String    @db.VarChar(211)
+  signuptask   Boolean   @default(false)
+  rechargetask Boolean   @default(false)
+}
+
+model verificationtoken {
+  identifier String
+  token      String   @unique(map: "VerificationToken_token_key")
+  expires    DateTime
+
+  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model verify {
+  id       Int      @id @default(autoincrement())
+  username BigInt
+  otp      Int
+  time     DateTime @default(now()) @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model vipbet {
+  TIME DateTime @default(now()) @db.DateTime(0)
+  id   Int
+
+  @@ignore
+}
+
+model vipbetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  clo    String   @db.TinyText
+  num    String   @db.VarChar(11)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model vipbetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   String   @db.VarChar(255)
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  fres     String   @default("wait") @db.VarChar(211)
+  time     DateTime @default(now()) @db.DateTime(0)
+}
+
+model vipperiod {
+  id     Int    @id @default(0)
+  period BigInt
+  nxt    Int
+}
+
+model wheelbetrec {
+  id     Int      @id @default(autoincrement())
+  period BigInt
+  ans    String   @db.VarChar(11)
+  clo    String   @db.TinyText
+  num    String   @db.VarChar(11)
+  time   DateTime @default(now()) @db.DateTime(0)
+}
+
+model wheelbetting {
+  id       Int      @id @default(autoincrement())
+  username String   @db.VarChar(225)
+  period   String   @db.VarChar(255)
+  ans      String   @db.VarChar(11)
+  amount   Float
+  status   String   @default("pending") @db.VarChar(255)
+  res      String   @default("wait") @db.VarChar(255)
+  fres     String   @default("wait") @db.VarChar(211)
+  time     DateTime @default(now()) @db.DateTime(0)
+}
+
+model wheelperiod {
+  id     Int    @id @default(0)
+  period BigInt
+  nxt    Int
+}
+
+enum teammember_role {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum invitation_role {
   OWNER
   ADMIN
   MEMBER
