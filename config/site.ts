@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "FASTWIN ADMIN",
+  name: "Dashboard",
   description: "Your SaaS Description",
   url: process.env.NEXT_PUBLIC_APP_URL,
   ogImage: "https://avatars.githubusercontent.com/u/71868299?v=4",
@@ -9,7 +9,7 @@ export const siteConfig = {
   },
   emails: {
     from: {
-      name: "FewWin",
+      name: "Dashboard",
       email: "notifications@onboarding.dev", // Must be verified in Resend
     },
   },
