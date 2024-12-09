@@ -118,9 +118,12 @@ model VerificationToken {
 
 model Image {
   id          String   @id @default(cuid())
+  title String?
   url         String
   width       Int?
   height      Int?
+  bannerId       String
+  banner         Banner     @relation(fields: [bannerId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -145,6 +148,14 @@ model Menu {
   id String @id @default(cuid())
   link String
   title String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt 
+}
+
+model Banner {
+  id          String   @id @default(cuid())
+  title String
+  images Image[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt 
 }

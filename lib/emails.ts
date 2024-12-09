@@ -23,11 +23,13 @@ export async function sendEmail<T extends Record<string, unknown>>({
 }) {
   try {
     const data = await resend.emails.send({
-      from: `${siteConfig.emails.from.name} <${siteConfig.emails.from.email}>`,
+      from: "Acme <onboarding@resend.dev>",
       to,
       subject,
       react: React.createElement(EmailTemplate, props),
     });
+
+    console.log("data", data);
 
     return { success: true, data };
   } catch (error) {

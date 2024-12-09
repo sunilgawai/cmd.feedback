@@ -20,6 +20,8 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { BannerUpload } from "./banner-upload";
+import BannersForm from "../customers/form/banners-form";
 
 export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
@@ -49,16 +51,7 @@ export default function BannersPage() {
           form={NotificationForm}
         />
       </div>
-      {/* File Upload */}
-      <div className="flex flex-col gap-4">
-        <div>
-          <h3 className="font-semibold">FileUpload</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Drag and drop file upload component with preview
-          </p>
-          <FileUploadExample />
-        </div>
-      </div>
+      <BannersForm />
       <div className="flex items-center justify-center text-2xl font-semibold">
         <h1>Current Banner</h1>
       </div>

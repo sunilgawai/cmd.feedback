@@ -4,6 +4,7 @@ import AlertModel from "@/components/alert-model";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { prisma } from "@/lib/prisma";
 
 interface DeleteActionProps {
   data: any;
@@ -14,7 +15,16 @@ export const DeleteAction: React.FC<DeleteActionProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {
+    setLoading(true);
+    try {
+      await prisma.user.delete({where: {id: data.id}})
+      setOpen(false);
+      router.push("/dashboard/customer");
+    } catch(e:any){
+      setLoading(true);
+    }
+  };
 
   return (
     <>
