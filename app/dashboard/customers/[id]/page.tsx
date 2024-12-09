@@ -40,7 +40,7 @@ export default async function CustomerDetailPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <EmailPreferencesForm user={session.user} />
+            {/* <EmailPreferencesForm user={session.user} /> */}
           </CardContent>
         </Card>
 
