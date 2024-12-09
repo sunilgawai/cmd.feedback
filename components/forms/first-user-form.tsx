@@ -40,7 +40,7 @@ export default function FirstUserForm() {
       //   </pre>
       // );
       toast.success("Form submitted successfully!");
-      window.location.replace("/welcome");
+      window.location.replace("/home");
     } catch (error) {
       console.error("Form submission error", error);
       toast.error(error?.message);
