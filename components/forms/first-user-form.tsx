@@ -41,7 +41,7 @@ export default function FirstUserForm() {
       // );
       toast.success("Form submitted successfully!");
       window.location.replace("/home");
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Form submission error", error);
       toast.error(error?.message);
     }
