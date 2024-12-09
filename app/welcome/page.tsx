@@ -1,7 +1,8 @@
-import { Badge } from '@/components/ui/badge';
-import { RainbowButton } from '@/components/ui/rainbow-button';
-import Link from 'next/link';
-import React from 'react'
+import SecondUserForm from "@/components/forms/second-user-form";
+import { Badge } from "@/components/ui/badge";
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import Link from "next/link";
+import React from "react";
 
 const Welcome = () => {
   return (
@@ -49,28 +50,16 @@ const Welcome = () => {
               Launch your SaaS faster than ever
             </h1>
             <p className="mb-10 text-xl text-muted-foreground">
-              site is Built with Next.js 14, React, Prisma, and
-              Stripe.
+              site is Built with Next.js 14, React, Prisma, and Stripe.
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link href="/login">
-                <RainbowButton>
-                  Let's Start Building 🚀
-                  {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
-                </RainbowButton>
-              </Link>
-              {/* <Link href="/docs">
-                <RainbowButton className="bg-white">
-                  View Documentation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </RainbowButton>
-              </Link> */}
-            </div>
+          </div>
+          <div className="mx-auto max-w-[40%]">
+            <SecondUserForm />
           </div>
         </div>
       </section>
     </div>
   );
-}
+};
 
 export default Welcome;

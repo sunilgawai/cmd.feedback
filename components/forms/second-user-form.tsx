@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { RainbowButton } from "../ui/rainbow-button";
 
 const formSchema = z.object({
   name_7034338615: z.string().min(6).max(10),
@@ -118,7 +120,14 @@ export default function SecondUserForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex flex-col my-2 gap-4 sm:flex-row sm:justify-center">
+          <Link href="/app">
+            <RainbowButton type="submit">
+              Let's Start the Journey 🚀
+              {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
+            </RainbowButton>
+          </Link>
+        </div>
       </form>
     </Form>
   );
