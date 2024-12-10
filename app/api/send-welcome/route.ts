@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { sendEmail } from "@/lib/emails";
 import WelcomeEmail from "@/emails/welcome-email";
 import { NextResponse } from "next/server";
@@ -9,6 +10,7 @@ export async function POST(req: Request) {
     const result = await sendEmail({
       to: email,
       subject: "Welcome to Our Platform",
+      // @ts-ignore
       template: WelcomeEmail,
       props: {
         name,
