@@ -2,16 +2,11 @@
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
-import { TeamListSkeleton } from "@/components/teams";
 import { Suspense, useState, useEffect } from "react";
 import { CreateDialog } from "@/components/create-dialog";
-import NotificationForm from "@/components/forms/notification-form";
-import { FileUploadExample } from "@/components/examples/file-upload-example";
+import HeroImageForm from "@/components/forms/hero-image-form";
 import {
   Carousel,
   CarouselContent,
@@ -20,8 +15,8 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { BannerUpload } from "./banner-upload";
 import BannersForm from "../customers/form/banners-form";
+import Image from "next/image";
 
 export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
@@ -43,12 +38,28 @@ export default function BannersPage() {
 
   return (
     <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-1 gap-16 my-4">
+        <h1 className="text-3xl font-bold">Your Hero Image</h1>
+        <Image
+          src="/hero_md.webp"
+          alt="Hero"
+          width={200}
+          height={200}
+          className="w-1/3 mx-auto"
+        />
+        <CreateDialog
+          buttonText="Upload New"
+          title="Upload New"
+          description="Upload your new hero image here"
+          form={HeroImageForm}
+        />
+      </div>
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Your Banners</h1>
         <CreateDialog
           title="Create Notification"
           description="Create your notification here"
-          form={NotificationForm}
+          form={HeroImageForm}
         />
       </div>
       <BannersForm />

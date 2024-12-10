@@ -6,6 +6,29 @@ import MagicLinkEmail from "@/emails/magic-link-email";
 
 import { nanoid } from "nanoid"; // For generating random identifiers
 
+import fs from "fs";
+import path from "path";
+
+export async function saveImageToDB(image: { path: string; preview: string }) {
+  try {
+    // Read the file as binary from the local filesystem
+    const filePath = path.resolve(process.cwd(), image.path); // Adjust the path if necessary
+    const fileBuffer = fs.readFileSync(filePath);
+
+    // Save the binary file to the database
+    await prisma.heroImage.create({
+      data: {
+        image: fileBuffer, // Store binary data in the database
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error saving image:", error);
+    throw new Error("Failed to save image to the database.");
+  }
+}
+
 // Dashboard
 
 export const getDashboardOverview = async () => {

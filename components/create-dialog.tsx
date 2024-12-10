@@ -13,12 +13,14 @@ import {
 import { Plus } from "lucide-react";
 
 type CreateDialogProps = {
+  buttonText?: string;
   title: string;
   description: string;
   form: React.ComponentType;
 };
 
 export function CreateDialog({
+  buttonText = "Create",
   title,
   description,
   form: Form,
@@ -36,7 +38,7 @@ export function CreateDialog({
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" />
-          Create
+          {buttonText}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-full">

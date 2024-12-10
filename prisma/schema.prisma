@@ -159,3 +159,15 @@ model Banner {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt 
 }
+
+model HeroImage {
+  id        Int      @id @default(autoincrement())
+  image     Bytes    // Binary data for the image
+  createdAt DateTime @default(now())
+}
+
+model Hero {
+  id        String      @id @default(cuid())
+  image     Bytes    // Binary data for the image
+  createdAt DateTime @default(now())
+}
