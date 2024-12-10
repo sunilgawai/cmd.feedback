@@ -22,6 +22,7 @@ import Link from "next/link";
 
 export function UserButton() {
   const { data: session } = useSession();
+  console.log("session", session);
 
   return (
     <DropdownMenu>

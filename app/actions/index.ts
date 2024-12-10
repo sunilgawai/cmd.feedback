@@ -36,9 +36,14 @@ export const createVoucher = async (values: {
       description: values.description,
       validFrom: values.validFrom,
       validTo: values.validTo,
-      user: { connect: { id: "cm4fro8hi0000fjzdb5zoueem" } },
+      user: { connect: { id: "cm4h92ifj000026p7u5k2j8ts" } },
     },
   });
+};
+
+export const deleteVoucher = async (id: string) => {
+  const res = await prisma.voucher.delete({ where: { id: id } });
+  return res;
 };
 
 export const getAllVouchers = async () => {
