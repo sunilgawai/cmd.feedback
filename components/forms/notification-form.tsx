@@ -32,7 +32,9 @@ export default function NotificationForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      const response = await createNotification(values);
+      const response = await createNotification(
+        values as { title: string; message: string }
+      );
       console.log("response", response);
       toast.success("Notification sent successfully");
       form.reset({

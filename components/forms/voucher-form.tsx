@@ -47,7 +47,14 @@ export default function VoucherForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      const response = await createVoucher(values);
+      const response = await createVoucher(
+        values as {
+          code: string;
+          description: string;
+          validFrom: Date;
+          validTo: Date;
+        }
+      );
       console.log("response", response);
       toast.success("Agent added successfully");
       form.reset({

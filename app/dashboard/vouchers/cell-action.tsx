@@ -19,7 +19,6 @@ import {
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CreateAgentForm from "@/components/forms/create-agent-form";
 
 interface CellActionProps {
   data: any;

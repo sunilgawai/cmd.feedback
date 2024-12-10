@@ -18,10 +18,10 @@ export const DeleteAction: React.FC<DeleteActionProps> = ({ data }) => {
   const onConfirm = async () => {
     setLoading(true);
     try {
-      await prisma.user.delete({where: {id: data.id}})
+      await prisma.user.delete({ where: { id: data.id } });
       setOpen(false);
       router.push("/dashboard/customer");
-    } catch(e:any){
+    } catch (e: any) {
       setLoading(true);
     }
   };

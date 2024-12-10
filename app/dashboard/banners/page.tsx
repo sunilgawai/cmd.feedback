@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
+import { TeamListSkeleton } from "@/components/teams";
 import { Suspense, useState, useEffect } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import NotificationForm from "@/components/forms/notification-form";

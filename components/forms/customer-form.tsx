@@ -63,7 +63,12 @@ export default function CustomerForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      await updateCustomerData({id,...values})
+      await updateCustomerData({ id, ...values } as {
+        id: string;
+        name: string;
+        email: string;
+        phoneNumber?: string;
+      });
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>

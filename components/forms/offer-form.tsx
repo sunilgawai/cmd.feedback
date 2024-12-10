@@ -46,7 +46,14 @@ export default function OfferForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      await createOffer(values);
+      await createOffer(
+        values as {
+          title: string;
+          description: string;
+          validFrom: Date;
+          validTo: Date;
+        }
+      );
       toast.success("Form Success");
       form.reset({
         title: "",

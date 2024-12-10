@@ -28,12 +28,20 @@ const formSchema = z.object({
 export default function FirstUserForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      wing: "",
+    }
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      await submitFirstForm(values);
+      await submitFirstForm(
+        values as { name: string; email: string; phone: string; wing?: string }
+      );
       // toast(
       //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
       //     <code className="text-white">{JSON.stringify(values, null, 2)}</code>

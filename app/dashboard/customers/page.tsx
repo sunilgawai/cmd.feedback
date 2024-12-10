@@ -1,12 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TeamListSkeleton } from "@/components/teams/team-list";
 import { Suspense } from "react";
-import { columns } from "./agents-table/column";
+import { columns } from "./column";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { TeamListSkeleton } from "@/components/teams";
 
 async function getCustomers() {
   return await prisma.user.findMany();
@@ -55,3 +55,5 @@ export default async function AgentsPage() {
     </div>
   );
 }
+
+

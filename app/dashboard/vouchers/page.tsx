@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TeamList, TeamListSkeleton } from "@/components/teams/team-list";
+import { TeamListSkeleton } from "@/components/teams";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import OfferForm from "@/components/forms/offer-form";
