@@ -73,9 +73,15 @@ export const createOffer = async (values: {
   validFrom: Date;
   validTo: Date;
 }) => {
-  await prisma.offer.create({
+  const res = await prisma.offer.create({
     data: values,
   });
+  return res;
+};
+
+export const deleteOffer = async (id: string) => {
+  const res = await prisma.offer.delete({ where: { id: id } });
+  return res;
 };
 
 export const getAllOffers = async () => {

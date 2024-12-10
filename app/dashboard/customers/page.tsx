@@ -13,42 +13,30 @@ async function getCustomers() {
 }
 
 export default async function AgentsPage() {
-  const agents = await getCustomers();
+  const customers = await getCustomers();
 
   return (
     <div className="container">
       <div className="flex justify-between items-center my-8">
-        <h1 className="text-3xl font-bold">Agents</h1>
-        <Link href="/dashboard/agents/form">
+        <h1 className="text-3xl font-bold">Registered Customers</h1>
+        <Link href="/dashboard/customers/form">
           <Button disabled>
             <Plus className="mr-2 h-4 w-4" />
-            Create Create
+            Create One
           </Button>
         </Link>
       </div>
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="active">Withdraw</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-1">
+          <TabsTrigger value="all">All Customers</TabsTrigger>
         </TabsList>
         <TabsContent value="all">
           <Suspense fallback={<TeamListSkeleton />}>
             <DataTable
               columns={columns}
-              data={agents}
-              // totalItems={withdrawals.length || 0}
+              data={customers}
+              totalItems={customers.length || 0}
             />
-            {/* <WithdrawsTable data={withdrawals} totalData={withdrawals.length} /> */}
-          </Suspense>
-        </TabsContent>
-        <TabsContent value="active">
-          <Suspense fallback={<TeamListSkeleton />}>
-            <DataTable
-              columns={columns}
-              data={agents}
-              // totalItems={withdrawals.length || 0}
-            />
-            {/* <WithdrawsTable data={withdrawals} totalData={withdrawals.length} /> */}
           </Suspense>
         </TabsContent>
       </Tabs>

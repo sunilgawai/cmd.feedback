@@ -26,7 +26,13 @@ export function CreateDialog({
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(state) => {
+        setOpen(state);
+        if (state === false) window.location.reload();
+      }}
+    >
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" />
@@ -38,7 +44,7 @@ export function CreateDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <Form /> 
+        <Form />
       </DialogContent>
     </Dialog>
   );

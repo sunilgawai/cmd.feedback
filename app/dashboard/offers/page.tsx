@@ -11,7 +11,6 @@ import { TeamListSkeleton } from "@/components/teams";
 import { Suspense } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import OfferForm from "@/components/forms/offer-form";
-import { OffersTable } from "./offers-table";
 import { getAllOffers } from "@/app/actions";
 import { columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
@@ -24,7 +23,6 @@ export default async function OffersPage() {
   }
 
   const offers = await getAllOffers();
-// console.log(offers)
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
@@ -32,8 +30,7 @@ export default async function OffersPage() {
         <CreateDialog
           title="Create Offer"
           description="Create your offer here"
-          // @ts-ignore
-          Form={OfferForm}
+          form={OfferForm}
         />
       </div>
       <Card>
@@ -46,7 +43,7 @@ export default async function OffersPage() {
             <DataTable
               columns={columns}
               data={offers}
-              // totalItems={withdrawals.length || 0}
+              // totalItems={offers.length || 0}
             />
           </Suspense>
         </CardContent>

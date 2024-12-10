@@ -82,7 +82,6 @@ const LoginModal = () => {
           },
         },
       });
-      toast.error(error?.message);
     }
   }
 
