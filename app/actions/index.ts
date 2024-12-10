@@ -106,13 +106,18 @@ export const createNotification = async ({
     data: {
       title,
       message,
-      user: { connect: { id: "cm4fro8hi0000fjzdb5zoueem" } },
+      user: { connect: { id: "cm4h92ifj000026p7u5k2j8ts" } },
     },
   });
 };
 
 export const getAllNotifications = async () => {
   return await prisma.notification.findMany();
+};
+
+export const deleteNotification = async (id: string) => {
+  const res = await prisma.offer.delete({ where: { id: id } });
+  return res;
 };
 
 // Banners

@@ -2,11 +2,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 // import { Employee } from "@/constants/data";
 import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
-import { Edit, EyeIcon } from "lucide-react";
-import Link from "next/link";
 import { DeleteAction } from "./delete-action";
-import { Button } from "@/components/ui/button";
 
 // @ts-ignore
 export const columns: ColumnDef<T>[] = [

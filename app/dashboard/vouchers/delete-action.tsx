@@ -30,7 +30,7 @@ export const DeleteAction: React.FC<DeleteActionProps> = ({ data }) => {
             onClick: () => console.log("close clicked"),
           },
         });
-        router.push("/dashboard/offers");
+        router.push("/dashboard/vouchers");
         return;
       }
       throw new Error("Operation failed");
