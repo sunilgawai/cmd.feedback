@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 const techStack = [
   {
@@ -137,14 +138,14 @@ export default function HomePage() {
               here
             </Badge>
             <h1 className="mb-10 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-6xl font-bold tracking-tight text-transparent dark:from-gray-100 dark:to-gray-800 sm:text-7xl">
-              Launch your SaaS faster than ever
+              Restaurant POS software made simple!
             </h1>
             <p className="mb-10 text-xl text-muted-foreground">
-              {siteConfig.description} Built with Next.js 14, React, Prisma, and
-              Stripe.
+              Manages all your restaurant operations efficiently so that you can
+              focus on growing your brand, like a real boss!
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link href="/login">
+              <Link href="/onboard">
                 <RainbowButton>
                   Let's Start Building 🚀
                   {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
@@ -161,11 +162,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="py-10 sm:py-14">
+        <div className="container mx-auto grid place-self-center px-4">
+          <Image
+            src="/hero_md.webp"
+            alt="Hero"
+            width={200}
+            height={200}
+            className="w-1/2 mx-auto"
+          />
+        </div>
+      </section>
+
+      {/* <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
           <FirstUserForm />
         </div>
-      </section>
+      </section> */}
 
       {/* Powered By Section */}
       <section className="py-12 sm:py-16">
