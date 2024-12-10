@@ -69,14 +69,17 @@ const primaryNavItems = [
     icon: RiOrderPlayLine,
   },
   {
-    title: "Forms",
-    href: "/dashboard/forms",
-    icon: Users2,
-  },
-  {
     title: "Notifications",
     href: "/dashboard/notifications",
     icon: Coins,
+  },
+];
+
+const secondaryNavItems = [
+  {
+    title: "Forms",
+    href: "/dashboard/forms",
+    icon: Users2,
   },
   {
     title: "Banners",
@@ -92,21 +95,6 @@ const primaryNavItems = [
     title: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
-  },
-];
-
-const secondaryNavItems = [
-  {
-    title: "Help & Support",
-    href: "support",
-    icon: HelpCircle,
-    external: true,
-  },
-  {
-    title: "GitHub",
-    href: siteConfig.links.github,
-    icon: Github,
-    external: true,
   },
 ];
 
