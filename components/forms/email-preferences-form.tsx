@@ -28,7 +28,7 @@ type EmailPreferencesFormValues = z.infer<typeof emailPreferencesSchema>;
 
 interface EmailPreferencesFormProps {
   user: {
-    id: string;
+    id: string | number;
   };
 }
 
