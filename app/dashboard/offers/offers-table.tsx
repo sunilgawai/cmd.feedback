@@ -73,7 +73,7 @@ const data = [
 export const columns: any[] = [
   {
     id: "select",
-    header: ({ table }) => (
+    header: ({ table }: any) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
@@ -102,7 +102,7 @@ export const columns: any[] = [
   },
   {
     accessorKey: "email",
-    header: ({ column }) => {
+    header: ({ column }: any) => {
       return (
         <Button
           variant="ghost"
@@ -113,7 +113,9 @@ export const columns: any[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }: any) => (
+      <div className="lowercase">{row.getValue("email")}</div>
+    ),
   },
   {
     accessorKey: "amount",
@@ -133,7 +135,7 @@ export const columns: any[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
+    cell: ({ row }: any) => {
       const payment = row.original;
 
       return (
