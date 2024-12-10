@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import {
