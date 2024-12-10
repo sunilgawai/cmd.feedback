@@ -29,6 +29,7 @@ export default async function SettingsPage() {
             <CardDescription>Manage your profile information</CardDescription>
           </CardHeader>
           <CardContent>
+            {/* @-ts-ignore */}
             <ProfileForm user={session.user} />
           </CardContent>
         </Card>

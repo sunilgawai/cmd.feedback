@@ -29,6 +29,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 interface ProfileFormProps {
   user: {
+    id: string | number;
     name?: string | null;
     email?: string | null;
     password?: string | null;
