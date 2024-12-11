@@ -29,6 +29,28 @@ export async function saveImageToDB(image: { path: string; preview: string }) {
   }
 }
 
+export async function getHeroImage() {
+  try {
+    const heroImage = await prisma.heroImage.findFirst({
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (heroImage) {
+      // Convert Uint8Array to Base64 string
+      const base64Image = Buffer.from(heroImage.image).toString("base64");
+      return {
+        ...heroImage,
+        image: base64Image,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error fetching hero image:", error);
+    return null;
+  }
+}
+
 // Dashboard
 
 export const getDashboardOverview = async () => {

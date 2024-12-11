@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import HeroImageDisplay from "./dashboard/banners/hero-image-display";
 
 const techStack = [
   {
@@ -164,13 +165,7 @@ export default function HomePage() {
 
       <section className="py-10 sm:py-14">
         <div className="container mx-auto grid place-self-center px-4">
-          <Image
-            src="/hero_md.webp"
-            alt="Hero"
-            width={200}
-            height={200}
-            className="w-1/2 mx-auto"
-          />
+          <HeroImageDisplay />
         </div>
       </section>
 

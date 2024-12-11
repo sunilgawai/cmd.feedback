@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-export default function HeroImageForm() {
+export default function ImageUploadForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +64,7 @@ export default function HeroImageForm() {
       <Input
         type="file"
         name="image"
-        accept="image/*, .webp"
+        accept="image/*"
         required
         className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
       />

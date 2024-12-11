@@ -1,8 +1,5 @@
 "use client";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
 import { Suspense, useState, useEffect } from "react";
 import { CreateDialog } from "@/components/create-dialog";
@@ -17,12 +14,22 @@ import {
 } from "@/components/ui/carousel";
 import BannersForm from "../customers/form/banners-form";
 import Image from "next/image";
+import ImageUploadForm from "@/components/ImageUploadForm";
+import { prisma } from "@/lib/prisma";
+import { getHeroImage } from "@/app/actions";
+import HeroImageDisplay from "./hero-image-display";
 
 export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    getHeroImage().then((image) => {
+      console.log("image", image);
+    });
+  }, []);
+  
   useEffect(() => {
     if (!api) {
       return;
@@ -40,13 +47,14 @@ export default function BannersPage() {
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-16 my-4">
         <h1 className="text-3xl font-bold">Your Hero Image</h1>
-        <Image
+        {/* <Image
           src="/hero_md.webp"
           alt="Hero"
           width={200}
           height={200}
           className="w-1/3 mx-auto"
-        />
+        /> */}
+        <HeroImageDisplay />
         <CreateDialog
           buttonText="Upload New"
           title="Upload New"
