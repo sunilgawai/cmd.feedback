@@ -24,7 +24,15 @@ export default function HeroImageDisplay() {
   }, []);
 
   if (!imageUrl) {
-    return <div>Loading hero image...</div>;
+    return (
+      <Image
+        src="/hero_md.webp"
+        alt="Hero"
+        width={200}
+        height={200}
+        className="w-1/3 mx-auto"
+      />
+    );
   }
 
   return (

@@ -51,6 +51,32 @@ export async function getHeroImage() {
   }
 }
 
+export async function getBannerImages() {
+  try {
+    const bannerImages = await prisma.bannerImages.findFirst({
+      orderBy: { createdAt: "desc" },
+      include: {
+        images: true,
+      },
+    });
+
+    if (bannerImages) {
+      return {
+        ...bannerImages,
+        images: bannerImages.images.map((img) => ({
+          ...img,
+          image: Buffer.from(img.image).toString("base64"),
+        })),
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error fetching banner images:", error);
+    return null;
+  }
+}
+
 // Dashboard
 
 export const getDashboardOverview = async () => {

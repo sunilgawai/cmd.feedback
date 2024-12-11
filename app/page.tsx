@@ -148,16 +148,10 @@ export default function HomePage() {
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Link href="/onboard">
                 <RainbowButton>
-                  Let's Start Building 🚀
+                  Becom a Member 🚀
                   {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
                 </RainbowButton>
               </Link>
-              {/* <Link href="/docs">
-                <RainbowButton className="bg-white">
-                  View Documentation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </RainbowButton>
-              </Link> */}
             </div>
           </div>
         </div>

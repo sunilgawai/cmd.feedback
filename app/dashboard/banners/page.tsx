@@ -13,22 +13,27 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import BannersForm from "../customers/form/banners-form";
-import { getHeroImage } from "@/app/actions";
+import { getBannerImages, getHeroImage } from "@/app/actions";
 import HeroImageDisplay from "./hero-image-display";
 import SiteLogoDisplay from "./site-logo-display";
+import BannerImagesUploadForm from "@/components/BannerImagesUploadForm";
+import BannerImagesDisplay from "@/components/BannerImagesDisplay";
 
 export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [bannerImages, setBannerImages] = useState<any[]>([]);
 
   useEffect(() => {
     getHeroImage().then((image) => {
-      console.log("image", image);
+      console.log("hero image", image);
+    });
+    getBannerImages().then((banners) => {
+      console.log("banners", banners);
     });
   }, []);
-  
+
   useEffect(() => {
     if (!api) {
       return;
@@ -69,11 +74,12 @@ export default function BannersPage() {
         <CreateDialog
           title="Create Notification"
           description="Create your notification here"
-          form={HeroImageForm}
+          form={BannerImagesUploadForm}
         />
       </div>
-      <BannersForm />
-      <div className="flex items-center justify-center text-2xl font-semibold">
+      <BannerImagesDisplay />
+      {/* <BannersForm /> */}
+      {/* <div className="flex items-center justify-center text-2xl font-semibold">
         <h1>Current Banner</h1>
       </div>
       <Card className="w-full grid place-content-center gap-4 py-4">
@@ -87,15 +93,6 @@ export default function BannersPage() {
           className="w-full max-w-2xl"
         >
           <CarouselContent className="-ml-1">
-            {/* {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index}>
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-4xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))} */}
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem
                 key={index}
@@ -119,7 +116,7 @@ export default function BannersPage() {
         <div className="py-2 text-center text-sm text-muted-foreground">
           Slide {current} of {count}
         </div>
-      </Card>
+      </Card> */}
     </div>
   );
 }
