@@ -166,10 +166,24 @@ model HeroImage {
   createdAt DateTime @default(now())
 }
 
-model Hero {
-  id        String      @id @default(cuid())
+model LogoImage {
+  id        Int      @id @default(autoincrement())
   image     Bytes    // Binary data for the image
   createdAt DateTime @default(now())
+}
+
+model BannerImages {
+  id        Int      @id @default(autoincrement())
+  images    BannerImage[]
+  createdAt DateTime @default(now())
+}
+
+model BannerImage {
+  id            Int          @id @default(autoincrement())
+  image         Bytes
+  bannerId      Int
+  banner        BannerImages @relation(fields: [bannerId], references: [id])
+  createdAt     DateTime     @default(now())
 }
 
 model loyalty {

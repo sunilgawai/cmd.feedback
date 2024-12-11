@@ -4,6 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { Suspense, useState, useEffect } from "react";
 import { CreateDialog } from "@/components/create-dialog";
 import HeroImageForm from "@/components/forms/hero-image-form";
+import SiteLogoForm from "@/components/forms/site-logo-form";
 import {
   Carousel,
   CarouselContent,
@@ -13,11 +14,9 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import BannersForm from "../customers/form/banners-form";
-import Image from "next/image";
-import ImageUploadForm from "@/components/ImageUploadForm";
-import { prisma } from "@/lib/prisma";
 import { getHeroImage } from "@/app/actions";
 import HeroImageDisplay from "./hero-image-display";
+import SiteLogoDisplay from "./site-logo-display";
 
 export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
@@ -46,14 +45,17 @@ export default function BannersPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-16 my-4">
+        <h1 className="text-3xl font-bold">Your Site Logo</h1>
+        <SiteLogoDisplay />
+        <CreateDialog
+          buttonText="Upload New"
+          title="Upload New"
+          description="Upload your new Logo here"
+          form={SiteLogoForm}
+        />
+      </div>
+      <div className="grid grid-cols-1 gap-16 my-4">
         <h1 className="text-3xl font-bold">Your Hero Image</h1>
-        {/* <Image
-          src="/hero_md.webp"
-          alt="Hero"
-          width={200}
-          height={200}
-          className="w-1/3 mx-auto"
-        /> */}
         <HeroImageDisplay />
         <CreateDialog
           buttonText="Upload New"
