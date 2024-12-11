@@ -171,3 +171,28 @@ model Hero {
   image     Bytes    // Binary data for the image
   createdAt DateTime @default(now())
 }
+
+model loyalty {
+  id                            String  @id @default(cuid())
+  name                          String  @db.VarChar(100)
+  cafeVisits                    String  @db.VarChar(100)
+  preferredVisitTime            String
+  usuallyOrdered                String
+  averageBillValue              String
+  partOfAnyOtherProgram         String
+  likeToEarnRewardPoints        Boolean
+  howImportant                  String
+  preferEarningCashback         String
+  interestedInMembership        String
+  willParticipate               String
+  preferSubscription            String
+  likePersonalizedRecommendations String
+  interestedInGifting           String
+  preferNotifications           String
+  valueExperiences              String
+  currentWallet                 String
+  flexibilityToPreload          String
+  preferCashback                String
+  wantedFeature                 String? // Optional field
+  wantToPayAnisClub             String
+}

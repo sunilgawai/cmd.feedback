@@ -77,11 +77,6 @@ const primaryNavItems = [
 
 const secondaryNavItems = [
   {
-    title: "Forms",
-    href: "/dashboard/forms",
-    icon: Users2,
-  },
-  {
     title: "Banners",
     href: "/dashboard/banners",
     icon: Coins,

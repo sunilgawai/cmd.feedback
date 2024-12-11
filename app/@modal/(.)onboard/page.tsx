@@ -161,12 +161,12 @@ const LoginModal = () => {
               name="wing"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>wing no.</FormLabel>
+                  <FormLabel>What's app no.</FormLabel>
                   <FormControl>
-                    <Input placeholder="wing no" type="number" {...field} />
+                    <Input placeholder="whats app number" type="number" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This is your public display name.
+                    Please enter your whats app number.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
