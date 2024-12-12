@@ -65,7 +65,7 @@ const LoginModal = () => {
         phone: "",
         wing: "",
       });
-      window.location.replace("/home");
+      window.location.replace("/feedback");
     } catch (error: any) {
       console.error("Form submission error", error);
       toast(error?.message || "Please Try Again Later", {

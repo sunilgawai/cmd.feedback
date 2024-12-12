@@ -9,6 +9,40 @@ import { nanoid } from "nanoid"; // For generating random identifiers
 import fs from "fs";
 import path from "path";
 
+export async function saveLoyaltyForm(validatedData: any) {
+  try {
+    const savedLoyalty = await prisma.loyalty.create({
+      data: {
+        name: validatedData.name,
+        cafeVisits: validatedData.cafe_visits,
+        preferredVisitTime: validatedData.preffered_visit_time,
+        usuallyOrdered: validatedData.usually_ordered,
+        averageBillValue: validatedData.average_bill_value,
+        partOfAnyOtherProgram: validatedData.part_of_any_other_proggram,
+        likeToEarnRewardPoints: validatedData.like_to_earn_reward_points,
+        howImportant: validatedData.how_important,
+        preferEarningCashback: validatedData.prefer_earning_cashback,
+        interestedInMembership: validatedData.interested_in_membership,
+        willParticipate: validatedData.will_participate,
+        preferSubscription: validatedData.prefer_subscription,
+        likePersonalizedRecommendations:
+          validatedData.like_personalized_recommendations,
+        interestedInGifting: validatedData.interested_in_gifting,
+        preferNotifications: validatedData.prefer_notifications,
+        valueExperiences: validatedData.value_experiences,
+        currentWallet: validatedData.current_wallet,
+        flexibilityToPreload: validatedData.flexibility_to_preload,
+        preferCashback: validatedData.prefer_cashback,
+        wantedFeature: validatedData.wanted_feature || null,
+        wantToPayAnisClub: validatedData.want_to_pay_anis_club,
+      },
+    });
+    return savedLoyalty;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function saveImageToDB(image: { path: string; preview: string }) {
   try {
     // Read the file as binary from the local filesystem

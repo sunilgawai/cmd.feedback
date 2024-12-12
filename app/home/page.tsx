@@ -5,7 +5,7 @@ import { PersonalDetailsForm } from "./_components/personal-details-form";
 import { SettingsSection } from "./_components/settings-section";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Your App Name",
+  title: "Dashboard | user's dashboard",
   description: "View your vouchers, offers, and manage your account",
 };
 
