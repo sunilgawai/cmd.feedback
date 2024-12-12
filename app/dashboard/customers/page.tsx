@@ -35,7 +35,7 @@ export default async function AgentsPage() {
             <DataTable
               columns={columns}
               data={customers}
-              totalItems={customers.length || 0}
+              // totalItems={customers.length as any || 0}
             />
           </Suspense>
         </TabsContent>

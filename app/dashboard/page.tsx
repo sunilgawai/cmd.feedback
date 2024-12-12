@@ -1,10 +1,5 @@
-import { Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "./_components/overview";
-import { RecentOrders } from "./_components/recent-orders";
-import { PendingOrders } from "./_components/pending-orders";
-import { AgentScores } from "./_components/agent-scores";
 import { getDashboardOverview } from "../actions";
 
 async function getOverviewData() {

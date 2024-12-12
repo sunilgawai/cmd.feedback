@@ -163,17 +163,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* <section className="py-12 sm:py-16">
-        <div className="container mx-auto px-4">
-          <FirstUserForm />
-        </div>
-      </section> */}
-
       {/* Powered By Section */}
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
           <h2 className="mb-8 text-center text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Powered By
+            Presenting You
           </h2>
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {techStack.map((tech) => (

@@ -80,16 +80,19 @@ const secondaryNavItems = [
     title: "Banners",
     href: "/dashboard/banners",
     icon: Coins,
+    external: false,
   },
   {
     title: "Elements",
     href: "/dashboard/elements",
     icon: ArrowDownAZIcon,
+    external: false,
   },
   {
     title: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
+    external: false,
   },
 ];
 
