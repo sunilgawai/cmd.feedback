@@ -59,6 +59,11 @@ const primaryNavItems = [
     icon: UsersRoundIcon,
   },
   {
+    title: "Customer Submissions",
+    href: "/dashboard/submissions",
+    icon: UsersRoundIcon,
+  },
+  {
     title: "Offers",
     href: "/dashboard/offers",
     icon: GitPullRequest,
@@ -80,12 +85,6 @@ const secondaryNavItems = [
     title: "Banners",
     href: "/dashboard/banners",
     icon: Coins,
-    external: false,
-  },
-  {
-    title: "Elements",
-    href: "/dashboard/elements",
-    icon: ArrowDownAZIcon,
     external: false,
   },
   {
