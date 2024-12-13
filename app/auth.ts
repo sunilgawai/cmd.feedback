@@ -105,9 +105,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = await prisma.agent.findUnique({
+        const user = await prisma.user.findUnique({
           where: {
-            phone: credentials?.phone,
+            phoneNumber: credentials?.phone,
           },
         });
 
@@ -125,11 +125,12 @@ export const authOptions: NextAuthOptions = {
         // Compare the plain-text password with the hashed password
         // const passwordMatch = await bcrypt.compare(password, hashedPassword);
 
-        if (user?.password === credentials?.password) {
-          return user;
-        } else {
-          return null;
-        }
+        return user;
+        // if (user?.password === credentials?.password) {
+        //   return user;
+        // } else {
+        //   return null;
+        // }
       },
     }),
   ],

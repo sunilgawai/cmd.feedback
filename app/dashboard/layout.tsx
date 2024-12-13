@@ -15,7 +15,7 @@ export default async function DashboardLayout({
   const session = await auth();
 console.log("session", session);
   if (!session?.user) {
-    // redirect("/");
+    redirect("/");
   }
 
   // if (session.user.role !== "SUPER_ADMIN") {

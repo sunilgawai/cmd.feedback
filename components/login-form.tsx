@@ -107,7 +107,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
           </Button>
         </div>
       </form>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -116,7 +116,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
             Or continue with
           </span>
         </div>
-      </div>
+      </div> */}
       {/* <form onSubmit={loginWithEmail}>
         <div className="grid gap-2">
           <div className="grid gap-1">
@@ -153,7 +153,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
           </span>
         </div>
       </div> */}
-      <Button
+      {/* <Button
         variant="outline"
         type="button"
         disabled={isLoading}
@@ -165,7 +165,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
           <Icons.google className="mr-2 h-4 w-4" />
         )}
         Google
-      </Button>
+      </Button> */}
     </div>
   );
 }

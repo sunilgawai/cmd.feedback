@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="container my-4 mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-        <div>
+      <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="mx-auto">
           <Link href="/" className="text-2xl font-serif mb-6 block">
             ifood
           </Link>
