@@ -23,7 +23,6 @@ export default function BannersPage() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const [bannerImages, setBannerImages] = useState<any[]>([]);
 
   useEffect(() => {
     getHeroImage().then((image) => {
@@ -79,44 +78,6 @@ export default function BannersPage() {
       </div>
       <BannerImagesDisplay />
       {/* <BannersForm /> */}
-      {/* <div className="flex items-center justify-center text-2xl font-semibold">
-        <h1>Current Banner</h1>
-      </div>
-      <Card className="w-full grid place-content-center gap-4 py-4">
-        <Carousel
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
-          setApi={setApi}
-          className="w-full max-w-2xl"
-        >
-          <CarouselContent className="-ml-1">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-1 md:basis-1/2 lg:basis-1/3"
-              >
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-2xl font-semibold">
-                        {index + 1}
-                      </span>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-        <div className="py-2 text-center text-sm text-muted-foreground">
-          Slide {current} of {count}
-        </div>
-      </Card> */}
     </div>
   );
 }

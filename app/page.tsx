@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import HeroImageDisplay from "./dashboard/banners/hero-image-display";
+import AppCarouse from "@/components/AppCarousel";
 
 const techStack = [
   {
@@ -186,6 +187,10 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <AppCarouse />
       </section>
 
       {/* Features Section */}
