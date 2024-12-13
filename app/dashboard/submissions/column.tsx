@@ -34,17 +34,17 @@ export const columns: ColumnDef<T>[] = [
     header: "Name",
   },
   {
-    accessorKey: "phoneNumber",
-    header: "PHONE NUMBER",
+    accessorKey: "cafeVisits",
+    header: "Cafe Visits",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "preferredVisitTime",
+    header: "Preffered Time",
   },
   {
     header: "View",
     cell: ({ row }) => (
-      <Link href={`/dashboard/customers/${row.original.id}`}>
+      <Link href={`/dashboard/submissions/${row.original.id}`}>
         <EyeIcon color="blue" />
         <Button variant="link" size="icon" asChild>
           View
@@ -52,21 +52,9 @@ export const columns: ColumnDef<T>[] = [
       </Link>
     ),
   },
-  {
-    id: "edit",
-    header: "Edit",
-    cell: ({ row }) => (
-      <Link href={`/dashboard/customers/form?mode=edit&id=${row.original.id}`}>
-        <Edit color="blue" />
-        <Button variant="link" size="icon" asChild>
-          View
-        </Button>
-      </Link>
-    ),
-  },
-  {
-    id: "delete",
-    header: "Delete",
-    cell: ({ row }) => <DeleteAction data={row.original} />,
-  },
+  // {
+  //   id: "delete",
+  //   header: "Delete",
+  //   cell: ({ row }) => <DeleteAction data={row.original} />,
+  // },
 ];

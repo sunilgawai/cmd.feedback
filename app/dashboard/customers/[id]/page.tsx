@@ -10,6 +10,8 @@ import {
 import { ProfileForm } from "@/components/forms/profile-form";
 import { EmailPreferencesForm } from "@/components/forms/email-preferences-form";
 import { DeleteAccountForm } from "@/components/forms/delete-account-form";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function CustomerDetailPage() {
   const session = await auth();

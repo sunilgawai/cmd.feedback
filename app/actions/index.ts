@@ -19,7 +19,8 @@ export async function saveLoyaltyForm(validatedData: any) {
         usuallyOrdered: validatedData.usually_ordered,
         averageBillValue: validatedData.average_bill_value,
         partOfAnyOtherProgram: validatedData.part_of_any_other_proggram,
-        likeToEarnRewardPoints: validatedData.like_to_earn_reward_points === 'yes' ? true : false,
+        likeToEarnRewardPoints:
+          validatedData.like_to_earn_reward_points === "yes" ? true : false,
         howImportant: validatedData.how_important,
         preferEarningCashback: validatedData.prefer_earning_cashback,
         interestedInMembership: validatedData.interested_in_membership,
@@ -42,6 +43,15 @@ export async function saveLoyaltyForm(validatedData: any) {
     throw error;
   }
 }
+
+export const getLoyaltyData = async (id: any) => {
+  try {
+    const savedLoyalty = await prisma.loyalty.findUnique({ where: { id: id } });
+    return savedLoyalty;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export async function saveImageToDB(image: { path: string; preview: string }) {
   try {
