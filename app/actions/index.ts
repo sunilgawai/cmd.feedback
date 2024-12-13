@@ -19,7 +19,7 @@ export async function saveLoyaltyForm(validatedData: any) {
         usuallyOrdered: validatedData.usually_ordered,
         averageBillValue: validatedData.average_bill_value,
         partOfAnyOtherProgram: validatedData.part_of_any_other_proggram,
-        likeToEarnRewardPoints: validatedData.like_to_earn_reward_points,
+        likeToEarnRewardPoints: validatedData.like_to_earn_reward_points === 'yes' ? true : false,
         howImportant: validatedData.how_important,
         preferEarningCashback: validatedData.prefer_earning_cashback,
         interestedInMembership: validatedData.interested_in_membership,

@@ -20,6 +20,8 @@ import {
 import Image from "next/image";
 import HeroImageDisplay from "./dashboard/banners/hero-image-display";
 import AppCarouse from "@/components/AppCarousel";
+import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
 
 const techStack = [
   {
@@ -261,6 +263,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FAQ />
+      <Footer />
     </div>
   );
 }
