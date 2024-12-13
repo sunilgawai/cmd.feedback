@@ -1,107 +1,23 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { RiNextjsLine, RiTailwindCssFill } from "react-icons/ri";
-import { FaReact } from "react-icons/fa";
-import { siteConfig } from "@/config/site";
-import { RainbowButton } from "@/components/ui/rainbow-button";
-import { BiLogoTypescript } from "react-icons/bi";
-import { SiPrisma, SiStripe } from "react-icons/si";
-import { PayButton } from "@/components/ui/pay-button";
-import { Check } from "lucide-react";
-import FirstUserForm from "@/components/forms/first-user-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
-import HeroImageDisplay from "./dashboard/banners/hero-image-display";
-import AppCarouse from "@/components/AppCarousel";
-import FAQ from "@/components/FAQ";
+import { Input } from "@/components/ui/input";
 import Footer from "@/components/Footer";
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import BannerImagesDisplay from "@/components/BannerImagesDisplay";
 
-const techStack = [
-  {
-    name: "Next.js 14",
-    description: "React Framework",
-    icon: <RiNextjsLine />,
-  },
-  {
-    name: "React",
-    description: "UI Library",
-    icon: <FaReact />,
-  },
-  {
-    name: "TypeScript",
-    description: "Type Safety",
-    icon: <BiLogoTypescript />,
-  },
-  {
-    name: "Tailwind CSS",
-    description: "Styling Framework",
-    icon: <RiTailwindCssFill />,
-  },
-  {
-    name: "Prisma",
-    description: "Database ORM",
-    icon: <SiPrisma />,
-  },
-  {
-    name: "Stripe",
-    description: "Payment Processing",
-    icon: <SiStripe />,
-  },
-];
-
-const pricingPlans = [
-  {
-    name: "Starter",
-    description: "Perfect for side projects",
-    price: 9,
-    priceId: "price_starter_id",
-    features: [
-      "Up to 5 projects",
-      "Basic analytics",
-      "24/7 support",
-      "API access",
-    ],
-  },
-  {
-    name: "Pro",
-    description: "For growing businesses",
-    price: 29,
-    priceId: "price_pro_id",
-    features: [
-      "Unlimited projects",
-      "Advanced analytics",
-      "Priority support",
-      "API access",
-      "Custom domain",
-    ],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    description: "For large teams",
-    price: 99,
-    priceId: "price_enterprise_id",
-    features: [
-      "Everything in Pro",
-      "Custom integrations",
-      "Dedicated support",
-      "SLA",
-      "Advanced security",
-    ],
-  },
-];
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
+    <div className="min-h-screen px-40 grid place-content-center">
+      {/* Header */}
       <section className="relative">
         {/* Background decoration */}
         <div className="absolute inset-0 -z-10 mx-0 max-w-none overflow-hidden">
@@ -160,111 +76,96 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-10 sm:py-14">
-        <div className="container mx-auto grid place-self-center px-4">
-          <HeroImageDisplay />
-        </div>
-      </section>
+      <main className="container mx-auto px-4">
+        <BannerImagesDisplay />
+        {/* Categories Section */}
+        <section className="py-20">
+          <div className="flex justify-between items-end mb-12">
+            <h2 className="text-5xl font-serif">OUR CATEGORIES</h2>
+            <span>02</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              {[
+                "Adraki Kebab, Lamb and Beef",
+                "White Beans stew with lamb shank",
+                "Karahi With Lamb Sauce (Salsa)",
+                "Green Beans with lamb shank",
+                "Stuffed green leaves with lamb shank",
+              ].map((item, index) => (
+                <Link
+                  key={index}
+                  href="/"
+                  className="flex items-center justify-between py-4 border-b border-gray-200"
+                >
+                  <span>{item}</span>
+                  <span>→</span>
+                </Link>
+              ))}
+            </div>
+            <div className="relative aspect-square rounded-full overflow-hidden">
+              <Image
+                src="/hero_md.webp"
+                alt="Category food"
+                width={600}
+                height={600}
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </section>
 
-      {/* Powered By Section */}
-      <section className="py-12 sm:py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-center text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Presenting You
+        {/* Explore Section */}
+        <section className="py-20">
+          <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
+            EXPLORE REAL TASTE
           </h2>
-          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {techStack.map((tech) => (
-              <div
-                key={tech.name}
-                className="flex items-center gap-4 rounded-lg border p-4 transition-colors hover:bg-muted/50"
-              >
-                <div className="text-primary text-3xl">{tech.icon}</div>
-                <div>
-                  <h3 className="font-medium">{tech.name}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {tech.description}
-                  </p>
+          <p className="text-lg text-center mb-12">
+            We offer a variety of homemade pastries and sweets, including the
+            almond-topped semolina
+            <br />
+            cakes called harissa and the indulgent kunafa topped with
+            pistachios.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {["Hearty breakfast", "Fresh Salad", "For vegetarian"].map(
+              (title, index) => (
+                <div
+                  key={index}
+                  className="relative aspect-square rounded-full overflow-hidden"
+                >
+                  <Image
+                    src="/hero_md.webp"
+                    alt={title}
+                    width={400}
+                    height={400}
+                    className="object-cover"
+                  />
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-16 sm:py-24">
-        <AppCarouse />
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-              Simple, transparent pricing
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Choose the plan that's right for you
-            </p>
+        {/* Newsletter Section */}
+        <section className="py-20">
+          <h2 className="text-5xl md:text-6xl font-serif text-center mb-12">
+            LET'S CONNECT WITH US
+          </h2>
+          <div className="flex justify-center space-x-4">
+            <Input
+              type="email"
+              placeholder="Enter your e-mail"
+              className="max-w-xs rounded-full"
+            />
+            <Button variant="secondary" className="rounded-full">
+              Subscribe Now
+            </Button>
           </div>
+        </section>
+      </main>
 
-          <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {pricingPlans.map((plan) => (
-              <Card
-                key={plan.name}
-                className={`flex flex-col ${
-                  plan.popular ? "border-primary shadow-lg" : ""
-                }`}
-              >
-                <CardHeader>
-                  <div className="flex justify-between items-center">
-                    <CardTitle className="text-2xl font-bold">
-                      {plan.name}
-                    </CardTitle>
-                    {plan.popular && (
-                      <Badge variant="default">Most Popular</Badge>
-                    )}
-                  </div>
-                  <CardDescription className="mt-2">
-                    {plan.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <div className="mt-4 flex items-baseline">
-                    <span className="text-5xl font-extrabold">
-                      ${plan.price}
-                    </span>
-                    <span className="ml-1 text-xl text-muted-foreground">
-                      /month
-                    </span>
-                  </div>
-                  <ul className="mt-6 space-y-4">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-center">
-                        <Check className="mr-2 h-5 w-5 text-primary" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-8">
-                    <PayButton
-                      priceId={plan.priceId}
-                      amount={plan.price}
-                      showAmount={false}
-                      className={`w-full ${
-                        plan.popular
-                          ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                          : ""
-                      }`}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FAQ />
+      {/* Footer */}
       <Footer />
     </div>
   );

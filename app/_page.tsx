@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { RiNextjsLine, RiTailwindCssFill } from "react-icons/ri";
 import { FaReact } from "react-icons/fa";
-import { siteConfig } from "@/config/site";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { BiLogoTypescript } from "react-icons/bi";
 import { SiPrisma, SiStripe } from "react-icons/si";
@@ -16,6 +14,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import HeroImageDisplay from "./dashboard/banners/hero-image-display";
+import AppCarouse from "@/components/AppCarousel";
+import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
 
 const techStack = [
   {
@@ -136,27 +138,27 @@ export default function HomePage() {
               here
             </Badge>
             <h1 className="mb-10 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-6xl font-bold tracking-tight text-transparent dark:from-gray-100 dark:to-gray-800 sm:text-7xl">
-              Launch your SaaS faster than ever
+              Restaurant POS software made simple!
             </h1>
             <p className="mb-10 text-xl text-muted-foreground">
-              {siteConfig.description} Built with Next.js 14, React, Prisma, and
-              Stripe.
+              Manages all your restaurant operations efficiently so that you can
+              focus on growing your brand, like a real boss!
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link href="/login">
+              <Link href="/onboard">
                 <RainbowButton>
-                  Let's Start Building 🚀
+                  Becom a Member 🚀
                   {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
                 </RainbowButton>
               </Link>
-              {/* <Link href="/docs">
-                <RainbowButton className="bg-white">
-                  View Documentation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </RainbowButton>
-              </Link> */}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-10 sm:py-14">
+        <div className="container mx-auto grid place-self-center px-4">
+          <HeroImageDisplay />
         </div>
       </section>
 
@@ -164,7 +166,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4">
           <h2 className="mb-8 text-center text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Powered By
+            Presenting You
           </h2>
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {techStack.map((tech) => (
@@ -183,6 +185,10 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <AppCarouse />
       </section>
 
       {/* Features Section */}
@@ -253,6 +259,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FAQ />
+      <Footer />
     </div>
   );
 }

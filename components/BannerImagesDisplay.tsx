@@ -56,22 +56,16 @@ export default function BannerImagesDisplay() {
 
   return (
     <Fragment>
-      {/* <div className="flex flex-col gap-8">
-        {imageUrls.map((url, index) => (
-          <Image
-            key={index}
-            src={url}
-            alt={`Banner ${index + 1}`}
-            width={200}
-            height={200}
-            className="w-full h-auto object-cover rounded-lg"
-          />
-        ))}
-      </div> */}
-      <div className="flex items-center justify-center text-2xl font-semibold">
-        <h1>Current Banner</h1>
-      </div>
-      <Card className="w-full grid place-content-center gap-4 py-4">
+      <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
+        EXPLORE REAL TASTE 🍪
+      </h2>
+      <p className="text-lg text-center mb-12">
+        We offer a variety of homemade pastries and sweets, including the
+        almond-topped semolina
+        <br />
+        cakes called harissa and the indulgent kunafa topped with pistachios.
+      </p>
+      <Card className="w-full grid place-content-center border-none gap-4 py-4">
         <Carousel
           plugins={[
             Autoplay({
@@ -79,7 +73,7 @@ export default function BannerImagesDisplay() {
             }),
           ]}
           setApi={setApi}
-          className="w-full max-w-2xl"
+          className="w-full space-x-4 max-w-4xl"
         >
           <CarouselContent className="-ml-1">
             {imageUrls.map((url, index) => (
@@ -88,7 +82,7 @@ export default function BannerImagesDisplay() {
                   key={index}
                   className="pl-1 md:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="p-1">
+                  <div className="p-1 mx-8">
                     <Card>
                       <CardContent className="flex aspect-square items-center justify-center p-6">
                         <Image
@@ -103,7 +97,7 @@ export default function BannerImagesDisplay() {
                     </Card>
                   </div>
                 </CarouselItem>
-                <CarouselItem
+                {/* <CarouselItem
                   key={index}
                   className="pl-1 md:basis-1/2 lg:basis-1/3"
                 >
@@ -121,7 +115,7 @@ export default function BannerImagesDisplay() {
                       </CardContent>
                     </Card>
                   </div>
-                </CarouselItem>
+                </CarouselItem> */}
               </Fragment>
             ))}
           </CarouselContent>
