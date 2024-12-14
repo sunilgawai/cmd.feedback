@@ -88,6 +88,12 @@ const secondaryNavItems = [
     external: false,
   },
   {
+    title: "Menus",
+    href: "/dashboard/menus",
+    icon: Coins,
+    external: false,
+  },
+  {
     title: "Settings",
     href: "/dashboard/settings",
     icon: Settings,

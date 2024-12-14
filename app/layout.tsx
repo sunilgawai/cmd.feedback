@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Developer | Sunil Gawai",
-  description: "The perfect place for your trading journey.",
+  title: "StarAnise",
+  description: "StarAnise ~ PATISSERIE",
 };
 
 export default function RootLayout({
