@@ -1,6 +1,5 @@
 import Benefits from "@/components/Benefits";
 import FAQ from "@/components/FAQ";
-import Footer from "@/components/Footer";
 import LoyaltyForm from "@/components/forms/loyalty-form";
 import React from "react";
 
