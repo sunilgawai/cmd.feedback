@@ -32,8 +32,6 @@ const LoyaltyPage = () => {
         <Benefits />
         <FAQ />
       </main>
-
-      <Footer />
     </div>
   );
 };
