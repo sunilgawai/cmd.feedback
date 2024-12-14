@@ -5,7 +5,8 @@ import { sendEmail } from "@/lib/emails";
 import MagicLinkEmail from "@/emails/magic-link-email";
 
 import { nanoid } from "nanoid"; // For generating random identifiers
-
+import NodeCache from "node-cache";
+const cache = new NodeCache({ stdTTL: 300 });
 import fs from "fs";
 import path from "path";
 
@@ -140,7 +141,22 @@ export const deleteAllMenus = async () => {
   }
 };
 
+type ImagesType = {
+    images: {
+        image: string;
+        id: number;
+        createdAt: Date;
+        bannerId: number;
+    }[];
+    id: number;
+    createdAt: Date;
+}
 export async function getBannerImages() {
+  const cachedBanners: ImagesType = cache.get("bannerImages");
+  console.log("cachedBanners", cachedBanners);
+  if (cachedBanners) {
+    return cachedBanners;
+  }
   try {
     const bannerImages = await prisma.bannerImages.findFirst({
       orderBy: { createdAt: "desc" },
@@ -149,14 +165,25 @@ export async function getBannerImages() {
       },
     });
 
+    // if (bannerImages) {
+    //   return {
+    //     ...bannerImages,
+    //     images: bannerImages.images.map((img) => ({
+    //       ...img,
+    //       image: Buffer.from(img.image).toString("base64"),
+    //     })),
+    //   };
+    // }
     if (bannerImages) {
-      return {
+      const processedImages = {
         ...bannerImages,
         images: bannerImages.images.map((img) => ({
           ...img,
           image: Buffer.from(img.image).toString("base64"),
         })),
       };
+      cache.set("bannerImages", processedImages); // Cache the processed images
+      return processedImages;
     }
 
     return {
