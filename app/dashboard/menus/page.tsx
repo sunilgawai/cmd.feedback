@@ -102,16 +102,18 @@ export default function MenusPage() {
         >
           <CarouselContent>
             {imageUrls.map((url, index) => (
-              <CarouselItem key={index}>
-                <div className="flex justify-center items-center">
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div
+                  key={index}
+                  className="relative aspect-square rounded-full overflow-hidden"
+                >
                   <Image
                     src={url}
                     alt={`Banner ${index + 1}`}
                     width={0}
                     height={0}
-                    sizes="100vw"
-                    className="w-auto h-auto max-h-[70vh] object-contain"
-                    priority={index === 0}
+                    // sizes="100vw"
+                    className="relative aspect-square rounded-full overflow-hidden"
                   />
                 </div>
               </CarouselItem>

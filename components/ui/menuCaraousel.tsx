@@ -28,7 +28,7 @@ const images = [
   "/slider/12.png",
 ];
 
-export default function AppCarousel() {
+export default function MenuCarousel() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -75,7 +75,7 @@ export default function AppCarousel() {
                     width={0}
                     height={0}
                     sizes="100vw"
-                    className="w-auto h-auto max-h-[70vh] object-contain"
+                    className="w-auto h-auto max-h-[70vh] object-contain rounded-3xl"
                     priority={index === 0}
                   />
                 </div>

@@ -17,6 +17,7 @@ import Header from "@/sections/Header";
 import BackgroundDecoration from "@/sections/background-decoration";
 import Hero from "@/sections/hero";
 import AppCarousel from "@/components/AppCarousel";
+import MenuCarousel from "@/components/ui/menuCaraousel";
 
 export default function Home() {
   return (
@@ -68,8 +69,10 @@ export default function Home() {
           </div>
         </section>
 
+        <MenuCarousel />
+
         {/* Explore Section */}
-        <section className="py-20">
+        {/* <section className="py-20">
           <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
             EXPLORE REAL TASTE
           </h2>
@@ -98,7 +101,7 @@ export default function Home() {
               )
             )}
           </div>
-        </section>
+        </section> */}
 
         {/* Newsletter Section */}
         <section className="py-20">

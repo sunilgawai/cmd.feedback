@@ -30,6 +30,8 @@ export default function BannerImagesUploadForm() {
           }),
         });
 
+        console.log("response", response);
+
         if (response.ok) {
           toast.success("Banner images uploaded successfully!");
           form.reset();
