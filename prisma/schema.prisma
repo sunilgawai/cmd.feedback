@@ -30,6 +30,7 @@ model User {
 
   accounts      Account[]
   sessions      Session[]
+  BulkEmailJob BulkEmailJob[]
 }
 
 model Voucher {
@@ -228,4 +229,50 @@ model loyalty {
   preferCashback                String
   wantedFeature                 String? // Optional field
   wantToPayAnisClub             String
+}
+
+// EMAIL 
+// Add this to your existing Prisma schema
+model BulkEmailJob {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  totalEmails   Int
+  sentEmails    Int      @default(0)
+  failedEmails  Int      @default(0)
+  
+  status        BulkEmailStatus @default(PENDING)
+  fileOriginalName String?
+  
+  startedAt     DateTime @default(now())
+  completedAt   DateTime?
+  
+  jobResults    BulkEmailResult[]
+}
+
+model BulkEmailResult {
+  id            String   @id @default(cuid())
+  jobId         String
+  job           BulkEmailJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  email         String
+  status        EmailSendStatus
+  errorMessage  String?
+  sentAt        DateTime?
+  
+  createdAt     DateTime @default(now())
+}
+
+enum BulkEmailStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum EmailSendStatus {
+  PENDING
+  SENT
+  FAILED
 }

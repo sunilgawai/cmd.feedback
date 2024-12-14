@@ -22,6 +22,7 @@ import {
   Coins,
   ArrowDownAZIcon,
   GitPullRequest,
+  Mail
 } from "lucide-react";
 import {
   Sidebar,
@@ -62,6 +63,11 @@ const primaryNavItems = [
     title: "Customer Submissions",
     href: "/dashboard/submissions",
     icon: UsersRoundIcon,
+  },
+  {
+    title: "Send Emails",
+    href: "/dashboard/send",
+    icon: Mail,
   },
   {
     title: "Offers",
