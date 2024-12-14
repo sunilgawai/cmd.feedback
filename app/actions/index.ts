@@ -127,6 +127,18 @@ export const deleteAllBanners = async () => {
   }
 };
 
+export const deleteAllMenus = async () => {
+  try {
+    // Delete all BannerImage entries
+    await prisma.menuImage.deleteMany();
+
+    // Delete all BannerImages entries
+    await prisma.menuImages.deleteMany();
+  } catch (error) {
+    console.error("Error deleting all menus:", error);
+    throw new Error("Failed to delete all menus.");
+  }
+};
 
 export async function getBannerImages() {
   try {
@@ -156,6 +168,33 @@ export async function getBannerImages() {
   }
 }
 
+export async function getMenuImages() {
+  try {
+    const menuImages = await prisma.menuImages.findFirst({
+      orderBy: { createdAt: "desc" },
+      include: {
+        images: true,
+      },
+    });
+
+    if (menuImages) {
+      return {
+        ...menuImages,
+        images: menuImages.images.map((img) => ({
+          ...img,
+          image: Buffer.from(img.image).toString("base64"),
+        })),
+      };
+    }
+
+    return {
+      images: [],
+    };
+  } catch (error) {
+    console.error("Error fetching banner images:", error);
+    return null;
+  }
+}
 // Dashboard
 
 export const getDashboardOverview = async () => {
