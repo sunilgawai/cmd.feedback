@@ -57,13 +57,13 @@ export default function BannerImagesDisplay() {
   return (
     <Fragment>
       <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
-        EXPLORE REAL TASTE 🍪
+        WHY THE CHANGE
       </h2>
       <p className="text-lg text-center mb-12">
-        We offer a variety of homemade pastries and sweets, including the
-        almond-topped semolina
-        <br />
-        cakes called harissa and the indulgent kunafa topped with pistachios.
+        Change drives growth, creativity, and new opportunities. Our rebranding
+        reflects our dedication to meeting evolving tastes and expectations.
+        With a refined logo, thoughtfully curated interiors, and an updated
+        menu, we're excited to elevate your experience with us
       </p>
       <Card className="w-full grid place-content-center border-none gap-4 py-4">
         <Carousel

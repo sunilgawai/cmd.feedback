@@ -95,6 +95,12 @@ export async function getHeroImage() {
   }
 }
 
+export const deleteAllBanners = async () => {
+  try {
+    await prisma.bannerImages.delete;
+  } catch (error) {}
+};
+
 export async function getBannerImages() {
   try {
     const bannerImages = await prisma.bannerImages.findFirst({
@@ -114,7 +120,9 @@ export async function getBannerImages() {
       };
     }
 
-    return null;
+    return {
+      images: [],
+    };
   } catch (error) {
     console.error("Error fetching banner images:", error);
     return null;
