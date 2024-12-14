@@ -95,6 +95,25 @@ export async function getHeroImage() {
   }
 }
 
+export const getAppLogo = async () => {
+  try {
+    const image = await prisma.logoImage.findFirst({
+      orderBy: { createdAt: "desc" },
+    });
+
+    if (image) {
+      // Convert Uint8Array to Base64 string
+      const base64Image = Buffer.from(image.image).toString("base64");
+      return {
+        ...image,
+        image: base64Image,
+      };
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
 export const deleteAllBanners = async () => {
   try {
     await prisma.bannerImages.delete;

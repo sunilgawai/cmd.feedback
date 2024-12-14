@@ -1,6 +1,7 @@
 import LoyaltyForm from "@/components/forms/loyalty-form";
 import GridPattern from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
+import Footer from "@/sections/Footer";
 import React from "react";
 
 const FeedBackForm = () => {
@@ -27,6 +28,7 @@ const FeedBackForm = () => {
           "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
         )}
       />
+      <Footer />
     </div>
   );
 };

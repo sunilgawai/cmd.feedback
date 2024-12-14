@@ -186,6 +186,25 @@ model BannerImage {
   createdAt     DateTime     @default(now())
 }
 
+model MenuImages {
+  id        Int      @id @default(autoincrement())
+  images    MenuImage[]
+  createdAt DateTime @default(now())
+}
+
+model MenuImage {
+  id            Int          @id @default(autoincrement())
+  image         Bytes
+  menuId      Int
+  menu        MenuImages @relation(fields: [menuId], references: [id])
+}
+
+model AppLogo {
+  id            Int          @id @default(autoincrement())
+  image         Bytes
+  createdAt     DateTime     @default(now())
+}
+
 model loyalty {
   id                            String  @id @default(cuid())
   name                          String  @db.VarChar(100)

@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import { getBannerImages, getHeroImage } from "@/app/actions";
 import HeroImageDisplay from "./hero-image-display";
-import SiteLogoDisplay from "./site-logo-display";
+import DisplayAppLogo from "./site-logo-display";
 import BannerImagesUploadForm from "@/components/BannerImagesUploadForm";
 import BannerImagesDisplay from "@/components/BannerImagesDisplay";
 
@@ -50,7 +50,7 @@ export default function BannersPage() {
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-16 my-4">
         <h1 className="text-3xl font-bold">Your Site Logo</h1>
-        <SiteLogoDisplay />
+        <DisplayAppLogo />
         <CreateDialog
           buttonText="Upload New"
           title="Upload New"
