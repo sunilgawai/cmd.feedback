@@ -116,9 +116,17 @@ export const getAppLogo = async () => {
 
 export const deleteAllBanners = async () => {
   try {
-    await prisma.bannerImages.delete;
-  } catch (error) {}
+    // Delete all BannerImage entries
+    await prisma.bannerImage.deleteMany();
+
+    // Delete all BannerImages entries
+    await prisma.bannerImages.deleteMany();
+  } catch (error) {
+    console.error("Error deleting all banners:", error);
+    throw new Error("Failed to delete all banners.");
+  }
 };
+
 
 export async function getBannerImages() {
   try {

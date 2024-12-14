@@ -26,7 +26,7 @@ export default function HeroImageDisplay() {
   if (!imageUrl) {
     return (
       <Image
-        src="/hero_md.webp"
+        src="/hero_black.png"
         alt="Hero"
         width={200}
         height={200}

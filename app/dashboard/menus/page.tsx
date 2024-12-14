@@ -36,7 +36,6 @@ export default function MenusPage() {
           ))}
         </div>
       </div>
-      {/* <BannersForm /> */}
     </div>
   );
 }
