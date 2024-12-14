@@ -260,7 +260,6 @@ export default function HomePage() {
       </section>
 
       <FAQ />
-      <Footer />
     </div>
   );
 }
