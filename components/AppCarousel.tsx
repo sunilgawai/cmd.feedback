@@ -82,7 +82,7 @@ export default function AppCarousel() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
+          <CarouselPrevious className="sm:hidden" />
           <CarouselNext />
         </Carousel>
         <div className="py-2 text-center text-sm text-muted-foreground">
