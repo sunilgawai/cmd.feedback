@@ -51,9 +51,9 @@ const Hero = () => {
               alt="Hero Logo"
             />
           </div>
-          <p className="mb-10 text-xl text-center md:text-2xl font-serif">
-            Make every visit more rewarding.
-          </p>
+          <h2 className="text-3xl text-center md:text-3xl lg:text-5xl font-serif mb-12">
+            Make every visit more rewarding
+          </h2>
           {/* <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/onboard">
               <RainbowButton>Become a Member 🚀</RainbowButton>

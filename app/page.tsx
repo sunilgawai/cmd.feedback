@@ -24,7 +24,9 @@ export default function Home() {
           <AppPrevileges />
           <div className="flex items-center justify-center flex-col gap-4 my-12 sm:flex-row sm:justify-center">
             <Link href="/onboard">
-              <RainbowButton className="sm:px-12 px-14 py-6 font-semibold text-lg">Become a Member 🚀</RainbowButton>
+              <RainbowButton className="sm:px-12 px-14 py-6 font-semibold text-lg">
+                Become a Member 🚀
+              </RainbowButton>
             </Link>
           </div>
           <MenuMarquee />
@@ -38,7 +40,7 @@ export default function Home() {
               <Input
                 type="email"
                 placeholder="Enter your e-mail"
-                className="max-w-xs w-full rounded-full"
+                className="max-w-xs w-full text-center rounded-full"
               />
               <Button
                 variant="secondary"
