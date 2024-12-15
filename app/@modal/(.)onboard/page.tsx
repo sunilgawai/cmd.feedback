@@ -89,9 +89,9 @@ const LoginModal = () => {
     <Dialog defaultOpen onOpenChange={() => router.back()}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Account</DialogTitle>
+          <DialogTitle>Become a member</DialogTitle>
           <DialogDescription>
-            Please fill in the form to create an account
+            Please fill in the form to recieve voucher details through email.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -108,7 +108,6 @@ const LoginModal = () => {
                   <FormControl>
                     <Input placeholder="john x. doe" type="text" {...field} />
                   </FormControl>
-                  <FormDescription>please enter your full name</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -127,9 +126,6 @@ const LoginModal = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    it will be used as you username
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -148,9 +144,6 @@ const LoginModal = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    please enter your phone number
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -163,17 +156,18 @@ const LoginModal = () => {
                 <FormItem>
                   <FormLabel>What's app no.</FormLabel>
                   <FormControl>
-                    <Input placeholder="whats app number" type="number" {...field} />
+                    <Input
+                      placeholder="whats app number"
+                      type="number"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>
-                    Please enter your whats app number.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit">Create Account</Button>
+              <Button type="submit">Submit</Button>
             </DialogFooter>
           </form>
         </Form>

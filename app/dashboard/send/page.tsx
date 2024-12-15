@@ -3,14 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import {
-  createBulkEmailJob,
-  getBulkEmailJobStatus,
-  parseFileAndSendEmails,
-} from "@/app/actions/email-actions";
 import * as XLSX from "xlsx";
 import { toast } from "sonner";
-import { auth } from "@/app/auth";
 
 const SendEmailsPage = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -37,9 +31,53 @@ const SendEmailsPage = () => {
           .filter((email: string | undefined) => email && email.trim() !== "");
 
         setEmails(extractedEmails);
-        // console.log("extractedEmails", extractedEmails);
       };
       reader.readAsArrayBuffer(selectedFile);
+    }
+  };
+
+  const handleJobs = async (emails: string[]) => {
+    // Create background job
+    try {
+      const response = await fetch("/api/email/create-bulk-job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ emails }),
+      });
+      const { jobId: createdJobId, message } = await response.json();
+      toast.success(message);
+      console.table({ job: jobId });
+      setJobId(createdJobId);
+      pollJobStatus(createdJobId);
+    } catch (err) {
+      toast.error("Error creating jon");
+      console.error("JOBS ERROR", err);
+      return;
+    }
+  };
+
+  const handleEmailSending = async (emails: string[]) => {
+    try {
+      const sendResponse = await fetch("/api/email/parse-and-send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ emails }),
+      });
+      const result = await sendResponse.json();
+      console.table({ result: result });
+
+      setMessage(result.message);
+      if (result.success) {
+        toast.success("Emails sent successfully");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("An error occurred while sending emails");
+      toast.error("Error sending emails");
     }
   };
 
@@ -48,34 +86,22 @@ const SendEmailsPage = () => {
     if (!file) return;
 
     setIsLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
 
-    try {
-      // Create background job
-      const createdJobId = await createBulkEmailJob(emails);
-      setJobId(createdJobId);
-      const result = await parseFileAndSendEmails(emails);
-      console.log("result", result);
-      setMessage(result.message);
-      if (result.success) {
-        toast.success("Emails sent successfully");
-      }
-      // Optional: Start polling for job status
-      pollJobStatus(createdJobId);
-    } catch (error) {
-      setMessage("An error occurred while sending emails");
-      toast.error("Error sending emails");
-      console.log("Error sending emails", error);
-    } finally {
-      setIsLoading(false);
-    }
+    await handleJobs(emails);
+
+    await handleEmailSending(emails);
+
+    setIsLoading(false);
   };
 
   const pollJobStatus = async (jobId: string) => {
     const intervalId = setInterval(async () => {
       try {
-        const status = await getBulkEmailJobStatus(jobId);
+        const response = await fetch(
+          `/api/email/job-status?jobId=${jobId}`
+        );
+        const status = await response.json();
+        console.log("status", status);
         setJobStatus(status);
 
         // Stop polling if job is completed
@@ -83,6 +109,8 @@ const SendEmailsPage = () => {
           clearInterval(intervalId);
         }
       } catch (error) {
+        toast.error("Error Fetching Job Status");
+        console.error(error);
         clearInterval(intervalId);
         toast.error("Error fetching job status");
       }
@@ -131,3 +159,5 @@ const SendEmailsPage = () => {
     </div>
   );
 };
+
+export default SendEmailsPage;

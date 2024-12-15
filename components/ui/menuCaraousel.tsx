@@ -45,7 +45,7 @@ export default function MenuCarousel() {
   }, [api]);
 
   return (
-    <Fragment>
+    <section className="py-20">
       <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
         EXPLORE REAL TASTE
       </h2>
@@ -89,6 +89,6 @@ export default function MenuCarousel() {
           Slide {current} of {count}
         </div>
       </div>
-    </Fragment>
+    </section>
   );
 }

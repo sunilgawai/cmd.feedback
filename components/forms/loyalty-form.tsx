@@ -110,7 +110,7 @@ export default function LoyaltyForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 max-w-3xl mx-auto py-10"
       >
-        <Card className="border-none">
+        <Card className="border-none bg-transparent">
           <CardHeader className="text-center">
             <CardTitle>Personal Details</CardTitle>
             <CardDescription>Please tell us about you</CardDescription>
@@ -266,7 +266,7 @@ export default function LoyaltyForm() {
           </CardContent>
         </Card>
 
-        <Card className="border-none">
+        <Card className="border-none bg-transparent">
           <CardHeader className="text-center">
             <CardTitle>Engagement and Preferences</CardTitle>
             <CardDescription>Update your personal information</CardDescription>
@@ -276,13 +276,11 @@ export default function LoyaltyForm() {
               control={form.control}
               name="like_to_earn_reward_points"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <FormLabel>
-                      Would you like to earn rewards points every time you visit
-                      or purchase something from the café?
-                    </FormLabel>
-                  </div>
+                <FormItem className="flex flex-col items-start justify-start">
+                  <FormLabel>
+                    Would you like to earn rewards points every time you visit
+                    or purchase something from the café?
+                  </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -420,7 +418,7 @@ export default function LoyaltyForm() {
           </CardContent>
         </Card>
 
-        <Card className="border-none">
+        <Card className="border-none bg-transparent">
           <CardHeader className="text-center">
             <CardTitle>Loyalty Program Features</CardTitle>
             <CardDescription>Update your personal information</CardDescription>
@@ -573,7 +571,7 @@ export default function LoyaltyForm() {
           </CardContent>
         </Card>
 
-        <Card className="border-none">
+        <Card className="border-none bg-transparent">
           <CardHeader className="text-center">
             <CardTitle>Payment and Wallet</CardTitle>
             <CardDescription>Update your personal information</CardDescription>

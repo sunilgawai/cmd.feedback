@@ -26,7 +26,7 @@ export default function Header() {
             <Image
               height={50}
               width={100}
-              className="w-28 h-auto"
+              className="w-32 h-auto my-4  "
               src="/logo_black.png"
               alt="logo"
               priority
