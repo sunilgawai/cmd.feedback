@@ -8,8 +8,9 @@ const images = [
   "/slider/1.png",
   "/slider/2.png",
   "/slider/3.png",
-  "/slider/4.png",
-  //   "/slider/5.png",
+  // "/slider/4.png",
+  // "/slider/5.png",
+  // "/slider/6.png",
 ];
 
 export default function AppPrevileges() {
@@ -24,7 +25,8 @@ export default function AppPrevileges() {
         <br />
         cakes called harissa and the indulgent kunafa topped with pistachios.
       </p>
-      <Marquee pauseOnHover className="[--duration:30s]">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {images.map((url, i) => (
           <div className="flex justify-center flex-col items-center">
             <Image
@@ -33,7 +35,7 @@ export default function AppPrevileges() {
               width={0}
               height={0}
               sizes="100vw"
-              className="w-auto h-auto max-h-[25vh] object-contain rounded-3xl"
+              className="w-auto h-auto max-h-[25vh] object-contain rounded-xl"
               priority={i === 0}
             />
             <div className="p-6">
@@ -50,7 +52,7 @@ export default function AppPrevileges() {
             </div>
           </div>
         ))}
-      </Marquee>
+      </div>
     </section>
   );
 }

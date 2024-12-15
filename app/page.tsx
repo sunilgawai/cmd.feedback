@@ -12,32 +12,37 @@ import AppPrevileges from "@/sections/previleges";
 
 export default function Home() {
   return (
-    <div className="min-h-screen px-40 pb-12 grid place-content-center">
+    <div className="min-h-screen flex flex-col pb-4">
       <Header />
       <BackgroundDecoration />
-      <Hero />
-      <AppCarousel />
 
-      <main className="container mx-auto px-4">
-        <AppPrevileges />
-        <MenuMarquee />
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Hero />
+          <AppCarousel />
+          <AppPrevileges />
+          <MenuMarquee />
 
-        {/* Newsletter Section */}
-        <section className="py-20">
-          <h2 className="text-5xl md:text-6xl font-serif text-center mb-12">
-            LET'S CONNECT WITH US
-          </h2>
-          <div className="flex justify-center space-x-4">
-            <Input
-              type="email"
-              placeholder="Enter your e-mail"
-              className="max-w-xs rounded-full"
-            />
-            <Button variant="secondary" className="rounded-full">
-              Subscribe Now
-            </Button>
-          </div>
-        </section>
+          {/* Newsletter Section */}
+          <section className="py-12 sm:py-16 md:py-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-center mb-8 sm:mb-12">
+              LET'S CONNECT WITH US
+            </h2>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+              <Input
+                type="email"
+                placeholder="Enter your e-mail"
+                className="max-w-xs w-full rounded-full"
+              />
+              <Button
+                variant="secondary"
+                className="rounded-full w-full sm:w-auto"
+              >
+                Subscribe Now
+              </Button>
+            </div>
+          </section>
+        </div>
       </main>
 
       <Footer />
