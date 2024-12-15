@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background antialiased outline-border",
+          "min-h-screen bg-[#e0e2e6] antialiased outline-border",
           inter.className
         )}
       >
