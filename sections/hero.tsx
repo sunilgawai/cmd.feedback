@@ -37,9 +37,6 @@ const Hero = () => {
       </div>
       <div className="container mx-auto px-4 py-20 sm:py-28">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-10 text-xl text-center md:text-2xl font-serif">
-            Make every visit more rewarding.
-          </p>
           <div className="flex justify-center">
             {/* <Image
               height={400}
@@ -54,6 +51,9 @@ const Hero = () => {
               alt="Hero Logo"
             />
           </div>
+          <p className="mb-10 text-xl text-center md:text-2xl font-serif">
+            Make every visit more rewarding.
+          </p>
           {/* <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/onboard">
               <RainbowButton>Become a Member 🚀</RainbowButton>
