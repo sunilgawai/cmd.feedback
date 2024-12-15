@@ -41,10 +41,16 @@ const Hero = () => {
             <span className="font-semibold">StarAnise</span> ~ PATISSERIE
           </Badge>
           <div className="flex justify-center">
-            <Image
+            {/* <Image
               height={400}
               width={400}
               src="/logos/logo_hero_yellow.png"
+              alt="Hero Logo"
+            /> */}
+            <Image
+              height={400}
+              width={400}
+              src="/star_club_reward_logo.png"
               alt="Hero Logo"
             />
           </div>
