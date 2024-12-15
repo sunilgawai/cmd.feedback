@@ -52,14 +52,11 @@ const Hero = () => {
             Manages all your restaurant operations efficiently so that you can
             focus on growing your brand, like a real boss!
           </p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+          {/* <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/onboard">
-              <RainbowButton>
-                Become a Member 🚀
-                {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
-              </RainbowButton>
+              <RainbowButton>Become a Member 🚀</RainbowButton>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

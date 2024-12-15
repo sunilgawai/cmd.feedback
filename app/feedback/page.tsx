@@ -69,7 +69,7 @@ export default function Home() {
                   <Image
                     height={400}
                     width={400}
-                    src="/logos/logo_hero_yellow.png"
+                    src="/star_club_reward_logo.png"
                     alt="Hero Logo"
                   />
                 </div>

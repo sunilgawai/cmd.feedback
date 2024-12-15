@@ -24,7 +24,7 @@ export default function MenuMarquee() {
   return (
     <Fragment>
       <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
-        EXPLORE REAL TASTE
+        MEMBERSHIP BENEFITS
       </h2>
       <p className="text-lg text-center mb-12">
         We offer a variety of homemade pastries and sweets, including the

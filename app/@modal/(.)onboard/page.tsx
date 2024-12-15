@@ -27,11 +27,13 @@ import { Input } from "@/components/ui/input";
 import { submitFirstForm } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 const formSchema = z.object({
   name: z.string().max(100),
   email: z.string().email(),
   phone: z.string().min(10).max(10),
   wing: z.string().optional(),
+  location: z.string().optional(),
 });
 
 const LoginModal = () => {
@@ -43,6 +45,7 @@ const LoginModal = () => {
       email: "",
       phone: "",
       wing: "",
+      location:""
     },
   });
 
@@ -64,6 +67,7 @@ const LoginModal = () => {
         email: "",
         phone: "",
         wing: "",
+        location: "",
       });
       window.location.replace("/feedback");
     } catch (error: any) {
@@ -78,6 +82,7 @@ const LoginModal = () => {
               email: "",
               phone: "",
               wing: "",
+              location: "",
             });
           },
         },
@@ -162,6 +167,32 @@ const LoginModal = () => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Please select a location.</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="select location..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Colaba">Colaba</SelectItem>
+                      <SelectItem value="weekly">Jogeshwari</SelectItem>
+                      <SelectItem value="Bandra">Bandra</SelectItem>
+                    </SelectContent>
+                  </Select>
+
                   <FormMessage />
                 </FormItem>
               )}

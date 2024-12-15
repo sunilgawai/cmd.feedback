@@ -9,6 +9,7 @@ import Hero from "@/sections/hero";
 import AppCarousel from "@/components/AppCarousel";
 import MenuMarquee from "@/components/menu-marquee";
 import AppPrevileges from "@/sections/previleges";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export default function Home() {
   return (
@@ -21,6 +22,11 @@ export default function Home() {
           <Hero />
           <AppCarousel />
           <AppPrevileges />
+          <div className="flex flex-col gap-4 my-12 sm:flex-row sm:justify-center">
+            <Link href="/onboard">
+              <RainbowButton>Become a Member 🚀</RainbowButton>
+            </Link>
+          </div>
           <MenuMarquee />
 
           {/* Newsletter Section */}
