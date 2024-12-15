@@ -65,6 +65,7 @@ export default function AppCarousel() {
           setApi={setApi}
           className="w-full max-w-4xl"
         >
+          {/* <CarouselPrevious className="sm:hidden z-50" /> */}
           <CarouselContent>
             {images.map((url, index) => (
               <CarouselItem key={index}>
@@ -82,8 +83,7 @@ export default function AppCarousel() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="sm:hidden" />
-          <CarouselNext />
+          {/* <CarouselNext /> */}
         </Carousel>
         <div className="py-2 text-center text-sm text-muted-foreground">
           Slide {current} of {count}

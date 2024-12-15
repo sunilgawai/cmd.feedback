@@ -10,10 +10,10 @@ export default function Header() {
         <div className="flex items-center justify-start">
           <Link href="/" className="block">
             <Image
-              height={50}
+              height={80}
               width={100}
-              className="w-24 sm:w-28 md:w-32 h-auto my-4"
-              src="/logo_black.png"
+              className="w-32 md:w-32 h-auto my-4"
+              src="/logo_white.png"
               alt="logo"
               priority
             />
