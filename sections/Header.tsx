@@ -13,7 +13,7 @@ export default function Header() {
               height={80}
               width={100}
               className="w-32 md:w-32 h-auto my-4"
-              src="/logo_yellow.png"
+              src="/logo_black.png"
               alt="logo"
               priority
             />

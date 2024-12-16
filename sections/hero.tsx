@@ -51,6 +51,10 @@ const Hero = () => {
               alt="Hero Logo"
             />
           </div>
+          <p className="text-2xl text-center md:text-3xl lg:text-5xl font-serif mb-12">
+            Manage all your restaurant opration effeciently so that you can
+            focus on growing your brand, lke a real boss.
+          </p>
           <h2 className="text-3xl text-center md:text-3xl lg:text-5xl font-serif mb-12">
             Make every visit more rewarding
           </h2>
