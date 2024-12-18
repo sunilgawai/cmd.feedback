@@ -1,23 +1,56 @@
 "use client";
 
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import * as XLSX from "xlsx";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import * as XLSX from "xlsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
+import { sendBulkEmails } from "@/app/actions/email-actions";
 
-const SendEmailsPage = () => {
-  const [file, setFile] = useState<File | null>(null);
+const formSchema = z.object({
+  file: z.instanceof(File),
+  voucherId: z.string(),
+});
+
+export default function BulkEmailPage() {
   const [emails, setEmails] = useState<string[]>([]);
-  const [jobId, setJobId] = useState<string | null>(null);
-  const [jobStatus, setJobStatus] = useState<any>(null);
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [vouchers, setVouchers] = useState([
+    { id: "1", code: "SUMMER20", description: "20% off on summer bookings" },
+    {
+      id: "2",
+      code: "WEEKEND3",
+      description: "3rd night free on weekend stays",
+    },
+    { id: "3", code: "DINING15", description: "15% off at our restaurants" },
+  ]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
+      form.setValue("file", selectedFile);
       const reader = new FileReader();
       reader.onload = (e) => {
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
@@ -36,128 +69,96 @@ const SendEmailsPage = () => {
     }
   };
 
-  const handleJobs = async (emails: string[]) => {
-    // Create background job
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch("/api/email/create-bulk-job", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ emails }),
-      });
-      const { jobId: createdJobId, message } = await response.json();
-      toast.success(message);
-      console.table({ job: jobId });
-      setJobId(createdJobId);
-      pollJobStatus(createdJobId);
-    } catch (err) {
-      toast.error("Error creating jon");
-      console.error("JOBS ERROR", err);
-      return;
-    }
-  };
-
-  const handleEmailSending = async (emails: string[]) => {
-    try {
-      const sendResponse = await fetch("/api/email/parse-and-send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ emails }),
-      });
-      const result = await sendResponse.json();
-      console.table({ result: result });
-
-      setMessage(result.message);
-      if (result.success) {
-        toast.success("Emails sent successfully");
+      const selectedVoucher = vouchers.find((v) => v.id === values.voucherId);
+      if (!selectedVoucher) {
+        throw new Error("Selected voucher not found");
       }
-    } catch (err) {
-      console.error(err);
-      setMessage("An error occurred while sending emails");
-      toast.error("Error sending emails");
+      await sendBulkEmails(emails, values.voucherId, {
+        code: selectedVoucher.code,
+        description: selectedVoucher.description,
+      });
+      toast.success("Bulk invitation emails sent successfully");
+    } catch (error) {
+      toast.error("Failed to send bulk invitation emails");
     }
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!file) return;
-
-    setIsLoading(true);
-
-    await handleJobs(emails);
-
-    await handleEmailSending(emails);
-
-    setIsLoading(false);
-  };
-
-  const pollJobStatus = async (jobId: string) => {
-    const intervalId = setInterval(async () => {
-      try {
-        const response = await fetch(
-          `/api/email/job-status?jobId=${jobId}`
-        );
-        const status = await response.json();
-        console.log("status", status);
-        setJobStatus(status);
-
-        // Stop polling if job is completed
-        if (status.status === "COMPLETED" || status.status === "FAILED") {
-          clearInterval(intervalId);
-        }
-      } catch (error) {
-        toast.error("Error Fetching Job Status");
-        console.error(error);
-        clearInterval(intervalId);
-        toast.error("Error fetching job status");
-      }
-    }, 5000); // Poll every 5 seconds
   };
 
   return (
-    <div className="flex flex-col gap-8 p-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Send Emails</h1>
-      </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Input
-            type="file"
-            accept=".csv,.xlsx,.xls"
-            onChange={handleFileChange}
-            className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
-          />
-        </div>
-        {emails.length > 0 && (
-          <div>
-            <h2 className="text-xl font-semibold mb-2">Imported Emails:</h2>
-            <ul className="list-disc pl-5 max-h-64 overflow-y-auto">
-              {emails.map((email, index) => (
-                <li key={index}>{email}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <Button type="submit" disabled={!file || isLoading}>
-          {isLoading ? "Sending..." : "Send Emails"}
-        </Button>
-      </form>
+    <div className="container mx-auto p-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Send Bulk Invitation Emails</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="file"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Upload Excel or CSV file</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        accept=".xlsx,.xls,.csv"
+                        onChange={handleFileChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-      {jobId && (
-        <div>
-          <h2>Job Status</h2>
-          <p>Total Emails: {jobStatus?.totalEmails}</p>
-          <p>Sent Emails: {jobStatus?.sentEmails}</p>
-          <p>Failed Emails: {jobStatus?.failedEmails}</p>
-          <p>Status: {jobStatus?.status}</p>
-        </div>
-      )}
-      {message && <p className="mt-4 text-green-600">{message}</p>}
+              <FormField
+                control={form.control}
+                name="voucherId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Select Invitation Voucher</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a voucher" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {vouchers.map((voucher) => (
+                          <SelectItem key={voucher.id} value={voucher.id}>
+                            {voucher.code} - {voucher.description}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div>
+                <h3 className="font-semibold mb-2">Extracted Emails:</h3>
+                <ul className="list-disc pl-5">
+                  {emails.slice(0, 5).map((email, index) => (
+                    <li key={index}>{email}</li>
+                  ))}
+                  {emails.length > 5 && (
+                    <li>...and {emails.length - 5} more</li>
+                  )}
+                </ul>
+              </div>
+
+              <Button type="submit" disabled={emails.length === 0}>
+                Send Bulk Invitation Emails
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
-};
-
-export default SendEmailsPage;
+}
