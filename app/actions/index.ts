@@ -1,8 +1,9 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-// import bcrypt from "bcryptjs"; // Optional: Only if you're dealing with passwords
-import { sendEmail } from "@/lib/emails";
+import bcrypt from "bcryptjs"; // Optional: Only if you're dealing with passwords
+import { sendEmail, sendWelcomeEmail } from "@/lib/emails";
 import MagicLinkEmail from "@/emails/magic-link-email";
+// import { hash } from "bcrypt";
 
 import { nanoid } from "nanoid"; // For generating random identifiers
 import NodeCache from "node-cache";
@@ -346,58 +347,96 @@ export const createBanners = async () => {
 };
 
 // User
-
-export const submitFirstForm = async (values: {
+export async function submitFirstForm(data: {
   name: string;
   email: string;
   phone: string;
-  wing?: string | undefined;
-}) => {
-  const { name, email, phone, wing } = values;
+  wing?: string;
+  location?: string;
+}) {
+  const { name, email, phone, wing, location } = data;
 
   // Check if user already exists
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
-  });
+  const existingUser = await prisma.user.findUnique({ where: { email } });
+  if (existingUser) {
+    throw new Error("User with this email already exists");
+  }
 
-  // if (existingUser) {
-  //   throw new Error("User with this email already exists");
-  // }
+  // Generate a random password
+  const password = Math.random().toString(36).slice(-8);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Save the user to the database
-  // const user = await prisma.user.create({
-  //   data: {
-  //     name,
-  //     email,
-  //     phoneNumber: phone,
-  //     password: null, // If you're only using email magic links
-  //     // wing, // Optional field
-  //   },
-  // });
-
-  // Create a magic link token
-  const token = nanoid(); // You can generate a token for the magic link
-
-  // Save the token and link expiration in the database
-  await prisma.verificationToken.create({
+  // Create new user
+  const user = await prisma.user.create({
     data: {
-      identifier: email,
-      token,
-      expires: new Date(Date.now() + 60 * 60 * 1000), // Set expiry to 1 hour
-    },
-  });
-
-  // Send magic link email to user
-  const loginUrl = `${process.env.NEXTAUTH_URL}/api/auth/callback/email?token=${token}&email=${email}`;
-  await sendEmail({
-    to: email,
-    subject: "Sign in to Your Account",
-    template: MagicLinkEmail,
-    props: {
-      loginUrl,
+      name,
       email,
+      phoneNumber: phone,
+      password: hashedPassword,
+      role: "CUSTOMER",
+      // Add wing and location if they're part of your User model
+      // ...(wing && { wing }),
+      // ...(location && { location }),
     },
   });
 
-  return true;
-};
+  // Send welcome email with login link
+  await sendWelcomeEmail(user.email, user.name, password);
+
+  return user;
+}
+
+// export const submitFirstForm = async (values: {
+//   name: string;
+//   email: string;
+//   phone: string;
+//   wing?: string | undefined;
+// }) => {
+//   const { name, email, phone, wing } = values;
+
+//   // Check if user already exists
+//   const existingUser = await prisma.user.findUnique({
+//     where: { email },
+//   });
+
+//   // if (existingUser) {
+//   //   throw new Error("User with this email already exists");
+//   // }
+
+//   // Save the user to the database
+//   // const user = await prisma.user.create({
+//   //   data: {
+//   //     name,
+//   //     email,
+//   //     phoneNumber: phone,
+//   //     password: null, // If you're only using email magic links
+//   //     // wing, // Optional field
+//   //   },
+//   // });
+
+//   // Create a magic link token
+//   const token = nanoid(); // You can generate a token for the magic link
+
+//   // Save the token and link expiration in the database
+//   await prisma.verificationToken.create({
+//     data: {
+//       identifier: email,
+//       token,
+//       expires: new Date(Date.now() + 60 * 60 * 1000), // Set expiry to 1 hour
+//     },
+//   });
+
+//   // Send magic link email to user
+//   const loginUrl = `${process.env.NEXTAUTH_URL}/api/auth/callback/email?token=${token}&email=${email}`;
+//   await sendEmail({
+//     to: email,
+//     subject: "Sign in to Your Account",
+//     template: MagicLinkEmail,
+//     props: {
+//       loginUrl,
+//       email,
+//     },
+//   });
+
+//   return true;
+// };
