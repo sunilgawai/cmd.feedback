@@ -124,12 +124,12 @@ export async function sendInvitationEmailWithVoucher(
   email: string,
   voucher: { code: string; description: string }
 ) {
-  const registrationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/register`;
+  const registrationUrl = `${process.env.NEXT_PUBLIC_APP_URL}`;
 
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: email,
-    subject: "Special Invitation to Join VITS Passport Plus",
+    subject: "Special Invitation to Join Star Anise Plus",
     html: `
       <h1>Hello,</h1>
       <p>We're excited to invite you to join VITS Passport Plus, our exclusive loyalty program!</p>
@@ -137,9 +137,9 @@ export async function sendInvitationEmailWithVoucher(
       <p>${voucher.description}</p>
       <p>To use this voucher and enjoy more benefits, please register for an account:</p>
       <a href="${registrationUrl}" style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Register Now</a>
-      <p>We look forward to welcoming you to VITS Passport Plus!</p>
+      <p>We look forward to welcoming you to Star Anise Plus!</p>
       <p>Best regards,</p>
-      <p>The VITS Passport Plus Team</p>
+      <p>The Star Anise Team</p>
     `,
   };
 

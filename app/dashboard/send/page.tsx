@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -25,23 +25,24 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { sendBulkEmails } from "@/app/actions/email-actions";
+import { getAllVouchers } from "@/app/actions";
+import { Voucher } from "@prisma/client";
 
 const formSchema = z.object({
-  file: z.instanceof(File),
+  file: z.any(),
   voucherId: z.string(),
 });
 
 export default function BulkEmailPage() {
   const [emails, setEmails] = useState<string[]>([]);
-  const [vouchers, setVouchers] = useState([
-    { id: "1", code: "SUMMER20", description: "20% off on summer bookings" },
-    {
-      id: "2",
-      code: "WEEKEND3",
-      description: "3rd night free on weekend stays",
-    },
-    { id: "3", code: "DINING15", description: "15% off at our restaurants" },
-  ]);
+  const [vouchers, setVouchers] = useState<Voucher[]>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getAllVouchers().then((result) => {
+      setVouchers(result);
+    });
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -128,7 +129,7 @@ export default function BulkEmailPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {vouchers.map((voucher) => (
+                        {vouchers?.map((voucher) => (
                           <SelectItem key={voucher.id} value={voucher.id}>
                             {voucher.code} - {voucher.description}
                           </SelectItem>
@@ -152,8 +153,8 @@ export default function BulkEmailPage() {
                 </ul>
               </div>
 
-              <Button type="submit" disabled={emails.length === 0}>
-                Send Bulk Invitation Emails
+              <Button type="submit" disabled={emails.length === 0 || loading}>
+                {loading ? "Sending" : "Send Bulk Invitation Emails"}
               </Button>
             </form>
           </Form>
