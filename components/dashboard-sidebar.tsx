@@ -139,12 +139,6 @@ export function DashboardSidebar() {
                 >
                   <item.icon className="h-4 w-4" />
                   <span>{item.title}</span>
-                  {item.title === "Billing" &&
-                    session?.user?.subscriptionStatus !== "active" && (
-                      <Badge variant="destructive" className="ml-auto">
-                        Inactive
-                      </Badge>
-                    )}
                 </Link>
               </SidebarMenuItem>
             ))}
