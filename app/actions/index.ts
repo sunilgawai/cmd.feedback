@@ -142,15 +142,15 @@ export const deleteAllMenus = async () => {
 };
 
 type ImagesType = {
-    images: {
-        image: string;
-        id: number;
-        createdAt: Date;
-        bannerId: number;
-    }[];
+  images: {
+    image: string;
     id: number;
     createdAt: Date;
-}
+    bannerId: number;
+  }[];
+  id: number;
+  createdAt: Date;
+};
 export async function getBannerImages() {
   const cachedBanners: ImagesType = cache.get("bannerImages");
   console.log("cachedBanners", cachedBanners);
@@ -278,7 +278,10 @@ export const updateCustomerData = async (values: {
 }) => {
   await prisma.user.update({
     where: { id: values.id },
-    data: values,
+    data: {
+      ...values,
+      // role: "ADMIN",
+    },
   });
 };
 

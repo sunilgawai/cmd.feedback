@@ -14,9 +14,9 @@ export default async function DashboardLayout({
 }) {
   const session = await auth();
 console.log("session", session);
-  if (!session?.user || session.user.role === 'CUSTOMER') {
-    redirect("/");
-  }
+  // if (!session?.user || session.user.role === 'CUSTOMER') {
+  //   redirect("/");
+  // }
 
   return (
     <div className="flex min-h-screen">

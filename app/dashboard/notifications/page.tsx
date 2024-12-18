@@ -16,11 +16,6 @@ import { columns } from "./columns";
 import { getAllNotifications } from "@/app/actions";
 
 export default async function NotificationsPage() {
-  const session = await auth();
-
-  if (!session?.user) {
-    redirect("/login");
-  }
 
   const notifications = await getAllNotifications();
   return (

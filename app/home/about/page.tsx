@@ -9,7 +9,7 @@ export default function AboutPage() {
         <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center">
           <Star className="w-8 h-8 text-pink-600" />
         </div>
-        <h2 className="text-xl font-semibold">VITS Star</h2>
+        <h2 className="text-xl font-semibold">Star Anise</h2>
       </div>
 
       <div className="space-y-4">
