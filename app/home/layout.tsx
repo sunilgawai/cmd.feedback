@@ -55,14 +55,14 @@ export default function MainLayout({
             </nav>
           </SheetContent>
         </Sheet>
-        <Image
+        {/* <Image
           src="/logo_black.png"
           alt="log"
           width={0}
           height={0}
           className="w-16 z-50"
-        />
-        {/* <h1 className="text-xl font-semibold">VITS Passport Plus</h1> */}
+        /> */}
+        <h1 className="text-xl font-semibold">Star Anise Plus</h1>
         <div className="w-6" /> {/* Spacer for alignment */}
       </header>
 
