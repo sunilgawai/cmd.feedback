@@ -1,24 +1,32 @@
-import { Metadata } from "next";
-import { VoucherSection } from "./_components/voucher-section";
-import { OfferSection } from "./_components/offer-section";
-import { PersonalDetailsForm } from "./_components/personal-details-form";
-import { SettingsSection } from "./_components/settings-section";
+import { Star } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
-export const metadata: Metadata = {
-  title: "Dashboard | user's dashboard",
-  description: "View your vouchers, offers, and manage your account",
-};
-
-export default function DashboardPage() {
+export default function HomePage() {
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold">Welcome to Your Dashboard</h1>
-      <div className="grid gap-8 md:grid-cols-2">
-        <VoucherSection />
-        <OfferSection />
+    <div className="p-4 bg-gradient-to-b from-pink-100 to-white min-h-screen">
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h2 className="text-2xl font-bold">Welcome,</h2>
+          <div className="flex items-center gap-2 text-gray-600">
+            <span>10000002</span>
+            <Star className="w-4 h-4 text-pink-600" />
+            <span>Start Anise</span>
+          </div>
+        </div>
       </div>
-      <PersonalDetailsForm />
-      <SettingsSection />
+
+      <Card className="mb-6">
+        <CardContent className="p-6">
+          <h3 className="text-xl font-bold mb-4">
+            Make every visit more rewarding
+          </h3>
+          <p className="text-gray-600">
+            We offer a variety of homemade pastries and sweets, including the
+            almond-topped semolina cakes called harissa and the indulgent kunafa
+            topped with pistachios. 
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }
