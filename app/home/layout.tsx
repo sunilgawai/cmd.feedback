@@ -70,10 +70,10 @@ export default function MainLayout({
 
       <nav className="fixed bottom-0 left-0 right-0 flex items-center justify-around border-t bg-white">
         <Link
-          href="/"
+          href="/home"
           className={cn(
             "flex flex-col items-center py-2 px-4",
-            pathname === "/" ? "text-pink-600" : "text-gray-600"
+            pathname === "/home" ? "text-pink-600" : "text-gray-600"
           )}
         >
           <Home className="w-6 h-6" />
@@ -83,7 +83,7 @@ export default function MainLayout({
           href="/home/profile"
           className={cn(
             "flex flex-col items-center py-2 px-4",
-            pathname === "/profile" ? "text-pink-600" : "text-gray-600"
+            pathname === "/home/profile" ? "text-pink-600" : "text-gray-600"
           )}
         >
           <User className="w-6 h-6" />
@@ -93,7 +93,7 @@ export default function MainLayout({
           href="/home/about"
           className={cn(
             "flex flex-col items-center py-2 px-4",
-            pathname === "/about" ? "text-pink-600" : "text-gray-600"
+            pathname === "/home/about" ? "text-pink-600" : "text-gray-600"
           )}
         >
           <Star className="w-6 h-6" />
