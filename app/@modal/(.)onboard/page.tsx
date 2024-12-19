@@ -159,10 +159,10 @@ const LoginModal = () => {
               name="whatsapp"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>What's app no.</FormLabel>
+                  <FormLabel>whatsapp no.</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="whats app number"
+                      placeholder="enter whatsapp number"
                       type="number"
                       {...field}
                     />
