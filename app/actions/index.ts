@@ -324,10 +324,9 @@ export const createNotification = async ({
 }) => {
   await prisma.notification.create({
     data: {
-      title,
-      message,
-      user: { connect: { id: "cm4h92ifj000026p7u5k2j8ts" } },
-    },
+      message:message,
+      title: title
+    }
   });
 };
 

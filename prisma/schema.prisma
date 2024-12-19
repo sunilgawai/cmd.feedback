@@ -20,14 +20,13 @@ model User {
   password      String?
   phoneNumber   String?    @unique
   whatsapp      String?    @unique
+  unique_id     String?
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   vouchers      Voucher[]
-  submissions   FormSubmission[]
-
   accounts      Account[]
   sessions      Session[]
 }
@@ -40,7 +39,7 @@ model Voucher {
   validFrom   DateTime
   validTo     DateTime
   userId      String?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -110,14 +109,6 @@ model ContactUs {
   phone        String?
   email    String?
   address         String?
-}
-
-model Banner {
-  id          String   @id @default(cuid())
-  title String
-  images Image[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt 
 }
 
 model HeroImage {
