@@ -1,10 +1,7 @@
 "use server";
 
-import * as XLSX from "xlsx";
 import nodemailer from "nodemailer";
-import { v4 as uuidv4 } from "uuid";
-import { prisma } from "@/lib/prisma";
-import { sendEmailWithVoucher, sendInvitationEmailWithVoucher } from "@/lib/emails";
+import { sendInvitationEmailWithVoucher } from "@/lib/emails";
 
 // This should be set up in your Vercel environment variables
 const transporter = nodemailer.createTransport({

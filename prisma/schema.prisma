@@ -20,6 +20,7 @@ model User {
   password      String?
   phoneNumber   String?    @unique
   whatsapp      String?    @unique
+  location     String?
   unique_id     String?
   emailVerified DateTime?
   image         String?

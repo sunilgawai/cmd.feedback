@@ -27,7 +27,14 @@ import { Input } from "@/components/ui/input";
 import { submitFirstForm } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { registerUser } from "@/app/actions/register";
 const formSchema = z.object({
   name: z.string().max(100),
   email: z.string().email(),
@@ -45,46 +52,34 @@ const LoginModal = () => {
       email: "",
       phone: "",
       whatsapp: "",
-      location:""
+      location: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      await submitFirstForm(
-        values as { name: string; email: string; phone: string; whatsapp?: string }
-      );
-      toast("Success", {
-        description: "Onboarding success. Please check your emails.",
-        action: {
-          label: "close",
-          onClick: () => console.log("close clicked"),
-        },
-      });
-      form.reset({
-        name: "",
-        email: "",
-        phone: "",
-        whatsapp: "",
-        location: "",
-      });
+      const response = await registerUser(values as any);
+      console.log(response);
+      if (response.success) {
+        toast("Success", {
+          description:
+            "Registration successful. Please check your email for login credentials.",
+          action: {
+            label: "Close",
+            onClick: () => console.log("close clicked"),
+          },
+        });
+      }
+      form.reset();
       window.location.replace("/feedback");
     } catch (error: any) {
-      console.error("Form submission error", error);
-      toast(error?.message || "Please Try Again Later", {
-        cancel: {
-          label: "Cancel",
-          onClick: () => {
-            console.log("cancel clicked");
-            form.reset({
-              name: "",
-              email: "",
-              phone: "",
-              whatsapp: "",
-              location: "",
-            });
-          },
+      console.error("Registration error", error);
+      toast(error.message || "Error", {
+        description: "Registration unsuccessful.",
+        action: {
+          label: "Close",
+          onClick: () => console.log("close clicked"),
         },
       });
     }
@@ -198,7 +193,9 @@ const LoginModal = () => {
               )}
             />
             <DialogFooter>
-              <Button className="w-full" type="submit">Register</Button>
+              <Button className="w-full" type="submit">
+                Register
+              </Button>
             </DialogFooter>
           </form>
         </Form>

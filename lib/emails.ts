@@ -1,5 +1,4 @@
 import { Resend } from "resend";
-import SubscriptionEmail from "@/emails/subscription-email";
 import { siteConfig } from "@/config/site";
 import * as React from "react";
 import nodemailer from "nodemailer";
@@ -55,14 +54,14 @@ export async function sendWelcomeEmail(
   name: string,
   password: string
 ) {
-  const loginUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth`;
+  const loginUrl = `${process.env.NEXT_PUBLIC_APP_URL}`;
 
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to: email,
-    subject: "Welcome to VITS Passport Plus",
+    subject: "Welcome to Star Anise",
     html: `
-      <h1>Welcome to VITS Passport Plus, ${name}!</h1>
+      <h1>Welcome to Star Anise, ${name}!</h1>
       <p>Thank you for joining our loyalty program. Your account has been created successfully.</p>
       <p>You can log in to your account using the following credentials:</p>
       <p>Email: ${email}</p>
@@ -77,11 +76,6 @@ export async function sendWelcomeEmail(
   };
 
   try {
-    // await resend.emails
-    //   .send(mailOptions)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    // .sendMail(mailOptions);
     await transporter.sendMail(mailOptions);
     console.log("Welcome email sent successfully");
   } catch (error) {
