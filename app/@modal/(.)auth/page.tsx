@@ -23,9 +23,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().max(100),
@@ -33,6 +35,7 @@ const formSchema = z.object({
 
 const LoginModal = () => {
   const router = useRouter();
+  const [isDialogOpen, setIsDialogOpen] = useState(true); // Manage dialog state
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,39 +46,44 @@ const LoginModal = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log(values);
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
 
-      toast("Success", {
-        description: "Login success.",
-        action: {
-          label: "close",
-          onClick: () => console.log("close clicked"),
-        },
-      });
-      form.reset({
-        password: "",
-        email: "",
-      });
-      window.location.replace("/home");
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
+      if (result?.ok) {
+        toast("Success", {
+          description: "Login successful.",
+        });
+        form.reset();
+        setIsDialogOpen(false); // Close dialog after successful login
+        router.push("/home"); // Redirect to home page
+      }
     } catch (error: any) {
-      console.error("Form submission error", error);
-      toast(error?.message || "Please Try Again Later", {
-        cancel: {
-          label: "Cancel",
-          onClick: () => {
-            console.log("cancel clicked");
-            form.reset({
-              password: "",
-              email: "",
-            });
-          },
-        },
+      console.error("Login error", error);
+      toast(error?.message || "Login failed. Please try again.", {
+        description: "Either password or email is wrong.",
       });
     }
   }
 
   return (
-    <Dialog defaultOpen onOpenChange={() => router.back()}>
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          if (isDialogOpen) {
+            router.back(); // Go back only if manually closed
+          }
+          setIsDialogOpen(false);
+        }
+      }}
+    >
       <DialogContent className="sm:max-w-[385px]">
         <DialogHeader>
           <DialogTitle className="text-center">Welcome Back</DialogTitle>
@@ -94,7 +102,7 @@ const LoginModal = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 w-full  mx-auto py-6"
+            className="space-y-4 w-full mx-auto py-6"
           >
             <FormField
               control={form.control}

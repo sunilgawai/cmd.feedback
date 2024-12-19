@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 export default function MainLayout({
   children,
@@ -52,6 +53,7 @@ export default function MainLayout({
                   {item.title}
                 </Link>
               ))}
+              <Button onClick={() => signOut()}>Sign Out</Button>
             </nav>
           </SheetContent>
         </Sheet>

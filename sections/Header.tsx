@@ -61,7 +61,8 @@ export default function Header({ session }: { session: any }) {
             <Link href="/home">
               <Avatar className="h-10 w-10 sm:h-12 sm:w-12 bg-transparent">
                 <AvatarImage
-                  src={session.user.image || "https://github.com/shadcn.png"}
+                  // src={session.user.image || "https://github.com/shadcn.png"}
+                  src={session.user.image || "/user.png"}
                   alt={session.user.name || "@user"}
                 />
                 <AvatarFallback>{session.user.name?.[0] || "U"}</AvatarFallback>

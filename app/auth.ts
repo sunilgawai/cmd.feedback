@@ -1,4 +1,8 @@
-import NextAuth, { NextAuthOptions, DefaultSession, getServerSession } from "next-auth";
+import NextAuth, {
+  NextAuthOptions,
+  DefaultSession,
+  getServerSession,
+} from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
@@ -46,6 +50,7 @@ export const authOptions: NextAuthOptions = {
           return user;
         } catch (error) {
           console.error("Authentication error:", error);
+          throw new Error("Wrong Credentials");
           return null;
         }
       },
@@ -80,6 +85,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth",
     verifyRequest: "/verify-request",
+    signOut: "/app/logout",
   },
   callbacks: {
     jwt: async ({ token, user }) => {
