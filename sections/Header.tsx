@@ -1,47 +1,79 @@
-import { auth } from "@/app/auth";
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserButton } from "@/components/user-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { User } from "lucide-react";
 
-export default async function Header() {
-  const session = await auth();
+export default function Header({ session }: { session: any }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 2xl:px-40 border-none shadow-none">
-      <div className="w-full flex items-center justify-between gap-4 px-28">
-        {/* <div className="flex items-center justify-between"> */}
-          <Link href="/" className="block">
-            <Image
-              height={80}
-              width={100}
-              className="w-32 md:w-32 h-auto my-4"
-              src="/logo_black.png"
-              alt="logo"
-              priority
-            />
-          </Link>
-          {session?.user ? (
-            <Link href="/home" className="block">
-              <Avatar role="link">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
+        scrolled ? "bg-white shadow-md" : "bg-transparent"
+      }`}
+    >
+      <style jsx>{`
+        .header-content {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        @media (min-width: 1024px) {
+          .header-content {
+            padding-left: 120px;
+            padding-right: 120px;
+          }
+        }
+      `}</style>
+      <div className="header-content w-full flex items-center justify-between py-2">
+        <Link href="/" className="block">
+          <Image
+            height={40}
+            width={120}
+            className="h-16 w-auto sm:h-10"
+            src={scrolled ? "/logo_black.png" : "/logo_white.png"}
+            alt="logo"
+            priority
+          />
+        </Link>
+        {session?.user ? (
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/home">
+              <Avatar className="h-10 w-10 sm:h-12 sm:w-12 bg-transparent">
                 <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
+                  src={session.user.image || "https://github.com/shadcn.png"}
+                  alt={session.user.name || "@user"}
                 />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>{session.user.name?.[0] || "U"}</AvatarFallback>
               </Avatar>
+              <span className="sr-only">User profile</span>
             </Link>
-          ) : (
-            <Link href="/auth" className="block">
-              <Avatar role="link">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            className="bg-transparent border-none hover:bg-transparent h-16"
+            size="default"
+            asChild
+          >
+            <Link href="/auth" className="flex items-center gap-2">
+              <User className="bg-transparent" size={20} />
+              <span className="hidden sm:inline">Sign In</span>
             </Link>
-          )}
-        {/* </div> */}
+          </Button>
+        )}
       </div>
     </header>
   );
