@@ -19,27 +19,27 @@ model User {
   role          Role      @default(CUSTOMER)
   password      String?
   phoneNumber   String?    @unique
+  whatsapp      String?    @unique
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   vouchers      Voucher[]
-  notifications Notification[]
   submissions   FormSubmission[]
 
   accounts      Account[]
   sessions      Session[]
-  BulkEmailJob BulkEmailJob[]
 }
 
 model Voucher {
   id          String   @id @default(cuid())
+  image       Bytes?
   code        String   @unique
   description String?
   validFrom   DateTime
   validTo     DateTime
-  userId      String
+  userId      String?
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   createdAt DateTime @default(now())
@@ -61,22 +61,9 @@ model Notification {
   id        String   @id @default(cuid())
   title     String
   message   String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   sentAt    DateTime @default(now())
 }
 
-model FormSubmission {
-  id              String   @id @default(cuid())
-  userId          String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  personalInfo    Json
-  preferences     Json
-  additionalNotes Json?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
 
 model Account {
   userId            String
@@ -117,40 +104,12 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-model Image {
-  id          String   @id @default(cuid())
-  title String?
-  url         String
-  width       Int?
-  height      Int?
-  bannerId       String
-  banner         Banner     @relation(fields: [bannerId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
 
-model Logo {
+model ContactUs {
   id          String   @id @default(cuid())
-  url         String
-  width       Int?
-  height      Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model SocialMedia {
-  id          String   @id @default(cuid())
-  type        String
-  username    String
-  url         String
-}
-
-model Menu {
-  id String @id @default(cuid())
-  link String
-  title String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt 
+  phone        String?
+  email    String?
+  address         String?
 }
 
 model Banner {
@@ -231,45 +190,6 @@ model loyalty {
   wantToPayAnisClub             String
 }
 
-// EMAIL 
-// Add this to your existing Prisma schema
-model BulkEmailJob {
-  id            String   @id @default(cuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  totalEmails   Int
-  sentEmails    Int      @default(0)
-  failedEmails  Int      @default(0)
-  
-  status        BulkEmailStatus @default(PENDING)
-  fileOriginalName String?
-  
-  startedAt     DateTime @default(now())
-  completedAt   DateTime?
-  
-  jobResults    BulkEmailResult[]
-}
-
-model BulkEmailResult {
-  id            String   @id @default(cuid())
-  jobId         String
-  job           BulkEmailJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
-  
-  email         String
-  status        EmailSendStatus
-  errorMessage  String?
-  sentAt        DateTime?
-  
-  createdAt     DateTime @default(now())
-}
-
-enum BulkEmailStatus {
-  PENDING
-  PROCESSING
-  COMPLETED
-  FAILED
-}
 
 enum EmailSendStatus {
   PENDING

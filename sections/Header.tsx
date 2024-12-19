@@ -19,6 +19,14 @@ export default function Header({ session }: { session: any }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (scrolled) {
+      document.body.classList.add("scrolled");
+    } else {
+      document.body.classList.remove("scrolled");
+    }
+  }, [scrolled]);
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
@@ -37,7 +45,7 @@ export default function Header({ session }: { session: any }) {
           }
         }
       `}</style>
-      <div className="header-content w-full flex items-center justify-between py-2">
+      <div className="header-content w-full flex items-center justify-between py-1">
         <Link href="/" className="block">
           <Image
             height={40}

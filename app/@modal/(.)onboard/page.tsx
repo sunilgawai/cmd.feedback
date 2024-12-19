@@ -32,7 +32,7 @@ const formSchema = z.object({
   name: z.string().max(100),
   email: z.string().email(),
   phone: z.string().min(10).max(10),
-  wing: z.string().optional(),
+  whatsapp: z.string().optional(),
   location: z.string().optional(),
 });
 
@@ -44,7 +44,7 @@ const LoginModal = () => {
       name: "",
       email: "",
       phone: "",
-      wing: "",
+      whatsapp: "",
       location:""
     },
   });
@@ -53,7 +53,7 @@ const LoginModal = () => {
     try {
       console.log(values);
       await submitFirstForm(
-        values as { name: string; email: string; phone: string; wing?: string }
+        values as { name: string; email: string; phone: string; whatsapp?: string }
       );
       toast("Success", {
         description: "Onboarding success. Please check your emails.",
@@ -66,7 +66,7 @@ const LoginModal = () => {
         name: "",
         email: "",
         phone: "",
-        wing: "",
+        whatsapp: "",
         location: "",
       });
       window.location.replace("/feedback");
@@ -81,7 +81,7 @@ const LoginModal = () => {
               name: "",
               email: "",
               phone: "",
-              wing: "",
+              whatsapp: "",
               location: "",
             });
           },
@@ -156,7 +156,7 @@ const LoginModal = () => {
 
             <FormField
               control={form.control}
-              name="wing"
+              name="whatsapp"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>What's app no.</FormLabel>

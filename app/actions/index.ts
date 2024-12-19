@@ -351,10 +351,10 @@ export async function submitFirstForm(data: {
   name: string;
   email: string;
   phone: string;
-  wing?: string;
+  whatsapp?: string;
   location?: string;
 }) {
-  const { name, email, phone, wing, location } = data;
+  const { name, email, phone, whatsapp, location } = data;
 
   // Check if user already exists
   const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -374,9 +374,8 @@ export async function submitFirstForm(data: {
       phoneNumber: phone,
       password: hashedPassword,
       role: "CUSTOMER",
-      // Add wing and location if they're part of your User model
-      // ...(wing && { wing }),
-      // ...(location && { location }),
+      ...(whatsapp && { whatsapp }),
+      ...(location && { location }),
     },
   });
 

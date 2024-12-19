@@ -10,11 +10,13 @@ import AppCarousel from "@/components/AppCarousel";
 import MenuMarquee from "@/components/menu-marquee";
 import AppPrevileges from "@/sections/previleges";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { auth } from "./auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   return (
     <div className="min-h-screen flex flex-col pb-4">
-      <Header />
+      <Header session={session} />
       <BackgroundDecoration />
 
       <main className="flex-grow">
