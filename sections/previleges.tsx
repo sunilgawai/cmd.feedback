@@ -5,17 +5,17 @@ import { PinContainer } from "@/components/ui/3d-pin";
 import Marquee from "@/components/ui/marquee";
 
 const images = [
-  "/slider/1.png",
-  "/slider/2.png",
-  "/slider/3.png",
-  // "/slider/4.png",
-  // "/slider/5.png",
-  // "/slider/6.png",
+  "/assets/vouchers/1.png",
+  "/assets/vouchers/2.png",
+  "/assets/vouchers/3.png",
+  "/assets/vouchers/4.png",
+  "/assets/vouchers/5.png",
+  "/assets/vouchers/6.png",
 ];
 
 export default function AppPrevileges() {
   return (
-    <section className="py-20">
+    <section className="py-10 my-4">
       <h2 className="text-5xl text-center md:text-6xl font-serif mb-12">
         Start Anise Privileges
       </h2>

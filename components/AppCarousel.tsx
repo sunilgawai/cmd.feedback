@@ -13,19 +13,22 @@ import { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
 
 const images = [
-  "/slider/1.png",
-  "/slider/2.png",
-  "/slider/3.png",
-  "/slider/4.png",
-  "/slider/5.png",
-  "/slider/6.png",
-  "/slider/7.png",
-  "/slider/8.png",
-  "/slider/9.png",
-  "/slider/10.png",
-  "/slider/1.png",
-  "/slider/11.png",
-  "/slider/12.png",
+  "/assets/slider/1.png",
+  "/assets/slider/2.png",
+  "/assets/slider/3.png",
+  "/assets/slider/4.png",
+  "/assets/slider/5.png",
+  "/assets/slider/6.png",
+  "/assets/slider/7.png",
+  "/assets/slider/8.png",
+  "/assets/slider/9.png",
+  "/assets/slider/10.png",
+  "/assets/slider/11.png",
+  "/assets/slider/12.png",
+  "/assets/slider/13.png",
+  "/assets/slider/14.png",
+  "/assets/slider/15.png",
+  "/assets/slider/16.png",
 ];
 
 export default function AppCarousel() {

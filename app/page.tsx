@@ -22,7 +22,7 @@ export default function Home() {
           <Hero />
           <AppCarousel />
           <AppPrevileges />
-          <div className="flex items-center justify-center flex-col gap-4 my-12 sm:flex-row sm:justify-center">
+          <div className="flex items-center justify-center flex-col gap-4 mb-16 sm:flex-row sm:justify-center">
             <Link href="/onboard">
               <RainbowButton className="sm:px-12 px-14 py-6 font-semibold text-lg">
                 Become a Member 🚀
